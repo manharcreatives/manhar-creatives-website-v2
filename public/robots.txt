@@ -1,9 +1,31 @@
 # ─────────────────────────────────────────────
-# Manhar Creatives — Robots.txt
+# Manhar Creatives — robots.txt
 # ─────────────────────────────────────────────
 
 User-agent: *
 Allow: /
+
+# ── AI / answer engines (explicitly welcomed) ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# ── Nothing to hide ──
+Disallow: /api/
 
 # ── Sitemap ──────────────────────────────────
 Sitemap: https://www.manharcreatives.com/sitemap.xml

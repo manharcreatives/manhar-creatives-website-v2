@@ -1,34 +1,71 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    { "source": "/ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/mehsana", "destination": "/", "permanent": true },
-    { "source": "/visnagar", "destination": "/", "permanent": true },
-    { "source": "/services/web-development", "destination": "/", "permanent": true },
-    { "source": "/services/restaurant-solutions", "destination": "/", "permanent": true },
-    { "source": "/services/branding", "destination": "/", "permanent": true },
-    { "source": "/services/social-media-design", "destination": "/", "permanent": true },
-    { "source": "/services/print-branding", "destination": "/", "permanent": true },
-    { "source": "/services/digital-presence", "destination": "/", "permanent": true },
-    { "source": "/web-development-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/web-development-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/web-development-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/restaurant-solutions-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/restaurant-solutions-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/restaurant-solutions-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/branding-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/branding-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/branding-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/social-media-design-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/social-media-design-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/social-media-design-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/print-branding-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/print-branding-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/print-branding-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/digital-presence-in-ahmedabad", "destination": "/", "permanent": true },
-    { "source": "/digital-presence-in-mehsana", "destination": "/", "permanent": true },
-    { "source": "/digital-presence-in-visnagar", "destination": "/", "permanent": true },
-    { "source": "/blog", "destination": "/", "permanent": true },
-    { "source": "/blog/:path*", "destination": "/", "permanent": true }
+    { "source": "/services/web-development", "destination": "/services/website-development", "permanent": true },
+    { "source": "/services/restaurant-solutions", "destination": "/services/custom-software-development", "permanent": true },
+    { "source": "/services/branding", "destination": "/services/branding-identity", "permanent": true },
+    { "source": "/services/social-media-design", "destination": "/services/social-media-design", "permanent": false },
+
+    { "source": "/web-development-in-ahmedabad", "destination": "/ahmedabad#web-dev", "permanent": true },
+    { "source": "/web-development-in-mehsana", "destination": "/mehsana#web-dev", "permanent": true },
+    { "source": "/web-development-in-visnagar", "destination": "/visnagar#web-dev", "permanent": true },
+    { "source": "/restaurant-solutions-in-ahmedabad", "destination": "/ahmedabad#custom-software", "permanent": true },
+    { "source": "/restaurant-solutions-in-mehsana", "destination": "/mehsana#custom-software", "permanent": true },
+    { "source": "/restaurant-solutions-in-visnagar", "destination": "/visnagar#custom-software", "permanent": true },
+    { "source": "/branding-in-ahmedabad", "destination": "/ahmedabad#branding", "permanent": true },
+    { "source": "/branding-in-mehsana", "destination": "/mehsana#branding", "permanent": true },
+    { "source": "/branding-in-visnagar", "destination": "/visnagar#branding", "permanent": true },
+    { "source": "/social-media-design-in-ahmedabad", "destination": "/ahmedabad#social", "permanent": true },
+    { "source": "/social-media-design-in-mehsana", "destination": "/mehsana#social", "permanent": true },
+    { "source": "/social-media-design-in-visnagar", "destination": "/visnagar#social", "permanent": true },
+    { "source": "/print-branding-in-ahmedabad", "destination": "/ahmedabad#print", "permanent": true },
+    { "source": "/print-branding-in-mehsana", "destination": "/mehsana#print", "permanent": true },
+    { "source": "/print-branding-in-visnagar", "destination": "/visnagar#print", "permanent": true },
+    { "source": "/digital-presence-in-ahmedabad", "destination": "/ahmedabad#digital-presence", "permanent": true },
+    { "source": "/digital-presence-in-mehsana", "destination": "/mehsana#digital-presence", "permanent": true },
+    { "source": "/digital-presence-in-visnagar", "destination": "/visnagar#digital-presence", "permanent": true },
+
+    { "source": "/blog/website-importance-business-ahmedabad", "destination": "/blog/website-development-cost-india", "permanent": true },
+    { "source": "/blog/restaurant-qr-menu-system-gujarat", "destination": "/blog/restaurant-qr-menu-system-guide", "permanent": true },
+    { "source": "/blog/branding-strategy-for-small-business", "destination": "/blog/small-business-branding-guide", "permanent": true },
+    { "source": "/blog/digital-presence-for-clinics-mehsana", "destination": "/blog/google-business-profile-optimization-checklist", "permanent": true },
+    { "source": "/blog/cost-effective-website-development-visnagar", "destination": "/blog/website-development-cost-india", "permanent": true },
+
+    { "source": "/work", "destination": "/projects", "permanent": true },
+    { "source": "/insights", "destination": "/blog", "permanent": true },
+    { "source": "/terms", "destination": "/terms-and-conditions", "permanent": true },
+    { "source": "/privacy", "destination": "/privacy-policy", "permanent": true }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
 }

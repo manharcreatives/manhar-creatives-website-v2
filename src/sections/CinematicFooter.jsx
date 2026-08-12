@@ -1,7 +1,11 @@
 import { useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ViewAnimator } from '../utils/useInViewLenis';
-import { NAV_LINKS } from '../utils/constants';
+import { FOOTER_NAV, SITE, WHATSAPP_LINK } from '../data/site';
+import CopyButton from '../components/CopyButton';
+import { prefersReducedMotion, useReducedMotion } from '../utils/motion';
+import { trackCta } from '../utils/analytics';
 
 /* ── Floating particle ──────────────────────────────────── */
 function Particle({ x, y, size, opacity, duration, delay }) {
@@ -20,26 +24,35 @@ function Particle({ x, y, size, opacity, duration, delay }) {
 }
 
 /* ── Magnetic CTA button ────────────────────────────────── */
-function MagneticBtn({ children, href }) {
+function MagneticBtn({ children, href, internal = false, onClick }) {
   const ref = useRef(null);
   const x = useSpring(0, { stiffness: 200, damping: 20 });
   const y = useSpring(0, { stiffness: 200, damping: 20 });
   const [hovered, setHovered] = useState(false);
 
   const onMove = (e) => {
-    const r = ref.current.getBoundingClientRect();
+    /* Guard the ref — this fires on pointer events that can
+       arrive during unmount — and skip the pull entirely when
+       the visitor has asked for reduced motion. */
+    const node = ref.current;
+    if (!node || prefersReducedMotion()) return;
+    const r = node.getBoundingClientRect();
     x.set((e.clientX - r.left - r.width / 2) * 0.35);
     y.set((e.clientY - r.top - r.height / 2) * 0.35);
   };
   const onLeave = () => { x.set(0); y.set(0); setHovered(false); };
 
+  const MotionAnchor = internal ? motion(Link) : motion.a;
+  const linkProps = internal ? { to: href } : { href };
+
   return (
-    <motion.a
-      ref={ref} href={href}
+    <MotionAnchor
+      ref={ref} {...linkProps}
       style={{ x, y, display: 'inline-block', textDecoration: 'none' }}
       onMouseMove={onMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={onLeave}
+      onClick={onClick}
     >
       <motion.div
         animate={{
@@ -60,7 +73,7 @@ function MagneticBtn({ children, href }) {
       >
         {children}
       </motion.div>
-    </motion.a>
+    </MotionAnchor>
   );
 }
 
@@ -94,25 +107,40 @@ function SocialLink({ label, href, icon }) {
 }
 
 /* ── Footer nav link ────────────────────────────────────── */
-function FooterLink({ href, children }) {
+function FooterLink({ href, children, external = false }) {
   const [h, setH] = useState(false);
-  return (
-    <a
-      href={href}
-      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{
-        display: 'flex', alignItems: 'center', gap: '10px',
-        fontSize: '1rem', color: h ? '#fff' : 'rgba(255,255,255,0.55)',
-        textDecoration: 'none', transition: 'color 0.28s', width: 'fit-content',
-      }}
-    >
+
+  const style = {
+    display: 'flex', alignItems: 'center', gap: '10px',
+    fontSize: '0.9375rem', color: h ? '#fff' : 'rgba(255,255,255,0.5)',
+    textDecoration: 'none', transition: 'color 0.28s', width: 'fit-content',
+  };
+
+  const inner = (
+    <>
       <motion.span
-        animate={{ width: h ? '20px' : '0px', opacity: h ? 1 : 0 }}
+        animate={{ width: h ? '18px' : '0px', opacity: h ? 1 : 0 }}
         transition={{ duration: 0.22 }}
-        style={{ display: 'inline-block', height: '1px', background: '#22C55E', overflow: 'hidden' }}
+        style={{ display: 'inline-block', height: '1px', background: '#22C55E', overflow: 'hidden', flexShrink: 0 }}
       />
       {children}
-    </a>
+    </>
+  );
+
+  const handlers = { onMouseEnter: () => setH(true), onMouseLeave: () => setH(false) };
+
+  if (external || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" style={style} {...handlers}>
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={href} style={style} {...handlers}>
+      {inner}
+    </Link>
   );
 }
 
@@ -167,6 +195,7 @@ export default function CinematicFooter() {
   const footerRef  = useRef(null);
   const glowRef    = useRef(null);
   const [year]     = useState(new Date().getFullYear());
+  const reduceMotion = useReducedMotion();
 
   // MANHAR parallax
   const manharMX = useMotionValue(0);
@@ -189,6 +218,8 @@ export default function CinematicFooter() {
     <footer
       ref={footerRef}
       onMouseMove={handleMouse}
+      role="contentinfo"
+      aria-label="Site footer"
       style={{ position: 'relative', overflow: 'hidden', background: '#0B0F0E' }}
     >
       {/* ── Animated sweeping top border ─────────────────── */}
@@ -202,10 +233,16 @@ export default function CinematicFooter() {
         }}
       />
 
-      {/* ── Particles ─────────────────────────────────────── */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        {PARTICLES.map(p => <Particle key={p.id} {...p} />)}
-      </div>
+      {/* ── Particles ───────────────────────────────────────
+          Twenty independent infinite animations are pure
+          decoration, so they are skipped outright rather than
+          sped up when the visitor has asked for reduced motion —
+          a 0.01ms loop still repaints on every frame. */}
+      {!reduceMotion && (
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+          {PARTICLES.map(p => <Particle key={p.id} {...p} />)}
+        </div>
+      )}
 
       {/* ── Mouse-following glow blob (DOM ref, no motion value) ── */}
       <div
@@ -278,15 +315,17 @@ export default function CinematicFooter() {
             Get in touch to discuss your project goals, explore how we can help, or schedule a consultation.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <MagneticBtn href="#contact">Book a Discovery Call</MagneticBtn>
+            <MagneticBtn href="/contact" internal onClick={() => trackCta('Book a Discovery Call', 'footer', '/contact')}>
+              Book a Discovery Call
+            </MagneticBtn>
             <motion.a
-              href="https://wa.me/919714571522?text=Hello%20Manhar%20Creatives%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20for%20my%20business.%0A%0APlease%20let%20me%20know%20how%20we%20can%20get%20started.%0A%0AThank%20you."
+              href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: 6 }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '18px 28px', color: 'rgba(255,255,255,0.45)',
+                padding: '18px 28px', color: 'rgba(255,255,255,0.48)',
                 fontFamily: 'var(--font-body)', fontWeight: 600,
                 fontSize: '1rem', textDecoration: 'none', transition: 'color 0.3s',
               }}
@@ -302,73 +341,70 @@ export default function CinematicFooter() {
         <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)', marginBottom: '80px' }} />
 
         {/* ══ 3-COL GRID ══════════════════════════════════ */}
-        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: '64px', marginBottom: '80px' }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '1.6fr repeat(4, 1fr)', gap: '48px', marginBottom: '80px' }}>
 
           {/* Brand */}
           <ViewAnimator initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.6 }}>
             <img
-              src="/images/logos/footer-logo.png"
+              src="/images/logos/footer-logo.webp"
               alt="Manhar Creatives — Website Development, Branding & Digital Solutions in Ahmedabad, Mehsana, Visnagar, Gujarat"
               loading="lazy" decoding="async"
               style={{ height: 48, width: 'auto', marginBottom: '20px' }}
             />
-            <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, maxWidth: '300px', marginBottom: '28px' }}>
+            <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.8, maxWidth: '300px', marginBottom: '28px' }}>
               A digital solutions and branding partner focused on helping businesses build credible, professional, and growth-oriented digital presence.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {/* Contact details are copyable as well as clickable.
+                On a desktop `mailto:` opens a mail client many
+                people have never configured — copying the address
+                is the action they were going to take anyway. */}
+            <address style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontStyle: 'normal' }}>
               {[
-                { icon: '◎', text: 'manharcreatives@gmail.com', href: 'mailto:manharcreatives@gmail.com' },
-                { icon: '◈', text: '+91 97145 71522', href: 'tel:+919714571522' },
-                { icon: '◆', text: 'Visnagar, Gujarat, India', href: null },
-              ].map(({ icon, text, href }) => (
-                <motion.a
-                  key={text} href={href || undefined}
-                  whileHover={href ? { x: 5 } : {}}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    color: 'rgba(255,255,255,0.38)', fontSize: '0.875rem',
-                    textDecoration: 'none', cursor: href ? 'pointer' : 'default',
-                    transition: 'color 0.25s',
-                  }}
-                  onMouseEnter={e => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
-                  onMouseLeave={e => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.38)'; }}
-                >
-                  <span style={{ fontSize: '0.85rem' }}>{icon}</span>
-                  {text}
-                </motion.a>
+                { icon: '◎', text: 'info@manharcreatives.com', href: 'mailto:info@manharcreatives.com', copy: 'email' },
+                { icon: '◈', text: '+91 97145 71522', href: 'tel:+919714571522', copy: 'phone' },
+                { icon: '◆', text: 'Visnagar, Gujarat, India', href: null, copy: null },
+              ].map(({ icon, text, href, copy }) => (
+                <span key={text} style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  <motion.a
+                    href={href || undefined}
+                    whileHover={href && !prefersReducedMotion() ? { x: 5 } : {}}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      color: 'rgba(255,255,255,0.48)', fontSize: '0.875rem',
+                      textDecoration: 'none', cursor: href ? 'pointer' : 'default',
+                      transition: 'color 0.25s',
+                    }}
+                    onMouseEnter={e => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
+                    onMouseLeave={e => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.45)'; }}
+                  >
+                    <span aria-hidden="true" style={{ fontSize: '0.85rem' }}>{icon}</span>
+                    {text}
+                  </motion.a>
+                  {copy && <CopyButton value={text} type={copy} iconOnly label={`Copy ${copy}`} />}
+                </span>
               ))}
-            </div>
+            </address>
             </ViewAnimator>
 
-          {/* Navigation */}
-          <ViewAnimator initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#22C55E', marginBottom: '28px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-              Navigation
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              {NAV_LINKS.map(l => <FooterLink key={l.label} href={l.href}>{l.label}</FooterLink>)}
-            </div>
-          </ViewAnimator>
-
-          {/* Expertise */}
-          <ViewAnimator initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.6, delay: 0.2 }}>
-            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#22C55E', marginBottom: '28px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-              Expertise
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {['Website Development', 'Restaurant Digital Solutions', 'Branding & Identity', 'Print & Offline Branding', 'Social Media Design', 'Digital Presence Setup'].map((s, i) => (
-                <ViewAnimator
-                  key={s}
-                  initial={{ opacity: 0, x: -8 }} whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false }} transition={{ delay: 0.2 + i * 0.07, duration: 0.4 }}
-                  style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.38)', display: 'flex', alignItems: 'center', gap: '10px' }}
-                >
-                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(34,197,94,0.45)', flexShrink: 0 }} />
-                  {s}
-                </ViewAnimator>
-              ))}
-            </div>
-          </ViewAnimator>
+          {/* Link columns */}
+          {Object.entries(FOOTER_NAV).map(([heading, links], col) => (
+            <ViewAnimator
+              key={heading}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.08 * (col + 1) }}
+            >
+              <h4 id={`footer-nav-${heading.toLowerCase()}`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#22C55E', marginBottom: '26px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                {heading}
+              </h4>
+              <nav aria-labelledby={`footer-nav-${heading.toLowerCase()}`} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                {links.map(l => (
+                  <FooterLink key={l.label} href={l.href} external={l.external}>{l.label}</FooterLink>
+                ))}
+              </nav>
+            </ViewAnimator>
+          ))}
         </div>
 
         {/* ══ SOCIAL PILLS ════════════════════════════════ */}
@@ -378,7 +414,7 @@ export default function CinematicFooter() {
           style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '88px' }}
         >
           <SocialLink href="https://instagram.com/manhar.creatives" icon="✦" label="@manhar.creatives" />
-          <SocialLink href="mailto:manharcreatives@gmail.com"        icon="◎"  label="Email Us"          />
+          <SocialLink href="mailto:info@manharcreatives.com"        icon="◎"  label="Email Us"          />
           <SocialLink href="tel:+919714571522"                       icon="◈" label="+91 97145 71522"   />
           <a
             href="https://drive.google.com/uc?export=download&id=1RdGn0DZyyL_f2liZHFeJVqLUyYGWKSny"
@@ -446,14 +482,50 @@ export default function CinematicFooter() {
         </div>
 
         {/* ══ BOTTOM BAR ══════════════════════════════════ */}
-        <div style={{
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: 'center', flexWrap: 'wrap', gap: '16px',
-          paddingTop: '32px',
-        }}>
-          <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.28)', fontFamily: 'var(--font-mono)' }}>
-            © {year} Manhar Creatives - All rights reserved.
-          </span>
+        <div
+          className="footer-bottom"
+          style={{
+            display: 'flex', justifyContent: 'space-between',
+            alignItems: 'center', flexWrap: 'wrap', gap: '18px',
+            paddingTop: '32px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.48)', fontFamily: 'var(--font-mono)' }}>
+              © {year} {SITE.name} — All rights reserved.
+            </span>
+            <span aria-hidden="true" style={{ color: 'rgba(255,255,255,0.12)' }}>|</span>
+            <nav style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }} aria-label="Legal">
+              {[
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+                { label: 'Sitemap', href: '/sitemap.xml', external: true },
+              ].map((l) =>
+                l.external ? (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.48)', fontFamily: 'var(--font-mono)', textDecoration: 'none', transition: 'color 0.25s' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#22C55E'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.32)'; }}
+                  >
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.48)', fontFamily: 'var(--font-mono)', textDecoration: 'none', transition: 'color 0.25s' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#22C55E'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.32)'; }}
+                  >
+                    {l.label}
+                  </Link>
+                )
+              )}
+            </nav>
+          </div>
+
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <motion.span
               animate={{ opacity: [1, 0.2, 1], scale: [1, 0.8, 1] }}
@@ -464,7 +536,7 @@ export default function CinematicFooter() {
                 boxShadow: '0 0 8px rgba(34,197,94,0.7)',
               }}
             />
-            <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.28)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.48)', fontFamily: 'var(--font-mono)' }}>
               Available for new projects
             </span>
           </div>
@@ -473,8 +545,12 @@ export default function CinematicFooter() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        @media (max-width: 1100px) {
+          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+        }
+        @media (max-width: 560px) {
+          .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+          .footer-bottom { flex-direction: column !important; align-items: flex-start !important; }
         }
       `}</style>
     </footer>

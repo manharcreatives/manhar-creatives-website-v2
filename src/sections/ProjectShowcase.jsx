@@ -1,11 +1,14 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from '../components/TextReveal';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { PROJECTS } from '../utils/constants';
+import { trackCta, trackVideoPlay } from '../utils/analytics';
 
 function FullscreenProject({ project, index }) {
   const ref = useRef(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -24,16 +27,50 @@ function FullscreenProject({ project, index }) {
       display: 'flex',
       alignItems: 'center',
     }}>
-      {project.title === 'Macron Industries' ? (
+      {project.video && !videoFailed ? (
         <>
+          {/* The poster is painted as a real background layer rather
+              than relying on the <video poster> attribute alone —
+              Safari drops the poster the instant metadata arrives,
+              leaving a black rectangle until the first frame
+              decodes. This one stays until the video is playable. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute', inset: 0, zIndex: 0,
+              backgroundImage: `url(${project.image})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              opacity: videoReady ? 0 : 1,
+              transition: 'opacity 0.8s var(--ease-out-expo)',
+            }}
+          />
+          {!videoReady && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute', inset: 0, zIndex: 1,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                pointerEvents: 'none',
+              }}
+            >
+              <span className="mc-spinner" style={{ opacity: 0.55 }} />
+            </div>
+          )}
           <video
-            autoPlay loop muted playsInline preload="auto"
+            autoPlay loop muted playsInline preload="metadata" poster={project.image}
+            aria-label={`${project.title} — showreel`}
+            tabIndex={-1}
+            onCanPlay={() => setVideoReady(true)}
+            onPlaying={() => trackVideoPlay(project.title, 'project_showcase')}
+            onError={() => setVideoFailed(true)}
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'cover', zIndex: 0,
+              opacity: videoReady ? 1 : 0,
+              transition: 'opacity 0.8s var(--ease-out-expo)',
             }}
           >
-            <source src="https://files.catbox.moe/8vvtmr.mp4" type="video/mp4" />
+            <source src={project.video} type="video/mp4" />
           </video>
           <div style={{
             position: 'absolute', inset: 0, zIndex: 1,
@@ -41,11 +78,12 @@ function FullscreenProject({ project, index }) {
             pointerEvents: 'none',
           }} />
         </>
-      ) : project.url ? (
+      ) : project.url && !project.useImage ? (
         <>
           <iframe
             src={project.url}
             title={project.title}
+            loading="lazy"
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               border: 'none', zIndex: 0,
@@ -148,6 +186,7 @@ function FullscreenProject({ project, index }) {
               href={project.ctaUrl || project.url || '#'}
               target={(project.ctaUrl || project.url) ? '_blank' : undefined}
               rel={(project.ctaUrl || project.url) ? 'noopener noreferrer' : undefined}
+              onClick={() => trackCta(`View project — ${project.title}`, 'project_showcase', project.ctaUrl || project.url)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

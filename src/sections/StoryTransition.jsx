@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from '../components/TextReveal';
+import useLazyBackground from '../utils/useLazyBackground';
 
 export default function StoryTransition() {
   const ref = useRef(null);
+  const bgRef = useLazyBackground('/images/backgrounds/story-bg.webp');
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -26,10 +28,9 @@ export default function StoryTransition() {
     }}>
 
       {/* Cinematic Background Layer */}
-      <motion.div style={{
+      <motion.div ref={bgRef} style={{
         position: 'absolute',
         inset: -100,
-        backgroundImage: 'url(/images/backgrounds/story-bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         opacity: 0.55,
@@ -56,7 +57,7 @@ export default function StoryTransition() {
           opacity: 0.95
         }}
       >
-        <img src="/images/story/floating-top.png"           alt="Manhar Creatives workspace — branding and web design studio serving Ahmedabad, Mehsana and Visnagar, Gujarat"
+        <img src="/images/story/floating-top.webp"           alt="Manhar Creatives workspace — branding and web design studio serving Ahmedabad, Mehsana and Visnagar, Gujarat"
              loading="lazy" decoding="async"
              style={{ width: '300px', height: '400px', objectFit: 'cover', mixBlendMode: 'screen' }} />
       </motion.div>
@@ -69,7 +70,7 @@ export default function StoryTransition() {
           opacity: 0.9
         }}
       >
-        <img src="/images/story/floating-bottom.png" alt="Design desk at Manhar Creatives — digital solutions for businesses across Gujarat"
+        <img src="/images/story/floating-bottom.webp" alt="Design desk at Manhar Creatives — digital solutions for businesses across Gujarat"
              loading="lazy" decoding="async"
              style={{ width: '400px', height: '250px', objectFit: 'cover', mixBlendMode: 'screen' }} />
       </motion.div>

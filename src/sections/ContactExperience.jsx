@@ -1,10 +1,19 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FadeIn } from '../components/TextReveal';
 import MagneticButton from '../components/MagneticButton';
+import FormField from '../components/FormField';
+import CopyButton from '../components/CopyButton';
+import { useToast } from '../components/Toast';
 import { supabase } from '../lib/supabase';
+import useLazyBackground from '../utils/useLazyBackground';
+import { EASE } from '../utils/motion';
+import { formEvents, trackCta } from '../utils/analytics';
 
-const PROJECT_TYPES = ['Website', 'Branding', 'Restaurant Solutions', 'Print', 'Digital Presence', 'Other'];
+const FORM_ID = 'contact_enquiry';
+const MESSAGE_MAX = 1200;
+
+const PROJECT_TYPES = ['Website', 'Custom Software / CRM', 'Branding', 'Social Media', 'Print', 'Digital Presence', 'Other'];
 
 const COUNTRY_CODES = [
   { code: '+93', country: 'Afghanistan' },
@@ -267,6 +276,22 @@ function CountryCodeSelect({ value, onChange, error }) {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  /* Escape closes the list and returns focus to the trigger,
+     rather than leaving a 340px panel open over the form with
+     no obvious way out for a keyboard user. */
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return;
+      e.stopPropagation();
+      setOpen(false);
+      setSearch('');
+      containerRef.current?.querySelector('button')?.focus();
+    };
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
+  }, [open]);
+
   useEffect(() => {
     if (open && inputRef.current) inputRef.current.focus();
   }, [open]);
@@ -296,6 +321,9 @@ function CountryCodeSelect({ value, onChange, error }) {
       <button
         type="button"
         onClick={() => { setOpen(p => !p); setSearch(''); }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={`Country calling code, currently ${selected.code} ${selected.country}`}
         style={triggerBase}
       >
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -389,7 +417,7 @@ function CountryCodeSelect({ value, onChange, error }) {
                 onMouseLeave={e => { if (cc.code !== value) e.currentTarget.style.background = 'transparent'; }}
               >
                 <span style={{
-                  color: 'rgba(255,255,255,0.4)',
+                  color: 'rgba(255,255,255,0.48)',
                   minWidth: '64px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.875rem'
@@ -400,7 +428,7 @@ function CountryCodeSelect({ value, onChange, error }) {
               </button>
             ))}
             {filtered.length === 0 && (
-              <div style={{ padding: '24px 16px', color: 'rgba(255,255,255,0.3)', textAlign: 'center', fontSize: '0.9375rem' }}>
+              <div style={{ padding: '24px 16px', color: 'rgba(255,255,255,0.48)', textAlign: 'center', fontSize: '0.9375rem' }}>
                 No countries found
               </div>
             )}
@@ -408,7 +436,7 @@ function CountryCodeSelect({ value, onChange, error }) {
           <div style={{
             padding: '8px 16px',
             borderTop: '1px solid rgba(255,255,255,0.06)',
-            color: 'rgba(255,255,255,0.25)',
+            color: 'rgba(255,255,255,0.48)',
             fontSize: '0.75rem',
             fontFamily: 'var(--font-mono)',
           }}>
@@ -420,56 +448,270 @@ function CountryCodeSelect({ value, onChange, error }) {
   );
 }
 
+const INITIAL_FORM = {
+  name: '', company: '', email: '', phone: '', address: '',
+  type: '', otherType: '', message: '', contactMethod: 'Email',
+};
+
+/* ─── Validators ──────────────────────────────────────────
+   Kept as pure single-field functions so the same rule runs on
+   blur, on keystroke-after-error and on submit. One rule, one
+   place — the classic bug here is a field that passes inline
+   and then fails on submit for a reason nobody explained.
+───────────────────────────────────────────────────────── */
+
+/* Practical email shape check. Deliberately not RFC 5322: the
+   full grammar accepts addresses no mail server will deliver to
+   and rejects nothing a typo'd address would trip. The real
+   validation is the reply landing in their inbox. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+const VALIDATORS = {
+  name: (v) => {
+    const t = v.trim();
+    if (!t) return 'Please tell us your name';
+    if (t.length < 2) return 'That looks a little short';
+    if (t.length > 80) return 'Please keep this under 80 characters';
+    return '';
+  },
+  email: (v) => {
+    const t = v.trim();
+    if (!t) return 'We need an email to reply to';
+    if (t.length > 254) return 'That email address is too long';
+    if (!EMAIL_RE.test(t)) return 'That does not look like a valid email address';
+    return '';
+  },
+  phone: (v) => {
+    const t = v.trim();
+    if (!t) return 'A phone number helps us reach you faster';
+    const digits = t.replace(/\D/g, '');
+    if (digits.length < 7) return 'That number looks too short';
+    if (digits.length > 15) return 'That number looks too long';
+    if (/[^\d\s\-().]/.test(t)) return 'Use digits, spaces, dashes or brackets only';
+    return '';
+  },
+  otherType: (v) => (v.trim() ? '' : 'Please tell us what kind of project this is'),
+  message: (v) => (v.length > MESSAGE_MAX ? `Please keep this under ${MESSAGE_MAX} characters` : ''),
+};
+
+const FIELD_ORDER = ['name', 'company', 'email', 'phone', 'address', 'otherType', 'message'];
+
 export default function ContactExperience() {
-  const [formData, setFormData] = useState({ name: '', company: '', email: '', phone: '', address: '', type: '', otherType: '', message: '', contactMethod: 'Email' });
+  const panelBgRef = useLazyBackground('/images/backgrounds/contact-bg.webp');
+  const toast = useToast();
+
+  const [formData, setFormData] = useState(INITIAL_FORM);
   const [countryCode, setCountryCode] = useState('+91');
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
-  const INITIAL_FORM = { name: '', company: '', email: '', phone: '', address: '', type: '', otherType: '', message: '', contactMethod: 'Email' };
+  const [touched, setTouched] = useState({});
+  const [shakeField, setShakeField] = useState('');
+  /* idle | submitting | success | error */
+  const [status, setStatus] = useState('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
-  function validate() {
+  const formRef = useRef(null);
+  const sectionRef = useRef(null);
+  const fieldRefs = useRef({});
+  const started = useRef(false);
+  const viewed = useRef(false);
+  const lastField = useRef('');
+  const resetTimer = useRef(null);
+
+  const registerField = useCallback((name) => (node) => {
+    if (node) fieldRefs.current[name] = node;
+  }, []);
+
+  /* ── Analytics: impression, start, abandonment ────────── */
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !viewed.current) {
+            viewed.current = true;
+            formEvents.view(FORM_ID);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    /* Someone who typed into the form and left without sending is
+       the most useful signal this page produces — it says the form
+       is the problem, not the traffic. */
+    const reportAbandon = () => {
+      if (!started.current || status === 'success') return;
+      const filled = FIELD_ORDER.filter((f) => String(formData[f] || '').trim()).length;
+      formEvents.abandon(FORM_ID, lastField.current, filled);
+      started.current = false;
+    };
+
+    window.addEventListener('pagehide', reportAbandon);
+    return () => {
+      window.removeEventListener('pagehide', reportAbandon);
+      reportAbandon();
+      clearTimeout(resetTimer.current);
+    };
+  }, [formData, status]);
+
+  /* ── Field plumbing ───────────────────────────────────── */
+  const handleFocus = useCallback((field) => () => {
+    lastField.current = field;
+    if (!started.current) {
+      started.current = true;
+      formEvents.start(FORM_ID, field);
+    }
+  }, []);
+
+  const handleChange = useCallback((field) => (e) => {
+    const value = e.target.value;
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+    /* Only revalidate live once the field has already failed —
+       otherwise we would be flagging an email as invalid after
+       the first character. */
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = VALIDATORS[field]?.(value) ?? '';
+      if (next === prev[field]) return prev;
+      return { ...prev, [field]: next };
+    });
+  }, []);
+
+  const handleBlur = useCallback((field) => () => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const validator = VALIDATORS[field];
+    if (!validator) return;
+
+    const value = formData[field] ?? '';
+    /* Optional fields stay silent when left empty. */
+    const optional = !['name', 'email', 'phone'].includes(field);
+    if (optional && !String(value).trim()) return;
+
+    const message = validator(value);
+    setErrors((prev) => (prev[field] === message ? prev : { ...prev, [field]: message }));
+    if (message) formEvents.fieldError(FORM_ID, field, message);
+  }, [formData]);
+
+  const clearField = useCallback((field) => () => {
+    setFormData((prev) => ({ ...prev, [field]: '' }));
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+    fieldRefs.current[field]?.focus();
+  }, []);
+
+  function validateAll(data) {
     const errs = {};
-    if (!formData.name.trim()) errs.name = 'Name is required';
-    if (!formData.email.trim()) {
-      errs.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errs.email = 'Please enter a valid email address';
+    ['name', 'email', 'phone'].forEach((f) => {
+      const m = VALIDATORS[f](data[f] ?? '');
+      if (m) errs[f] = m;
+    });
+    if (data.type === 'Other') {
+      const m = VALIDATORS.otherType(data.otherType ?? '');
+      if (m) errs.otherType = m;
     }
-    if (!formData.phone.trim()) {
-      errs.phone = 'Phone number is required';
-    } else {
-      const digits = formData.phone.replace(/\D/g, '');
-      if (digits.length < 7 || digits.length > 15) {
-        errs.phone = 'Please enter a valid phone number';
-      }
-    }
+    const msg = VALIDATORS.message(data.message ?? '');
+    if (msg) errs.message = msg;
     return errs;
   }
 
+  const focusFirstError = useCallback((errs) => {
+    const first = FIELD_ORDER.find((f) => errs[f]);
+    if (!first) return;
+
+    setShakeField(first);
+    setTimeout(() => setShakeField(''), 420);
+
+    const node = fieldRefs.current[first];
+    if (!node) return;
+
+    /* Scroll the field into view before focusing. Focusing alone
+       makes the browser jump to it with no easing, and behind a
+       sticky nav it can land underneath the header. */
+    const y = node.getBoundingClientRect().top + window.scrollY - 140;
+    if (window.__lenis) window.__lenis.scrollTo(y, { duration: 0.6 });
+    else window.scrollTo({ top: y, behavior: 'smooth' });
+
+    setTimeout(() => node.focus({ preventScroll: true }), 320);
+  }, []);
+
+  const resetForm = useCallback(() => {
+    setFormData(INITIAL_FORM);
+    setCountryCode('+91');
+    setErrors({});
+    setTouched({});
+    setStatus('idle');
+    setStatusMessage('');
+    started.current = false;
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError(false);
-    const errs = validate();
+    if (status === 'submitting') return;
+
+    const errs = validateAll(formData);
     setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    setTouched(Object.fromEntries(FIELD_ORDER.map((f) => [f, true])));
+
+    if (Object.keys(errs).length > 0) {
+      const count = Object.keys(errs).length;
+      setStatusMessage(`${count} field${count > 1 ? 's need' : ' needs'} your attention before we can send this.`);
+      Object.entries(errs).forEach(([field, message]) => formEvents.fieldError(FORM_ID, field, message));
+      focusFirstError(errs);
+      toast.error('Almost there', `Please check the highlighted field${count > 1 ? 's' : ''}.`);
+      return;
+    }
+
+    setStatus('submitting');
+    setStatusMessage('Sending your enquiry…');
 
     const fullPhone = `${countryCode} ${formData.phone}`;
     const payload = { ...formData, phone: fullPhone };
     if (payload.type !== 'Other') delete payload.otherType;
+
+    /* ── Primary destination: the enquiry sheet ── */
     try {
       const fd = new FormData();
       Object.entries(payload).forEach(([k, v]) => fd.append(k, v));
+
+      /* A hung request must not leave the button spinning forever.
+         `no-cors` means we never see a status code, so the timeout
+         is the only failure signal available. */
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
       await fetch('https://script.google.com/macros/s/AKfycbyKRyD8W4ppEvbYopADHNoGVzB0fs3lRX5E3jbTrdoDpJo6b4H8FdQzJa8nxs83y_yGIg/exec', {
         method: 'POST',
-        body: fd
+        body: fd,
+        signal: controller.signal,
       });
-    } catch (_) {
-      setSubmitError(true);
-      setTimeout(() => setSubmitError(false), 6000);
+
+      clearTimeout(timeout);
+    } catch (err) {
+      const timedOut = err?.name === 'AbortError';
+      setStatus('error');
+      setStatusMessage(
+        timedOut
+          ? 'That took longer than expected. Your connection may be slow — please try again.'
+          : 'We could not send that. Please try again, or reach us directly.'
+      );
+      formEvents.error(FORM_ID, timedOut ? 'timeout' : 'network');
+      toast.error(
+        timedOut ? 'Request timed out' : 'Could not send',
+        'Your details are still here — press Try again.'
+      );
       return;
     }
-    // Also insert into CRM's Supabase as a new client
+
+    /* ── Secondary: CRM record. A failure here must never be shown
+       to the visitor — their enquiry has already been delivered. ── */
     try {
       const { data: existing } = await supabase
         .from('clients')
@@ -493,50 +735,46 @@ export default function ContactExperience() {
         requirement: formData.message || '',
         contact_method: formData.contactMethod,
       }]);
-    } catch (err) {
-      console.error('Supabase insert failed:', err);
+    } catch {
+      /* Intentionally silent — see above. */
     }
+
     setErrors({});
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData(INITIAL_FORM);
-      setCountryCode('+91');
-      setErrors({});
-    }, 4000);
+    setStatus('success');
+    setStatusMessage('Enquiry received. We will be in touch within 24 hours.');
+    formEvents.submit(FORM_ID, {
+      project_type: formData.type || 'unspecified',
+      contact_method: formData.contactMethod,
+      has_message: Boolean(formData.message?.trim()),
+    });
+    toast.success('Enquiry received', 'We will get back to you within 24 hours.');
+    started.current = false;
   };
 
-  const inputStyle = {
-    width: '100%', 
-    padding: '20px 0', 
-    background: 'transparent', 
-    border: 'none',
-    borderBottom: '1px solid rgba(255,255,255,0.2)',
-    color: '#fff', 
-    fontSize: '1.125rem', 
-    fontFamily: 'var(--font-body)',
-    outline: 'none', 
-    transition: 'border-color 0.3s ease',
-  };
+  const retry = useCallback(() => {
+    setStatus('idle');
+    setStatusMessage('');
+  }, []);
 
-  const errorStyle = {
-    color: '#EF4444',
-    fontSize: '0.8125rem',
-    marginTop: '4px',
-    fontFamily: 'var(--font-body)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '4px',
-  };
+  const busy = status === 'submitting';
+
+  /* Chip rows (project type, contact method) share one style. */
+  const chipStyle = (active) => ({
+    padding: '10px 20px', borderRadius: '40px', fontSize: '0.9375rem', cursor: busy ? 'not-allowed' : 'pointer',
+    background: active ? '#fff' : 'transparent',
+    border: `1px solid ${active ? '#fff' : 'rgba(255,255,255,0.2)'}`,
+    color: active ? '#000' : 'rgba(255,255,255,0.7)',
+    transition: 'all 0.3s ease', fontFamily: 'var(--font-body)',
+    minHeight: '44px', opacity: busy ? 0.5 : 1,
+  });
 
   return (
-    <section id="contact" style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg)' }}>
+    <section ref={sectionRef} id="contact" style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg)' }}>
       
       {/* Left: Full Bleed Image */}
-      <div className="contact-info-panel" style={{ 
+      <div ref={panelBgRef} className="contact-info-panel" style={{ 
         flex: 1, 
         position: 'relative', 
-        backgroundImage: 'url(/images/backgrounds/contact-bg.png)', 
         backgroundSize: 'cover', 
         backgroundPosition: 'center',
         borderRight: '1px solid rgba(255,255,255,0.1)'
@@ -564,22 +802,31 @@ export default function ContactExperience() {
           }}>
             Share your goals, requirements, and timeline. We'll review your inquiry and get back to you with a clear next step.
           </p>
+          {/* Email and phone are copyable — on desktop a `mailto:`
+              link opens a mail client nobody configured, so the
+              useful action is usually "give me the address". */}
           <div className="contact-info-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', color: 'rgba(255,255,255,0.6)', fontSize: '1.0625rem' }}>
             <div>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>EMAIL</span>
-              <a href="mailto:manharcreatives@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>manharcreatives@gmail.com</a>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                <a href="mailto:info@manharcreatives.com" className="mc-link">info@manharcreatives.com</a>
+                <CopyButton value="info@manharcreatives.com" type="email" iconOnly label="Copy email address" />
+              </span>
             </div>
             <div>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>PHONE</span>
-              +91 97145 71522
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                <a href="tel:+919714571522" className="mc-link">+91 97145 71522</a>
+                <CopyButton value="+91 97145 71522" type="phone" iconOnly label="Copy phone number" />
+              </span>
             </div>
             <div>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>WEBSITE</span>
-              <a href="http://www.manharcreatives.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>www.manharcreatives.com</a>
+              <a href="https://www.manharcreatives.com" target="_blank" rel="noopener noreferrer" className="mc-link">www.manharcreatives.com</a>
             </div>
             <div>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>INSTAGRAM</span>
-              @manhar.creatives
+              <a href="https://instagram.com/manhar.creatives" target="_blank" rel="noopener noreferrer" className="mc-link">@manhar.creatives</a>
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>LOCATION</span>
@@ -609,188 +856,381 @@ export default function ContactExperience() {
           </FadeIn>
 
           <FadeIn delay={0.2}>
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                {submitted ? (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ padding: '60px 0' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '16px', color: 'var(--color-primary)' }}>✓</div>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '12px', color: '#fff' }}>Inquiry Received</h3>
-                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.125rem' }}>Thank you. Our team will review your request and reach out within 24 hours to schedule a consultation.</p>
+              {/* Status is announced to assistive tech regardless of
+                  which visual state the form is in. Without this, a
+                  screen-reader user submits and hears nothing at all. */}
+              <p className="visually-hidden" role="status" aria-live="polite" aria-atomic="true">
+                {statusMessage}
+              </p>
+
+              <AnimatePresence mode="wait" initial={false}>
+                {status === 'success' ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.45, ease: EASE }}
+                    style={{ padding: '48px 0' }}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.4, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.1, duration: 0.5, ease: EASE }}
+                      style={{
+                        width: '62px', height: '62px', borderRadius: '50%', marginBottom: '26px',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.35)',
+                        color: 'var(--color-primary)',
+                      }}
+                    >
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </motion.div>
+
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '14px', color: '#fff', lineHeight: 1.2 }}>
+                      Enquiry received
+                    </h3>
+                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.0625rem', lineHeight: 1.75, marginBottom: '28px', maxWidth: '440px' }}>
+                      Thank you{formData.name ? `, ${formData.name.trim().split(/\s+/)[0]}` : ''}. Our team will review your request
+                      and reach out within 24 hours to schedule a consultation.
+                    </p>
+
+                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        onClick={resetForm}
+                        className="btn btn-outline"
+                        style={{ padding: '12px 26px', fontSize: '0.875rem' }}
+                      >
+                        Send another enquiry
+                      </button>
+                      <a
+                        href="https://wa.me/919714571522"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-ghost"
+                        style={{ padding: '12px 22px', fontSize: '0.875rem', color: 'var(--color-primary)' }}
+                      >
+                        Message us on WhatsApp →
+                      </a>
+                    </div>
                   </motion.div>
                 ) : (
-                  <>
-                    <div>
-                      <label htmlFor="contact-name" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Full Name</label>
-                      <input 
-                        id="contact-name" 
-                        placeholder="Full Name" 
-                        required value={formData.name} 
-                        onChange={e => { setFormData({...formData, name: e.target.value}); if (errors.name) setErrors(prev => ({...prev, name: ''})); }}
-                        style={{ ...inputStyle, borderBottomColor: errors.name ? '#EF4444' : 'rgba(255,255,255,0.2)' }} 
-                        onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                        onBlur={e => e.target.style.borderColor = errors.name ? '#EF4444' : 'rgba(255,255,255,0.2)'} 
+                  <motion.form
+                    key="form"
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    noValidate
+                    aria-busy={busy}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: EASE }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}
+                  >
+                    {/* Every control inside one fieldset so a single
+                        `disabled` freezes the whole form mid-submit
+                        and a double submission becomes impossible. */}
+                    <fieldset
+                      disabled={busy}
+                      style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '26px' }}
+                    >
+                      <FormField
+                        ref={registerField('name')}
+                        id="contact-name"
+                        name="name"
+                        label="Full Name"
+                        value={formData.name}
+                        onChange={handleChange('name')}
+                        onFocus={handleFocus('name')}
+                        onBlur={handleBlur('name')}
+                        onClear={clearField('name')}
+                        error={errors.name}
+                        shaking={shakeField === 'name'}
+                        required
+                        maxLength={80}
+                        autoComplete="name"
+                        autoCapitalize="words"
                       />
-                      {errors.name && <div style={errorStyle}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>{errors.name}</div>}
-                    </div>
 
-                    <div>
-                      <label htmlFor="contact-company" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Company / Business Name</label>
-                      <input 
+                      <FormField
+                        ref={registerField('company')}
                         id="contact-company"
-                        placeholder="Company / Business Name" 
-                        value={formData.company} 
-                        onChange={e => setFormData({...formData, company: e.target.value})}
-                        style={inputStyle} 
-                        onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                        onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.2)'} 
+                        name="company"
+                        label="Company / Business Name"
+                        value={formData.company}
+                        onChange={handleChange('company')}
+                        onFocus={handleFocus('company')}
+                        onClear={clearField('company')}
+                        maxLength={100}
+                        autoComplete="organization"
+                        autoCapitalize="words"
                       />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="contact-email" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Email Address</label>
-                      <input 
+
+                      <FormField
+                        ref={registerField('email')}
                         id="contact-email"
-                        placeholder="Email Address" 
-                        type="email" required value={formData.email} 
-                        onChange={e => { setFormData({...formData, email: e.target.value}); if (errors.email) setErrors(prev => ({...prev, email: ''})); }}
-                        style={{ ...inputStyle, borderBottomColor: errors.email ? '#EF4444' : 'rgba(255,255,255,0.2)' }} 
-                        onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                        onBlur={e => e.target.style.borderColor = errors.email ? '#EF4444' : 'rgba(255,255,255,0.2)'} 
+                        name="email"
+                        label="Email Address"
+                        type="email"
+                        inputMode="email"
+                        value={formData.email}
+                        onChange={handleChange('email')}
+                        onFocus={handleFocus('email')}
+                        onBlur={handleBlur('email')}
+                        onClear={clearField('email')}
+                        error={errors.email}
+                        shaking={shakeField === 'email'}
+                        required
+                        maxLength={254}
+                        autoComplete="email"
+                        autoCapitalize="off"
                       />
-                      {errors.email && <div style={errorStyle}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>{errors.email}</div>}
-                    </div>
 
-                    <div>
-                      <label htmlFor="contact-phone" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Phone Number</label>
-                      <div style={{ display: 'flex', gap: '8px', alignItems: 'stretch' }}>
-                        <CountryCodeSelect value={countryCode} onChange={setCountryCode} error={errors.phone} />
-                        <input 
-                          id="contact-phone"
-                          placeholder="Phone Number" 
-                          type="tel" required value={formData.phone} 
-                          onChange={e => { setFormData({...formData, phone: e.target.value}); if (errors.phone) setErrors(prev => ({...prev, phone: ''})); }}
-                          style={{ ...inputStyle, borderBottomColor: errors.phone ? '#EF4444' : 'rgba(255,255,255,0.2)' }} 
-                          onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                          onBlur={e => e.target.style.borderColor = errors.phone ? '#EF4444' : 'rgba(255,255,255,0.2)'} 
-                        />
-                      </div>
-                      {errors.phone && <div style={errorStyle}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>{errors.phone}</div>}
-                    </div>
-
-                    <div>
-                      <label htmlFor="contact-address" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Address / Location</label>
-                      <input 
-                        id="contact-address"
-                        placeholder="Address / Location" 
-                        value={formData.address} 
-                        onChange={e => setFormData({...formData, address: e.target.value})}
-                        style={inputStyle} 
-                        onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                        onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.2)'} 
-                      />
-                    </div>
-
-                    <div style={{ marginTop: '16px' }}>
-                      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-                        <legend style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '16px', fontFamily: 'var(--font-mono)', padding: 0 }}>PROJECT TYPE</legend>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                          {PROJECT_TYPES.map((type) => (
-                            <button 
-                              key={type} type="button" 
-                              onClick={() => setFormData({...formData, type})}
-                              style={{
-                                padding: '10px 20px', borderRadius: '40px', fontSize: '0.9375rem', cursor: 'pointer',
-                                background: formData.type === type ? '#fff' : 'transparent',
-                                border: `1px solid ${formData.type === type ? '#fff' : 'rgba(255,255,255,0.2)'}`,
-                                color: formData.type === type ? '#000' : 'rgba(255,255,255,0.7)',
-                                transition: 'all 0.3s ease', fontFamily: 'var(--font-body)',
-                              }}
-                            >
-                              {type}
-                            </button>
-                          ))}
-                        </div>
-                      </fieldset>
-                    </div>
-
-                    {formData.type === 'Other' && (
+                      {/* Phone: country code + number share one row and
+                          one error message, so the pair reads as a
+                          single field rather than two that disagree. */}
                       <div>
-                        <label htmlFor="contact-other-type" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Please specify your project type</label>
-                        <input 
-                          id="contact-other-type"
-                          placeholder="Please specify your project type..."
-                          required value={formData.otherType}
-                          onChange={e => setFormData({...formData, otherType: e.target.value})}
-                          style={inputStyle}
-                          onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-                          onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.2)'}
+                        <div className="contact-phone-row" style={{ display: 'flex', gap: '12px', alignItems: 'flex-end' }}>
+                          <CountryCodeSelect value={countryCode} onChange={setCountryCode} error={errors.phone} />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <FormField
+                              ref={registerField('phone')}
+                              id="contact-phone"
+                              name="phone"
+                              label="Phone Number"
+                              type="tel"
+                              inputMode="tel"
+                              value={formData.phone}
+                              onChange={handleChange('phone')}
+                              onFocus={handleFocus('phone')}
+                              onBlur={handleBlur('phone')}
+                              onClear={clearField('phone')}
+                              error={errors.phone}
+                              hint={!errors.phone && !formData.phone ? 'Digits only — e.g. 97145 71522' : ''}
+                              shaking={shakeField === 'phone'}
+                              required
+                              maxLength={20}
+                              autoComplete="tel"
+                              autoCapitalize="off"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <FormField
+                        ref={registerField('address')}
+                        id="contact-address"
+                        name="address"
+                        label="Address / Location"
+                        value={formData.address}
+                        onChange={handleChange('address')}
+                        onFocus={handleFocus('address')}
+                        onClear={clearField('address')}
+                        maxLength={160}
+                        autoComplete="address-level2"
+                      />
+
+                      <div style={{ marginTop: '10px' }}>
+                        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+                          <legend style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '16px', fontFamily: 'var(--font-mono)', padding: 0 }}>
+                            PROJECT TYPE
+                          </legend>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                            {PROJECT_TYPES.map((type) => {
+                              const active = formData.type === type;
+                              return (
+                                <motion.button
+                                  key={type}
+                                  type="button"
+                                  aria-pressed={active}
+                                  whileTap={{ scale: 0.96 }}
+                                  onClick={() => {
+                                    handleFocus('type')();
+                                    setFormData((prev) => ({ ...prev, type: active ? '' : type }));
+                                  }}
+                                  style={chipStyle(active)}
+                                >
+                                  {type}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <AnimatePresence initial={false}>
+                        {formData.type === 'Other' && (
+                          <motion.div
+                            key="other-type"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.32, ease: EASE }}
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <FormField
+                              ref={registerField('otherType')}
+                              id="contact-other-type"
+                              name="otherType"
+                              label="Please specify your project type"
+                              value={formData.otherType}
+                              onChange={handleChange('otherType')}
+                              onFocus={handleFocus('otherType')}
+                              onBlur={handleBlur('otherType')}
+                              onClear={clearField('otherType')}
+                              error={errors.otherType}
+                              shaking={shakeField === 'otherType'}
+                              required
+                              maxLength={80}
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      <div style={{ marginTop: '10px' }}>
+                        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+                          <legend style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '12px', fontFamily: 'var(--font-mono)', padding: 0 }}>
+                            PREFERRED CONTACT METHOD
+                          </legend>
+                          <div style={{ display: 'flex', gap: '12px' }}>
+                            {['Email', 'Phone'].map((method) => {
+                              const active = formData.contactMethod === method;
+                              return (
+                                <motion.button
+                                  key={method}
+                                  type="button"
+                                  aria-pressed={active}
+                                  whileTap={{ scale: 0.96 }}
+                                  onClick={() => setFormData((prev) => ({ ...prev, contactMethod: method }))}
+                                  style={chipStyle(active)}
+                                >
+                                  {method}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <div style={{ marginTop: '10px' }}>
+                        <FormField
+                          ref={registerField('message')}
+                          id="contact-message"
+                          name="message"
+                          label="Message / Project Brief"
+                          multiline
+                          rows={3}
+                          value={formData.message}
+                          onChange={handleChange('message')}
+                          onFocus={handleFocus('message')}
+                          onBlur={handleBlur('message')}
+                          error={errors.message}
+                          hint="Tell us about your project, timeline and goals."
+                          maxLength={MESSAGE_MAX}
+                          showValid={false}
                         />
                       </div>
-                    )}
+                    </fieldset>
 
-                    <div style={{ marginTop: '16px' }}>
-                      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-                        <legend style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '12px', fontFamily: 'var(--font-mono)', padding: 0 }}>PREFERRED CONTACT METHOD</legend>
-                        <div style={{ display: 'flex', gap: '12px' }}>
-                          {['Email', 'Phone'].map((method) => (
-                            <button 
-                              key={method} type="button" 
-                              onClick={() => setFormData({...formData, contactMethod: method})}
-                              style={{
-                                padding: '10px 20px', borderRadius: '40px', fontSize: '0.9375rem', cursor: 'pointer',
-                                background: formData.contactMethod === method ? '#fff' : 'transparent',
-                                border: `1px solid ${formData.contactMethod === method ? '#fff' : 'rgba(255,255,255,0.2)'}`,
-                                color: formData.contactMethod === method ? '#000' : 'rgba(255,255,255,0.7)',
-                                transition: 'all 0.3s ease', fontFamily: 'var(--font-body)',
-                              }}
-                            >
-                              {method}
-                            </button>
-                          ))}
-                        </div>
-                      </fieldset>
-                    </div>
+                    {/* Network failure — recoverable, with the entered
+                        details still intact behind it. */}
+                    <AnimatePresence initial={false}>
+                      {status === 'error' && (
+                        <motion.div
+                          key="submit-error"
+                          initial={{ opacity: 0, y: -8, height: 0 }}
+                          animate={{ opacity: 1, y: 0, height: 'auto' }}
+                          exit={{ opacity: 0, y: -8, height: 0 }}
+                          transition={{ duration: 0.3, ease: EASE }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <div
+                            role="alert"
+                            style={{
+                              padding: '18px 20px', background: 'rgba(239,68,68,0.08)',
+                              border: '1px solid rgba(239,68,68,0.28)', borderRadius: 'var(--radius-md)',
+                              color: '#f87171', fontSize: '0.9375rem', lineHeight: 1.65,
+                            }}
+                          >
+                            <p style={{ marginBottom: '14px' }}>{statusMessage}</p>
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+                              <button
+                                type="button"
+                                onClick={retry}
+                                style={{
+                                  padding: '9px 20px', borderRadius: 'var(--radius-full)',
+                                  border: '1px solid rgba(239,68,68,0.45)', background: 'transparent',
+                                  color: '#f87171', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)',
+                                  cursor: 'pointer', minHeight: '38px',
+                                }}
+                              >
+                                ↻ Try again
+                              </button>
+                              <span style={{ color: 'rgba(255,255,255,0.48)', fontSize: '0.875rem' }}>
+                                or email{' '}
+                                <a href="mailto:info@manharcreatives.com" style={{ color: '#22C55E', textDecoration: 'underline' }}>
+                                  info@manharcreatives.com
+                                </a>
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                    <div style={{ marginTop: '16px' }}>
-                      <label htmlFor="contact-message" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Message / Project Brief</label>
-                      <textarea 
-                        id="contact-message"
-                        placeholder="Message / Project Brief - tell us about your project, timeline, and goals..." 
-                        rows={3} value={formData.message} 
-                        onChange={e => setFormData({...formData, message: e.target.value})}
-                        style={{ ...inputStyle, resize: 'vertical', minHeight: '40px' }} 
-                        onFocus={e => e.target.style.borderColor = 'var(--color-primary)'} 
-                        onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.2)'} 
-                      />
-                    </div>
-
-                    {submitError && (
-                      <div style={{ padding: '16px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px', color: '#f87171', fontSize: '0.9375rem', lineHeight: 1.6 }}>
-                        There was a problem sending your inquiry. Please try again, or email us directly at{' '}
-                        <a href="mailto:manharcreatives@gmail.com" style={{ color: '#22C55E', textDecoration: 'underline' }}>manharcreatives@gmail.com</a>.
-                      </div>
-                    )}
-
-                    <div style={{ marginTop: '24px', padding: '20px 24px', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ marginTop: '14px', padding: '20px 24px', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', background: 'rgba(255,255,255,0.03)' }}>
                       <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9375rem', marginBottom: '6px', fontWeight: 500 }}>
                         Need more information before getting started?
                       </p>
-                      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '16px' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.48)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '16px' }}>
                         Download our Company Profile to explore our services and process.
                       </p>
-                      <MagneticButton as="a" href="https://drive.google.com/uc?export=download&id=1RdGn0DZyyL_f2liZHFeJVqLUyYGWKSny" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '12px 28px', fontSize: '0.8125rem', width: 'fit-content', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '40px', color: 'rgba(255,255,255,0.85)', background: 'transparent' }}>
+                      <MagneticButton
+                        as="a"
+                        href="https://drive.google.com/uc?export=download&id=1RdGn0DZyyL_f2liZHFeJVqLUyYGWKSny"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackCta('Download Company Profile', 'contact_form')}
+                        className="btn btn-secondary"
+                        style={{ padding: '12px 28px', fontSize: '0.8125rem', width: 'fit-content', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '40px', color: 'rgba(255,255,255,0.85)', background: 'transparent' }}
+                      >
                         ↓ Download Company Profile
                       </MagneticButton>
                     </div>
 
-                    <div style={{ marginTop: '24px' }}>
-                      <MagneticButton className="btn btn-primary" style={{ padding: '18px 40px', fontSize: '1rem', width: 'fit-content' }}>
-                        Send Inquiry
-                        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 8 }}><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div style={{ marginTop: '20px' }}>
+                      <MagneticButton
+                        type="submit"
+                        disabled={busy}
+                        onClick={() => !busy && trackCta('Send Inquiry', 'contact_form')}
+                        className="btn btn-primary"
+                        style={{ padding: '18px 40px', fontSize: '1rem', width: 'fit-content', minWidth: '212px' }}
+                      >
+                        {busy ? (
+                          <>
+                            <span className="mc-spinner mc-spinner--sm" aria-hidden="true" style={{ marginRight: 10 }} />
+                            Sending…
+                          </>
+                        ) : (
+                          <>
+                            Send Inquiry
+                            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 8 }} aria-hidden="true">
+                              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </>
+                        )}
                       </MagneticButton>
+
+                      <p style={{ marginTop: '14px', color: 'rgba(255,255,255,0.48)', fontSize: '0.8125rem', lineHeight: 1.6 }}>
+                        We reply within 24 hours. Your details are never shared or sold.
+                      </p>
                     </div>
-                  </>
+                  </motion.form>
                 )}
-              </form>
+              </AnimatePresence>
           </FadeIn>
 
         </div>
@@ -799,6 +1239,20 @@ export default function ContactExperience() {
       <style>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
         .country-dropdown { animation: fadeIn 0.15s ease; }
+
+        /* The country selector sits on the same baseline as the
+           phone field, which now carries an 18px floating-label
+           gutter above it. */
+        .contact-phone-row > div:first-child > button { padding-bottom: 14px !important; }
+
+        @media (max-width: 560px) {
+          /* Stacked on narrow screens: 140px + a phone number in
+             one row leaves about six characters visible. */
+          .contact-phone-row { flex-direction: column !important; align-items: stretch !important; gap: 4px !important; }
+          .contact-phone-row > div:first-child { width: 100% !important; }
+          .contact-phone-row > div:first-child > button { width: 100% !important; }
+          .country-dropdown { width: 100% !important; min-width: 260px; }
+        }
         @media (max-width: 992px) {
           #contact { flex-direction: column !important; }
           .contact-info-panel { min-height: auto !important; padding: 60px 24px 40px !important; background-position: top !important; }

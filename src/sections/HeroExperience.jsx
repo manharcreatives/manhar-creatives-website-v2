@@ -1,11 +1,49 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MagneticButton from '../components/MagneticButton';
+import AuroraField from '../components/AuroraField';
+import { prefersReducedMotion } from '../utils/motion';
+import { trackCta, trackVideoPlay } from '../utils/analytics';
 
-const VIDEO_URL = 'https://files.catbox.moe/24krt8.mp4';
+/* Video URL from external CDN was broken (empty file).
+   Using Aurora Field background instead. */
+const VIDEO_URL = null;
+
+/* Save-Data and 2G/3G connections: the film is decoration, and
+   decoration should not cost a visitor on a metered connection
+   several megabytes before the headline is readable. AuroraField
+   is already behind it and carries the same mood at ~0 bytes. */
+function shouldSkipVideo() {
+  if (typeof navigator === 'undefined') return true;
+  if (prefersReducedMotion()) return true;
+
+  const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!c) return false;
+  if (c.saveData) return true;
+  return ['slow-2g', '2g', '3g'].includes(c.effectiveType);
+}
 
 export default function HeroExperience() {
   const sectionRef = useRef(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  /* Decided after mount so the prerendered HTML is identical for
+     every visitor and the decision uses real client conditions. */
+  const [allowVideo, setAllowVideo] = useState(false);
+
+  useEffect(() => {
+    setAllowVideo(!shouldSkipVideo());
+  }, []);
+
+  /* Fallback: if video doesn't load within 4s, show it anyway
+     so it doesn't block the hero on slow connections. */
+  useEffect(() => {
+    if (!allowVideo) return;
+    const timeout = setTimeout(() => {
+      setVideoReady(true);
+    }, 4000);
+    return () => clearTimeout(timeout);
+  }, [allowVideo]);
 
   return (
     <section
@@ -24,25 +62,47 @@ export default function HeroExperience() {
     >
       {/* Layer 0: Video Background */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            opacity: 0.35,
-          }}
-        >
-          <source src={VIDEO_URL} type="video/mp4" />
-        </video>
+        <AuroraField />
+        {allowVideo && !videoFailed && VIDEO_URL && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+            /* A failed load is not an error state here — the aurora
+               field underneath is a complete background on its own,
+               so we simply stop trying and show nothing. */
+            onError={() => setVideoFailed(true)}
+            onCanPlay={() => setVideoReady(true)}
+            onPlaying={() => trackVideoPlay('hero_film', 'homepage_hero')}
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              objectFit: 'cover',
+              opacity: videoReady ? 0.35 : 0,
+              transition: 'opacity 1.2s var(--ease-out-expo)',
+            }}
+          >
+            <source src={VIDEO_URL} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       {/* Gradient overlays */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '25%', background: 'linear-gradient(to top, var(--bg), transparent)', zIndex: 1, pointerEvents: 'none' }} />
+
+      {/* Copy scrim — the background film cycles through bright frames, and
+          the headline has to stay legible on all of them, not just the dark
+          ones. Soft-edged so it never reads as a box. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+          background: 'radial-gradient(58% 46% at 50% 48%, rgba(8,12,11,0.55) 0%, rgba(8,12,11,0.28) 45%, transparent 78%)',
+        }}
+      />
 
       {/* Hero Content */}
       <div className="container hero-content-container" style={{ position: 'relative', zIndex: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '28px', paddingTop: 'clamp(40px, 10vh, 80px)' }}>
@@ -99,12 +159,18 @@ export default function HeroExperience() {
           <MagneticButton
             as="a"
             href="#contact"
+            onClick={() => trackCta("Let's Discuss Your Project", 'hero', '#contact')}
             className="btn btn-primary hero-btn"
             style={{ padding: '14px 32px', fontSize: '0.9375rem', boxShadow: '0 0 40px rgba(34,197,94,0.3)' }}
           >
             Let's Discuss Your Project
           </MagneticButton>
-          <MagneticButton as="a" href="#projects" className="btn btn-outline hero-btn">
+          <MagneticButton
+            as="a"
+            href="#projects"
+            onClick={() => trackCta('Explore Our Work', 'hero', '#projects')}
+            className="btn btn-outline hero-btn"
+          >
             Explore Our Work
           </MagneticButton>
         </motion.div>
@@ -117,8 +183,8 @@ export default function HeroExperience() {
         >
           {[
             'Website Development',
+            'Custom Software & CRM',
             'Branding',
-            'Restaurant Solutions',
             'Social Media',
             'Print Solutions',
             'Digital Presence',

@@ -1,70 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/TextReveal';
 import { ViewAnimator } from '../utils/useInViewLenis';
-
-const SERVICES_DATA = [
-  {
-    id: 'web-dev',
-    category: 'WEB DEV',
-    title: 'Website Development',
-    tagline: 'Professional websites built for credibility.',
-    description: 'Custom websites designed to showcase your business, strengthen trust, and create a professional digital presence. Every website is built with clarity, performance, and user experience in mind.',
-    features: ['Business Websites', 'Corporate Websites', 'Landing Pages', 'Portfolio Websites', 'Startup Websites'],
-    image: '/images/services/web-dev.png',
-    layout: 'left'
-  },
-  {
-    id: 'restaurant',
-    category: 'RESTAURANT',
-    title: 'Restaurant Digital Solutions',
-    tagline: 'Digital systems for modern restaurants.',
-    description: 'Restaurant-focused digital solutions including QR menu systems, restaurant websites, digital menus, and customer-facing experiences designed to improve convenience, efficiency, and brand perception.',
-    features: ['Restaurant Websites', 'QR Menu Systems', 'Digital Menus', 'Customer Experience', 'Restaurant Branding'],
-    image: '/images/services/restaurant.png',
-    layout: 'right'
-  },
-  {
-    id: 'branding',
-    category: 'BRANDING',
-    title: 'Branding & Identity',
-    tagline: 'Professional identities that build trust.',
-    description: 'Strategic branding solutions that help businesses establish consistency, improve recognition, and create a strong professional image across digital and physical touchpoints.',
-    features: ['Logo Design', 'Brand Identity', 'Brand Guidelines', 'Visual Systems', 'Business Branding'],
-    image: '/images/services/branding.png',
-    layout: 'left'
-  },
-  {
-    id: 'social',
-    category: 'SOCIAL',
-    title: 'Social Media Design',
-    tagline: 'Consistent communication across platforms.',
-    description: 'Professional social media creatives designed to strengthen brand presence, maintain consistency, and help businesses communicate effectively with their audience.',
-    features: ['Social Media Posts', 'Campaign Creatives', 'Content Visuals', 'Brand Communication', 'Promotional Designs'],
-    image: '/images/services/social.png',
-    layout: 'right'
-  },
-  {
-    id: 'print',
-    category: 'PRINT',
-    title: 'Print & Offline Branding',
-    tagline: 'Professional branding beyond the screen.',
-    description: 'High-quality print and offline branding materials designed to reinforce your brand identity and create a consistent experience across every customer touchpoint.',
-    features: ['Business Cards', 'Brochures', 'Flyers', 'Signage', 'Marketing Materials'],
-    image: '/images/services/print.png',
-    layout: 'left'
-  },
-  {
-    id: 'digital-presence',
-    category: 'DIGITAL PRESENCE',
-    title: 'Digital Presence Setup',
-    tagline: 'Build a stronger online presence.',
-    description: 'Essential digital setup services that help businesses present a professional image online, improve discoverability, and maintain consistency across key digital platforms.',
-    features: ['Google Business Profile', 'Business Email Setup', 'WhatsApp Business', 'Online Presence Setup', 'Digital Optimization'],
-    image: '/images/services/digital-presence.png',
-    layout: 'right'
-  }
-];
+import useLazyBackground from '../utils/useLazyBackground';
+import { SERVICES as SERVICES_DATA } from '../data/services';
 
 function ServiceBlock({ service, index }) {
   const ref = useRef(null);
@@ -172,6 +112,19 @@ function ServiceBlock({ service, index }) {
                   </div>
                 ))}
               </div>
+
+              <Link
+                to={`/services/${service.slug}`}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '24px',
+                  padding: '11px 22px', borderRadius: 'var(--radius-full)',
+                  border: '1px solid rgba(34,197,94,0.3)', background: 'rgba(34,197,94,0.06)',
+                  color: 'var(--color-primary)', fontSize: '0.875rem', fontWeight: 600,
+                  textDecoration: 'none', minHeight: '42px',
+                }}
+              >
+                Explore {service.shortTitle} →
+              </Link>
             </div>
 
             {/* Image block */}
@@ -244,6 +197,29 @@ function ServiceBlock({ service, index }) {
                   </div>
                 ))}
               </div>
+
+              <Link
+                to={`/services/${service.slug}`}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '32px',
+                  padding: '13px 26px', borderRadius: 'var(--radius-full)',
+                  border: '1px solid rgba(34,197,94,0.32)', background: 'rgba(34,197,94,0.06)',
+                  color: 'var(--color-primary)', fontSize: '0.9063rem', fontWeight: 600,
+                  textDecoration: 'none', transition: 'all 0.3s var(--ease-out-expo)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(34,197,94,0.13)';
+                  e.currentTarget.style.borderColor = 'rgba(34,197,94,0.55)';
+                  e.currentTarget.style.boxShadow = '0 0 28px rgba(34,197,94,0.18)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(34,197,94,0.06)';
+                  e.currentTarget.style.borderColor = 'rgba(34,197,94,0.32)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                Explore {service.shortTitle} →
+              </Link>
             </ViewAnimator>
 
             {/* Visual Side */}
@@ -285,12 +261,12 @@ function ServiceBlock({ service, index }) {
 }
 
 export default function ServicesUniverse() {
+  const headerBgRef = useLazyBackground('/images/backgrounds/services-bg.webp');
   return (
     <section id="services" style={{ background: 'var(--bg)', position: 'relative' }}>
       {/* Background Image for Header */}
-      <div aria-hidden="true" style={{
+      <div ref={headerBgRef} aria-hidden="true" style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '600px', zIndex: 0,
-        backgroundImage: 'url(/images/backgrounds/services-bg.png)',
         backgroundSize: 'cover', backgroundPosition: 'center',
         opacity: 0.12,
       }} />
@@ -310,7 +286,7 @@ export default function ServicesUniverse() {
         </FadeIn>
         <FadeIn delay={0.2}>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto', fontSize: '1.0625rem' }}>
-            From websites and branding to restaurant systems and digital presence setup, our solutions are designed to help businesses build credibility, improve customer experience, and grow with confidence.
+            From websites and custom software to branding and digital presence setup, our solutions are designed to help businesses build credibility, remove operational drag, and grow with confidence.
           </p>
         </FadeIn>
       </div>
@@ -319,6 +295,12 @@ export default function ServicesUniverse() {
         {SERVICES_DATA.map((service, i) => (
           <ServiceBlock key={service.id} service={service} index={i} />
         ))}
+      </div>
+
+      <div style={{ textAlign: 'center', padding: '0 0 var(--space-4xl)', position: 'relative', zIndex: 2 }}>
+        <Link to="/services" className="btn btn-outline">
+          View all services in detail →
+        </Link>
       </div>
     </section>
   );

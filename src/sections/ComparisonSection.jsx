@@ -40,7 +40,7 @@ export default function ComparisonSection() {
       {/* Background Image for Header */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '550px', zIndex: 0,
-        backgroundImage: 'url(/images/backgrounds/comparison-bg.png)',
+        backgroundImage: 'url(/images/backgrounds/comparison-bg.webp)',
         backgroundSize: 'cover', backgroundPosition: 'center',
         opacity: 0.1,
       }} />
@@ -99,7 +99,7 @@ export default function ComparisonSection() {
               <span style={{ fontSize: '0.7rem', color: 'var(--color-primary)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Aspect</span>
             </div>
             <div style={{ padding: '20px 24px', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
-              <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Typical Agency</span>
+              <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.48)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Typical Agency</span>
             </div>
             <div style={{ padding: '20px 24px', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
               <span style={{ fontSize: '0.7rem', color: 'var(--color-primary)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Manhar Creatives</span>
@@ -123,7 +123,7 @@ export default function ComparisonSection() {
                   </span>
                 </div>
                 <div style={{ padding: '24px', display: 'flex', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.04)' }}>
-                  <span style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.35)', lineHeight: 1.6 }}>
+                  <span style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.6 }}>
                     {item.typical}
                   </span>
                 </div>
@@ -174,7 +174,7 @@ export default function ComparisonSection() {
                     fontSize: '0.65rem',
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.25)',
+                    color: 'rgba(255,255,255,0.48)',
                     fontWeight: 600,
                     marginBottom: '6px',
                   }}>
@@ -182,7 +182,7 @@ export default function ComparisonSection() {
                   </div>
                   <p style={{
                     fontSize: '0.9rem',
-                    color: 'rgba(255,255,255,0.38)',
+                    color: 'rgba(255,255,255,0.48)',
                     lineHeight: 1.55,
                     margin: 0,
                   }}>

@@ -1,108 +1,151 @@
-# Manhar Creatives — Web Testing
+# Manhar Creatives — Website
 
-A premium, handcrafted brand experience website for **Manhar Creatives**, a website development & branding agency based in Visnagar, Gujarat, serving clients worldwide.
+A premium, multi-page brand experience for **Manhar Creatives**, a digital solutions & branding company based in Visnagar, Gujarat, serving clients across India and worldwide.
 
-Built with Vite + React 19, styled with Tailwind CSS v4, animated with Framer Motion, and featuring an immersive 3D mesh gradient background via React Three Fiber.
+Vite + React 19 · Framer Motion · React Three Fiber · Lenis · React Router 7 · fully prerendered for SEO.
 
-## ✨ Features
+---
 
-- **Hero** — Fullscreen video background with animated typography and magnetic CTA
-- **Services Universe** — 6 core services with scroll-driven parallax and interactive cards
-- **Project Showcase** — Fullscreen project demos (video, iframe, image) with scroll-based parallax
-- **Industries** — Grid showcasing industries served (restaurant, clinic, retail, startup, etc.)
-- **FAQ** — Fully accessible accordion with keyboard navigation and ARIA support
-- **Contact Form** — Google Apps Script powered form with email notifications
-- **Blog** — Client-side blog with 5 articles
-- **City Pages** — Location-specific landing pages (Ahmedabad, Mehsana, Visnagar)
-- **Preloader** — Animated logo video with progress bar and mobile timeout fallback
-- **404 Page** — Custom NoMatch route
-- **Error Boundary** — Graceful error handling for the entire app
+## ✨ What's on the site
+
+**26 real, individually prerendered pages** — not a single-page scroll.
+
+| Section | Routes |
+|---|---|
+| Home | `/` |
+| Services | `/services` + 6 service detail pages |
+| Work | `/projects` |
+| Company | `/about`, `/process`, `/contact` |
+| Blog | `/blog` + 8 long-form articles |
+| Local SEO | `/ahmedabad`, `/mehsana`, `/visnagar` |
+| Legal | `/privacy-policy`, `/terms-and-conditions` |
+| 404 | custom `NotFoundPage` + static `404.html` |
+
+### Services
+
+1. **Website Development**
+2. **Custom Software Development** — CRM, ERP modules, dashboards, business automation, API integrations
+3. **Branding & Identity**
+4. **Social Media Design**
+5. **Print & Offline Branding**
+6. **Digital Presence Setup**
+
+---
 
 ## 🛠 Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| **Framework** | React 19 |
-| **Build Tool** | Vite 8 |
-| **Language** | JavaScript (JSX) |
-| **Styling** | Tailwind CSS v4 |
-| **Animation** | Framer Motion 12 |
-| **3D** | React Three Fiber / Drei (MeshGradient) |
-| **Scroll** | Lenis (smooth scroll) |
-| **Form Backend** | Google Apps Script |
+| Framework | React 19 |
+| Build | Vite 8 (Rolldown) |
+| Routing | React Router 7 (`BrowserRouter`) |
+| Animation | Framer Motion 12 · GSAP |
+| 3D | React Three Fiber / Drei |
+| Scroll | Lenis |
+| Data | Supabase (enquiries) + Google Apps Script (form → Sheets + email) |
+| Prerender | Puppeteer (all routes → static HTML) |
+| Deploy | Vercel |
+
+---
 
 ## 📁 Project Structure
 
 ```
-public/             # Static assets (favicon, manifest, sitemap, robots.txt)
+public/
+├── images/            # All imagery — WebP only (~6 MB total)
+├── sitemap.xml        # Generated from the route manifest
+└── robots.txt         # Generated (includes AI/answer-engine bots)
+
+scripts/
+└── generate-sitemap.mjs   # sitemap.xml + robots.txt from src/data/site.js
+
 src/
-├── components/     # Reusable UI components
-│   ├── ErrorBoundary.jsx
-│   ├── FloatingCall.jsx
-│   ├── MagneticButton.jsx
-│   ├── MeshGradient.jsx
-│   ├── Navigation.jsx
-│   ├── Preloader.jsx
-│   ├── SmoothScroll.jsx
-│   └── TextReveal.jsx
-├── sections/       # Page sections (17 sections)
-│   ├── HeroExperience.jsx
-│   ├── ServicesUniverse.jsx
-│   ├── ProjectShowcase.jsx
-│   ├── ContactExperience.jsx
-│   ├── FAQSection.jsx
-│   ├── BlogPage.jsx
-│   ├── ServiceCityPage.jsx
-│   └── ... (10 more)
-├── three/          # Three.js / R3F components
-├── utils/          # Constants, hooks, helpers
-├── assets/         # Static images
-├── App.jsx         # Root component with routing
-├── main.jsx        # Entry point
-└── index.css       # Global styles + Tailwind
-index.html          # HTML entry (meta tags, JSON-LD, GA4)
+├── data/              # ★ Single source of truth
+│   ├── site.js        # Business facts, nav, cities, ROUTES manifest
+│   ├── services.js    # Full service catalogue (copy, SEO, FAQs, deliverables)
+│   └── blog/          # One file per article + index.js registry
+├── components/
+│   ├── Seo.jsx        # Per-route head manager + JSON-LD schema builders
+│   ├── PageKit.jsx    # Shared premium page primitives
+│   ├── Navigation.jsx # Real page links + services mega-menu
+│   └── ...
+├── pages/             # One component per route
+├── sections/          # Homepage sections
+├── three/             # R3F components
+├── utils/             # Hooks, constants, animation helpers
+├── App.jsx            # Router + shell
+└── index.css          # Design system (CSS custom properties)
+
+prerender.mjs          # Renders every route to its own static HTML file
+vercel.json            # Redirects, cache headers, security headers
 ```
+
+### Adding content
+
+Everything is data-driven — you rarely need to touch a component.
+
+- **New blog article** → create `src/data/blog/<slug>.js`, import it in `src/data/blog/index.js`. Route, sitemap entry, schema, related links and blog card all appear automatically.
+- **New service** → add an entry to `src/data/services.js`. Nav menu, services page, footer, detail page, city pages and sitemap all update.
+- **New route type** → add it to `ROUTES` in `src/data/site.js` so the sitemap and prerenderer pick it up.
+
+---
 
 ## 🚀 Getting Started
 
 ```bash
-# Install dependencies
 npm install
 
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev        # dev server
+npm run build      # vite build → sitemap → prerender all 26 routes
+npm run build:fast # skip prerender (faster local checks)
+npm run preview    # preview the production build
 ```
 
-## 🌐 Deployment
+`npm run build` needs a Chromium download for Puppeteer. If it's missing:
 
-1. Run `npm run build`
-2. Deploy the `dist/` folder to your hosting (Vercel, Netlify, Cloudflare Pages, etc.)
-3. After deploy, update these placeholders in `index.html`:
-   - `G-XXXXXXXXXX` → your real Google Analytics 4 ID
-   - `content=""` in `google-site-verification` → your Search Console code
+```bash
+npx puppeteer browsers install chrome
+```
+
+To skip prerendering entirely: `SKIP_PRERENDER=1 npm run build`
+
+---
 
 ## 🔍 SEO
 
-- **On-page**: Title, description, 2200+ keywords, canonical, OG/Twitter tags, geo tags, hreflang alternates
-- **Structured Data** (JSON-LD): LocalBusiness, Organization, WebSite (with SearchAction), Services x6, FAQPage, BreadcrumbList, AggregateRating + Review
-- **Technical**: robots.txt, sitemap.xml, PWA manifest, resource hints (preconnect/dns-prefetch)
-- **International**: areaServed includes 150+ cities across USA, UK, Canada, Australia, UAE, Europe, Asia, Africa, Latin America
-- **Note**: Vite CSR SPA — server-side per-page metadata not available; city/blog pages rendered client-side
+- **Per-route metadata** — every page writes its own title, description, keywords, canonical, OG/Twitter tags and hreflang via `src/components/Seo.jsx`
+- **Structured data per route** — Organization, WebSite, ProfessionalService, Service, BlogPosting, FAQPage, BreadcrumbList, HowTo, ContactPage, CollectionPage
+- **Prerendering** — every route is written as its own static HTML file, so crawlers get fully rendered content instead of an empty SPA shell
+- **Sitemap & robots** — generated from the route manifest on every build; AI/answer-engine crawlers explicitly allowed
+- **Internal linking** — services ↔ cities ↔ blog articles cross-link throughout
+- **Legacy URLs** — old single-page and city/service URLs 301-redirect to their new homes (`vercel.json`)
+
+## ⚡ Performance
+
+- All imagery is **WebP**, capped at 1800px — total image payload reduced from ~68 MB to ~6 MB
+- Route-level code splitting (`React.lazy`) — the homepage bundle stays light
+- Lazy-loaded background images via `useLazyBackground`
+- `content-visibility: auto` on off-screen sections
+- Immutable cache headers on `/assets`, `/images`, `/videos`
+
+---
 
 ## 📬 Contact Form
 
-The contact form submits to a Google Apps Script web app. Data is written to Google Sheets and an email notification is sent to `manharcreatives@gmail.com`.
+Submits to a Google Apps Script web app (writes to Google Sheets + sends an email notification) and mirrors the record into Supabase. Configure in `src/sections/ContactExperience.jsx` and `.env`:
 
-To set up your own:
-1. Create a Google Apps Script with the provided `doPost(e)` function
-2. Deploy as a Web App (Execute as: Me, Access: Anyone)
-3. Replace the URL in `src/sections/ContactExperience.jsx`
+```
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+---
+
+## ⚖️ Legal pages
+
+`/privacy-policy` and `/terms-and-conditions` are written from this project's actual data flows (contact form, Supabase, Google Analytics / Tag Manager, WhatsApp, chat widget) under Indian jurisdiction. **They are a solid starting point, not legal advice — have a lawyer review them before relying on them.**
+
+---
 
 ## 📄 License
 

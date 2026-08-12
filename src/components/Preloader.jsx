@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { prefersReducedMotion } from '../utils/motion';
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -7,7 +8,7 @@ export default function Preloader({ onComplete }) {
   const videoRef = useRef(null);
   const revealedRef = useRef(false);
 
-  const triggerReveal = useCallback(() => {
+  const triggerReveal = useCallback((immediate = false) => {
     if (revealedRef.current) return;
     revealedRef.current = true;
     setProgress(100);
@@ -15,14 +16,23 @@ export default function Preloader({ onComplete }) {
     setTimeout(() => {
       setPhase('done');
       onComplete?.();
-    }, 1200);
+    }, immediate ? 0 : 1200);
   }, [onComplete]);
+
+  /* A four-second full-screen intro film is precisely the kind of
+     thing prefers-reduced-motion exists to opt out of. Someone who
+     has set that preference gets the site immediately. */
+  useEffect(() => {
+    if (prefersReducedMotion()) triggerReveal(true);
+  }, [triggerReveal]);
 
   // ─── MOBILE FIX ────────────────────────────────────────────────────────────
   // On mobile Chrome/Safari, autoplay is often blocked or the video stalls
   // on slow connections. If onEnded never fires, the app stays on the preloader
   // forever and FloatingCall (and everything else) never mounts.
   // Hard 4-second timeout guarantees the app always loads on mobile.
+  // Keep this long enough for the intro film to actually play out — cutting it
+  // short is what makes the entrance feel broken rather than cinematic.
   useEffect(() => {
     const hardTimeout = setTimeout(() => {
       triggerReveal();
@@ -57,6 +67,9 @@ export default function Preloader({ onComplete }) {
       {phase !== 'done' && (
         <motion.div
           className="preloader"
+          role="status"
+          aria-live="polite"
+          aria-label="Loading Manhar Creatives"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -73,7 +86,7 @@ export default function Preloader({ onComplete }) {
           }}
         >
           {/* Grid + Glow overlay */}
-          <div className="preloader-grid" />
+          <div className="preloader-grid" aria-hidden="true" />
 
           {/* Content */}
           <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
@@ -89,6 +102,9 @@ export default function Preloader({ onComplete }) {
                 autoPlay
                 muted
                 playsInline
+                preload="auto"
+                aria-hidden="true"
+                tabIndex={-1}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleVideoEnd}
                 onError={handleVideoError}

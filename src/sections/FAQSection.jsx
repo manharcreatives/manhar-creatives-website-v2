@@ -9,69 +9,79 @@ function FAQItem({ item, index }) {
 
   const toggle = useCallback(() => setOpen(o => !o), []);
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggle();
-    }
-  }, [toggle]);
-
+  /* Previously the whole card was a `role="button"` div with a
+     manual Enter/Space handler. Two problems with that: the
+     accessible name included the answer text once expanded (so
+     screen readers announced the entire answer as the button
+     label), and the answer's own links became unreachable
+     children of a control. The trigger is now a real <button>
+     wrapping only the question row. */
   return (
     <ViewAnimator
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
+      transition={{ delay: Math.min(index * 0.08, 0.4), duration: 0.5 }}
       style={{
-        borderBottom: '1px solid rgba(255,255,255,0.1)', 
-        padding: '32px 0', 
-        cursor: 'pointer',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        padding: '32px 0',
       }}
-      onClick={toggle}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-      aria-expanded={open}
-      aria-controls={`faq-answer-${index}`}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
-          <span style={{ 
-            fontFamily: 'var(--font-mono)', 
-            fontSize: '0.875rem', 
-            color: open ? 'var(--color-primary)' : 'rgba(255,255,255,0.4)',
-            marginTop: '4px',
-            transition: 'color 0.3s'
-          }}>
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <h3 id={`faq-question-${index}`} style={{ 
-            fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', 
-            fontWeight: 400, 
-            color: open ? '#fff' : 'rgba(255,255,255,0.7)', 
-            transition: 'color 0.3s', 
-            fontFamily: 'var(--font-display)',
-            lineHeight: 1.4
-          }}>
-            {item.q}
-          </h3>
-        </div>
-        <motion.div 
-          animate={{ rotate: open ? 45 : 0 }} 
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          style={{ 
-            width: '40px', height: '40px', 
-            borderRadius: '50%', 
-            border: `1px solid ${open ? 'var(--color-primary)' : 'rgba(255,255,255,0.2)'}`,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
-            color: open ? 'var(--color-primary)' : 'rgba(255,255,255,0.5)',
-            transition: 'border-color 0.3s, color 0.3s'
+      <h3 style={{ margin: 0 }}>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-expanded={open}
+          aria-controls={`faq-answer-${index}`}
+          id={`faq-question-${index}`}
+          style={{
+            width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            gap: '24px', padding: 0, background: 'none', border: 'none',
+            cursor: 'pointer', textAlign: 'left', font: 'inherit', color: 'inherit',
           }}
         >
-          <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>+</span>
-        </motion.div>
-      </div>
+          <span style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
+            <span
+              aria-hidden="true"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.875rem',
+                color: open ? 'var(--color-primary)' : 'rgba(255,255,255,0.45)',
+                marginTop: '4px',
+                transition: 'color 0.3s',
+              }}
+            >
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span style={{
+              fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
+              fontWeight: 400,
+              color: open ? '#fff' : 'rgba(255,255,255,0.72)',
+              transition: 'color 0.3s',
+              fontFamily: 'var(--font-display)',
+              lineHeight: 1.4,
+            }}>
+              {item.q}
+            </span>
+          </span>
+          <motion.span
+            aria-hidden="true"
+            animate={{ rotate: open ? 45 : 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              width: '40px', height: '40px',
+              borderRadius: '50%',
+              border: `1px solid ${open ? 'var(--color-primary)' : 'rgba(255,255,255,0.2)'}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+              color: open ? 'var(--color-primary)' : 'rgba(255,255,255,0.5)',
+              transition: 'border-color 0.3s, color 0.3s',
+            }}
+          >
+            <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>+</span>
+          </motion.span>
+        </button>
+      </h3>
       <motion.div
         initial={false}
         animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
@@ -80,6 +90,11 @@ function FAQItem({ item, index }) {
         id={`faq-answer-${index}`}
         role="region"
         aria-labelledby={`faq-question-${index}`}
+        /* Collapsed content must leave the tab order and the
+           accessibility tree, not just be visually clipped —
+           height:0 + overflow:hidden hides it from eyes only. */
+        aria-hidden={!open}
+        inert={!open}
       >
         <p style={{ 
           paddingTop: '24px', 
@@ -142,7 +157,7 @@ export default function FAQSection() {
               <div style={{ position: 'sticky', top: '120px' }}>
                 <div style={{ position: 'relative', paddingBottom: '200%', overflow: 'hidden', borderRadius: '4px' }}>
                   <img
-                    src="/images/backgrounds/faq-bg.png"
+                    src="/images/backgrounds/faq-bg.webp"
                     alt="Abstract architectural pattern — representing structured business solutions by Manhar Creatives"
                     loading="lazy" decoding="async"
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.1)' }}

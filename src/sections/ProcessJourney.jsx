@@ -5,12 +5,12 @@ import { PROCESS_STEPS } from '../utils/constants';
 
 const PROCESS_DATA = PROCESS_STEPS.map((step, index) => {
   const images = [
-    '/images/process/discovery.png',
-    '/images/process/research.png',
-    '/images/process/planning.png',
-    '/images/process/design-dev.png',
-    '/images/process/review.png',
-    '/images/process/delivery.png',
+    '/images/process/discovery.webp',
+    '/images/process/research.webp',
+    '/images/process/planning.webp',
+    '/images/process/design-dev.webp',
+    '/images/process/review.webp',
+    '/images/process/delivery.webp',
   ];
   return { ...step, image: images[index] };
 });
@@ -42,7 +42,9 @@ export default function ProcessJourney() {
   const [imageTopPx,    setImageTopPx   ] = useState(0);
   const [panelWidth,    setPanelWidth   ] = useState(0);
   const [sectionActive, setSectionActive] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 900);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 900
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
@@ -54,7 +56,9 @@ export default function ProcessJourney() {
 
   // live-updated clip boundaries (section top/bottom in viewport px)
   const [clipTop,    setClipTop   ] = useState(0);
-  const [clipBottom, setClipBottom] = useState(window.innerHeight);
+  const [clipBottom, setClipBottom] = useState(
+    typeof window === 'undefined' ? 900 : window.innerHeight
+  );
 
   // ── IntersectionObserver: show/hide panel ──────────────────
   useEffect(() => {
@@ -122,7 +126,7 @@ export default function ProcessJourney() {
       {/* Background Image for Header */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '650px', zIndex: 0,
-        backgroundImage: 'url(/images/backgrounds/process-bg.png)',
+        backgroundImage: 'url(/images/backgrounds/process-bg.webp)',
         backgroundSize: 'cover', backgroundPosition: 'center',
         opacity: 0.2,
       }} />
@@ -149,7 +153,7 @@ export default function ProcessJourney() {
               zIndex: 40,
               pointerEvents: 'none',
               // hard-clip: image is physically invisible outside section
-              clipPath: `inset(${clipTop}px 0px ${window.innerHeight - clipBottom}px 0px)`,
+              clipPath: `inset(${clipTop}px 0px ${(typeof window === 'undefined' ? 900 : window.innerHeight) - clipBottom}px 0px)`,
             }}
           >
             {/* image box — spring-animates to follow hovered phase */}
@@ -318,6 +322,8 @@ export default function ProcessJourney() {
                     <img
                       src={step.image}
                       alt={step.title}
+                      loading="lazy"
+                      decoding="async"
                       style={{
                         width: '100%',
                         height: 'auto',

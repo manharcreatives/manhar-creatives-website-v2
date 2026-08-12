@@ -19,11 +19,17 @@
   --bg-elevated: #141C1A;
   --bg-glass: rgba(11, 15, 14, 0.6);
 
-  /* Text */
+  /* Text
+     Contrast ratios against --bg (#0B0F0E):
+       secondary #9CA3AF ≈ 7.4:1  — passes AA and AAA
+       muted     #8B94A1 ≈ 5.3:1  — passes AA for body text
+                                     (was #6B7280 ≈ 4.0:1, which failed)
+       dim       #4B5563          — decorative only: rules, disabled
+                                     glyphs, never running text */
   --text-primary: #FFFFFF;
   --text-secondary: #9CA3AF;
-  --text-muted: #6B7280;
-  --text-dim: #374151;
+  --text-muted: #8B94A1;
+  --text-dim: #4B5563;
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -724,4 +730,628 @@ textarea::placeholder {
   opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOCUS MANAGEMENT
+
+   `:focus-visible` rather than `:focus` — a mouse user clicking
+   a button should not get a ring, a keyboard user tabbing to the
+   same button must. The two-layer ring (solid outline + offset
+   shadow) stays visible on both the near-black page background
+   and the green primary buttons.
+   ═══════════════════════════════════════════════════════════ */
+/* No `border-radius` here on purpose. Setting one would square
+   off the pill-shaped buttons the moment they receive focus —
+   the outline already follows each element's own radius. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.18);
+}
+
+/* Clicking must not leave a ring behind on browsers that still
+   fall back to :focus. */
+:where(a, button, input, textarea, select):focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* On a green surface the green ring disappears — invert it. */
+.btn-primary:focus-visible,
+.mc-on-primary:focus-visible {
+  outline-color: #0B0F0E;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LINK HOVER — underline that grows from the left
+
+   Opt-in via `.mc-link`, plus applied automatically to inline
+   links inside long-form prose. Not applied globally: nav pills,
+   cards and buttons are links too, and an underline sliding
+   under a card would be noise.
+   ═══════════════════════════════════════════════════════════ */
+.mc-link,
+.mc-prose a:not(.btn) {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out-expo);
+}
+
+.mc-link::after,
+.mc-prose a:not(.btn)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.mc-link:hover,
+.mc-link:focus-visible,
+.mc-prose a:not(.btn):hover,
+.mc-prose a:not(.btn):focus-visible {
+  color: var(--color-primary);
+}
+
+.mc-link:hover::after,
+.mc-link:focus-visible::after,
+.mc-prose a:not(.btn):hover::after,
+.mc-prose a:not(.btn):focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Inline prose links carry a permanent low-opacity rule so they
+   are identifiable as links without relying on colour alone. */
+.mc-prose a:not(.btn) {
+  color: var(--color-accent);
+  box-shadow: inset 0 -1px 0 rgba(var(--color-primary-rgb), 0.32);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTON STATES
+   default → hover → active → disabled, consistently.
+   ═══════════════════════════════════════════════════════════ */
+.btn:active:not(:disabled):not([aria-disabled='true']) {
+  transform: scale(0.98);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'],
+.btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Secondary buttons invert on hover rather than just tinting —
+   a clearer signal that they are the same weight of control as
+   the primary, just a different choice. */
+.btn-outline:active:not(:disabled) {
+  background: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  background: rgba(var(--color-primary-rgb), 0.07) !important;
+}
+
+/* The one CTA per page that we actually want clicked gets a slow
+   breathing glow on hover. Never on load — a button that pulses
+   at rest is an advertisement, not an interface. */
+.btn-primary:hover:not(:disabled) {
+  animation: cta-glow 2s var(--ease-in-out-circ) infinite;
+}
+
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.4); }
+  50%      { box-shadow: 0 8px 44px rgba(var(--color-primary-rgb), 0.62); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORM FIELDS
+
+   Underline fields with floating labels. The label sits over the
+   input at rest and rises once the field is focused or filled,
+   so the field never loses its name the moment someone starts
+   typing — which is what a placeholder-only field does.
+   ═══════════════════════════════════════════════════════════ */
+.mc-field {
+  position: relative;
+  padding-top: 18px;
+}
+
+.mc-field__input {
+  width: 100%;
+  padding: 14px 34px 12px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.0625rem;
+  font-family: var(--font-body);
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+
+.mc-field__input::placeholder {
+  color: transparent; /* the floating label is the label */
+}
+
+.mc-field__input:focus {
+  border-bottom-color: var(--color-primary);
+  box-shadow: 0 1px 0 0 var(--color-primary), 0 6px 18px -12px rgba(var(--color-primary-rgb), 0.9);
+}
+
+.mc-field__input:focus-visible {
+  outline: none; /* the underline glow is the focus indicator here */
+  box-shadow: 0 1px 0 0 var(--color-primary), 0 0 0 3px rgba(var(--color-primary-rgb), 0.14);
+}
+
+.mc-field__label {
+  position: absolute;
+  left: 0;
+  top: 32px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 1.0625rem;
+  font-family: var(--font-body);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 0.26s var(--ease-out-expo), color 0.26s var(--ease-out-expo);
+}
+
+.mc-field.is-floating .mc-field__label {
+  transform: translateY(-26px) scale(0.72);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+}
+
+.mc-field.is-focused .mc-field__label {
+  color: var(--color-primary);
+}
+
+.mc-field.is-invalid .mc-field__input {
+  border-bottom-color: #EF4444;
+}
+
+.mc-field.is-invalid .mc-field__input:focus {
+  box-shadow: 0 1px 0 0 #EF4444;
+}
+
+.mc-field.is-invalid .mc-field__label {
+  color: #F87171;
+}
+
+.mc-field.is-valid .mc-field__input {
+  border-bottom-color: rgba(var(--color-primary-rgb), 0.55);
+}
+
+/* Shake on validation failure — one short movement, not a wobble. */
+.mc-field.is-shaking .mc-field__input {
+  animation: field-shake 0.36s var(--ease-in-out-circ);
+}
+
+@keyframes field-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(4px); }
+  60%      { transform: translateX(-3px); }
+  80%      { transform: translateX(2px); }
+}
+
+.mc-field__adornment {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mc-field__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.32);
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-out-expo), color 0.2s ease;
+}
+
+.mc-field.is-filled:hover .mc-field__clear,
+.mc-field.is-filled.is-focused .mc-field__clear,
+.mc-field__clear:focus-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mc-field__clear:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mc-field__check {
+  color: var(--color-primary);
+  display: flex;
+  animation: check-pop 0.34s var(--ease-out-expo);
+}
+
+@keyframes check-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.mc-field__msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 7px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #F87171;
+}
+
+.mc-field__counter {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.24s ease;
+}
+
+.mc-field__counter.is-near {
+  color: #FBBF24;
+}
+
+.mc-field__counter.is-over {
+  color: #F87171;
+}
+
+/* Placeholders elsewhere on the site were effectively invisible
+   at --text-dim (≈1.9:1). This is ≈4.6:1 on the page background. */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IMAGE LOADING SHIMMER (used by <LazyImage>)
+   ═══════════════════════════════════════════════════════════ */
+.mc-img-shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.05) 45%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  animation: img-shimmer 1.5s linear infinite;
+}
+
+@keyframes img-shimmer {
+  from { background-position: 160% 0; }
+  to   { background-position: -60% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MEDIA LOADING / FAILURE STATES
+   ═══════════════════════════════════════════════════════════ */
+.mc-media-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.38);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.mc-spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--color-primary-rgb), 0.18);
+  border-top-color: var(--color-primary);
+  animation: rotate-slow 0.9s linear infinite;
+}
+
+.mc-spinner--sm {
+  width: 16px;
+  height: 16px;
+  border-width: 1.6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST VIEWPORT — mobile placement
+   Top-right would sit under the fixed nav on a phone, so on
+   narrow screens toasts come up from the bottom instead, above
+   the two floating buttons.
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 560px) {
+  .mc-toast-viewport {
+    top: auto !important;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 16px !important;
+    right: 96px !important;
+    max-width: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOUCH TARGETS
+
+   WCAG 2.5.5 asks for 44px; Google's guidance is 48px. We use
+   48px, because the difference between the two is roughly the
+   difference between "usually hits it" and "always hits it".
+
+   Scoped to coarse pointers so a mouse-driven layout is not
+   padded out to phone proportions.
+   ═══════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  button,
+  [role='button'],
+  a.btn,
+  .mc-tap {
+    min-height: 48px;
+  }
+
+  /* Icon-only controls need width as well as height. */
+  button:empty,
+  .mc-copy-btn {
+    min-width: 44px;
+  }
+
+  /* The clear affordance is hover-revealed on desktop; there is
+     no hover on a phone, so it is simply always present. */
+  .mc-field__clear {
+    width: 36px;
+    height: 36px;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Comfortable spacing between adjacent chips and pills so a
+     thumb cannot land between two of them. */
+  .mc-field__input {
+    font-size: 16px; /* below 16px iOS zooms the page on focus */
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NARROW SCREEN SAFETY
+
+   Long unbroken strings — URLs in article bodies, email
+   addresses, code — are the usual cause of a stray horizontal
+   scrollbar on a 320px screen.
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 420px) {
+  .mc-prose p,
+  .mc-prose li,
+  .mc-prose td,
+  address,
+  a[href^='mailto:'],
+  a[href^='http'] {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Wide tables scroll inside their own container rather than
+     pushing the page sideways. */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT
+
+   Someone printing a guide wants the guide. Everything that only
+   makes sense on screen — navigation, footer, floating buttons,
+   share row, the animated background layers — comes out, the
+   page inverts to ink on paper, and link destinations are
+   printed after the link text so a printed page is still usable.
+   ═══════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --text-primary: #111111;
+  }
+
+  html,
+  body,
+  #root {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Screen-only chrome */
+  header,
+  nav[aria-label='Main navigation'],
+  footer,
+  #mc-call-btn,
+  #mc-call-ring,
+  .mc-scroll-top,
+  .mc-toast-viewport,
+  .noise-overlay,
+  .skip-link,
+  .article-toc,
+  .mc-no-print,
+  video,
+  canvas,
+  iframe {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  /* Decorative layers: backgrounds, glows, blurs, gradients */
+  [aria-hidden='true'] {
+    display: none !important;
+  }
+
+  * {
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    animation: none !important;
+    transition: none !important;
+    color: #111 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  h2 {
+    page-break-before: auto;
+    margin-top: 22pt !important;
+  }
+
+  p, li, blockquote, table, img {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  section {
+    padding: 0 !important;
+    page-break-inside: auto;
+  }
+
+  .container {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  a {
+    color: #111 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Print where a link actually goes — but skip anchors and
+     the site's own root, which would just add noise. */
+  .mc-prose a[href^='http']::after,
+  article a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #555 !important;
+    word-break: break-all;
+  }
+
+  /* The article's bullets are decorative aria-hidden spans, which
+     the rule above removes — so print restores real list markers,
+     otherwise every list item prints flush left and unreadable. */
+  .mc-prose ul,
+  article ul {
+    list-style: disc !important;
+    padding-left: 16pt !important;
+  }
+
+  .mc-prose ol,
+  article ol {
+    list-style: decimal !important;
+    padding-left: 16pt !important;
+  }
+
+  .mc-prose li,
+  article li {
+    display: list-item !important;
+  }
+
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    border: 1px solid #ccc !important;
+    padding: 6pt 8pt !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    filter: grayscale(100%) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+
+   framer-motion is handled globally by <MotionConfig
+   reducedMotion="user"> in App.jsx. This block covers everything
+   framer does not see: CSS keyframes, transitions, Lenis, and
+   the decorative loops (aurora, particles, marquees, shimmers).
+
+   Content still fades in — it just stops moving.
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Purely decorative motion is removed rather than sped up —
+     a 0.01ms infinite loop still repaints every frame. */
+  .mc-img-shimmer,
+  .floating-call-ring,
+  #mc-call-ring,
+  .preloader-grid::before,
+  .shimmer-text {
+    animation: none !important;
+  }
+
+  #mc-call-btn {
+    animation: none !important;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    animation: none !important;
+    box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.4);
+  }
 }
