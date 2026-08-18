@@ -1,3 +1,4 @@
+
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from '../components/TextReveal';
@@ -56,7 +57,7 @@ function FullscreenProject({ project, index }) {
               <span className="mc-spinner" style={{ opacity: 0.55 }} />
             </div>
           )}
-          <video
+          <motion.video
             autoPlay loop muted playsInline preload="metadata" poster={project.image}
             aria-label={`${project.title} — showreel`}
             tabIndex={-1}
@@ -68,10 +69,11 @@ function FullscreenProject({ project, index }) {
               objectFit: 'cover', zIndex: 0,
               opacity: videoReady ? 1 : 0,
               transition: 'opacity 0.8s var(--ease-out-expo)',
+              scale,
             }}
           >
             <source src={project.video} type="video/mp4" />
-          </video>
+          </motion.video>
           <div style={{
             position: 'absolute', inset: 0, zIndex: 1,
             background: 'linear-gradient(to top, rgba(11,15,14,0.95) 0%, rgba(11,15,14,0.2) 50%, transparent 100%)',

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
-import { PageHero, PageSection, SectionHeading, CtaBand, FaqList, GlassCard } from '../components/PageKit';
+import { PageHero, PageSection, SectionHeading, FaqList, GlassCard } from '../components/PageKit';
+import ProcessFlow from '../components/ProcessFlow';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { PROCESS_STEPS } from '../utils/constants';
 import { SITE } from '../data/site';
@@ -36,7 +37,7 @@ export default function ProcessPage() {
       <Seo
         path="/process"
         title={`Our Process — How We Deliver Projects | ${SITE.name}`}
-        description="A six-stage process built to remove uncertainty: discovery, research, planning, design and development, review, and delivery with support. Written scope, fixed pricing, defined outputs at every stage."
+        description="A six-stage process built to remove uncertainty: discovery, research, planning, build, review and delivery. Written scope and fixed pricing before anything starts."
         keywords={[
           'web development process',
           'design process agency',
@@ -68,11 +69,15 @@ export default function ProcessPage() {
       />
 
       <PageHero
+        fullscreen
+        scrollCue
         eyebrow="OUR PROCESS"
         title="Six stages. No"
         titleAccent="guesswork."
         subtitle="Most project failures are not technical — they are the result of unclear scope, undefined approvals and silent delays. Our process exists to make each of those impossible."
-        background="/images/backgrounds/process-bg.webp"
+        background="/images/pages/process-hero.webp"
+        bgOpacity={0.55}
+        imageSide="left"
         breadcrumbs={[
           { name: 'Home', path: '/' },
           { name: 'Process', path: '/process' },
@@ -84,99 +89,14 @@ export default function ProcessPage() {
       </PageHero>
 
       {/* ── Timeline ── */}
-      <PageSection style={{ paddingTop: 0 }}>
-        <div style={{ position: 'relative' }}>
-          {/* vertical line */}
-          <div
-            aria-hidden="true"
-            className="process-line"
-            style={{
-              position: 'absolute', left: '27px', top: '20px', bottom: '20px', width: '1px',
-              background: 'linear-gradient(to bottom, transparent, rgba(34,197,94,0.28) 8%, rgba(34,197,94,0.28) 92%, transparent)',
-            }}
-          />
+      <ProcessFlow
+        steps={PROCESS_STEPS}
+        image="/images/pages/process-flow.webp"
+        eyebrow="THE PROCESS"
+        title="Six stages, in order,"
+        accent="with nothing hidden between them"
+      />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {PROCESS_STEPS.map((step, i) => (
-              <ViewAnimator
-                key={step.step}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, margin: '-8%' }}
-                transition={{ duration: 0.6, delay: 0.04 * i, ease: EASE }}
-              >
-                <div
-                  id={`step-${step.step}`}
-                  className="process-row"
-                  style={{ display: 'flex', gap: '28px', alignItems: 'flex-start', scrollMarginTop: '110px' }}
-                >
-                  {/* Node */}
-                  <div
-                    style={{
-                      flexShrink: 0, width: '56px', height: '56px', borderRadius: '50%',
-                      border: '1px solid rgba(34,197,94,0.3)', background: 'rgba(11,15,14,0.95)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: 'var(--font-mono)', fontSize: '0.875rem',
-                      color: 'var(--color-primary)', position: 'relative', zIndex: 2,
-                      boxShadow: '0 0 24px rgba(34,197,94,0.12)',
-                    }}
-                  >
-                    {step.step}
-                  </div>
-
-                  <div style={{ flex: 1 }}>
-                    <GlassCard padding="30px 30px 26px">
-                      <h2
-                        style={{
-                          fontFamily: 'var(--font-display)', fontSize: 'clamp(1.25rem, 2.2vw, 1.625rem)',
-                          fontWeight: 600, color: '#fff', marginBottom: '14px', letterSpacing: '-0.02em',
-                        }}
-                      >
-                        {step.title}
-                      </h2>
-                      <p style={{ color: 'rgba(255,255,255,0.62)', lineHeight: 1.8, fontSize: '1rem', marginBottom: '14px' }}>
-                        {step.description}
-                      </p>
-                      {step.detail && (
-                        <p style={{ color: 'rgba(255,255,255,0.48)', lineHeight: 1.8, fontSize: '0.9375rem', marginBottom: '22px' }}>
-                          {step.detail}
-                        </p>
-                      )}
-                      {step.outputs && (
-                        <>
-                          <p
-                            style={{
-                              fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.16em',
-                              textTransform: 'uppercase', color: 'rgba(255,255,255,0.48)', marginBottom: '12px',
-                            }}
-                          >
-                            What you receive
-                          </p>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                            {step.outputs.map((o) => (
-                              <span
-                                key={o}
-                                style={{
-                                  padding: '6px 14px', borderRadius: 'var(--radius-full)',
-                                  border: '1px solid rgba(34,197,94,0.18)', background: 'rgba(34,197,94,0.04)',
-                                  fontSize: '0.75rem', color: 'var(--color-primary)', opacity: 0.85,
-                                  fontFamily: 'var(--font-mono)',
-                                }}
-                              >
-                                {o}
-                              </span>
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </GlassCard>
-                  </div>
-                </div>
-              </ViewAnimator>
-            ))}
-          </div>
-        </div>
-      </PageSection>
 
       {/* ── What makes it work ── */}
       <PageSection tint>
@@ -290,13 +210,6 @@ export default function ProcessPage() {
         </div>
       </PageSection>
 
-      <CtaBand
-        eyebrow="Stage one"
-        title="It starts with a conversation."
-        text="No pitch deck, no pressure. Just a discussion about what your business needs and whether we are the right people to build it."
-        secondaryLabel="View Services"
-        secondaryHref="/services"
-      />
 
       <style>{`
         @media (max-width: 640px) {

@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FadeIn } from './TextReveal';
+import Rich from './Rich';
 import LazyImage from './LazyImage';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import useLazyBackground from '../utils/useLazyBackground';
@@ -105,27 +106,58 @@ export function Breadcrumbs({ items = [] }) {
   );
 }
 
-/* ─── Page hero ───────────────────────────────────────── */
+/* ─── Page hero ───────────────────────────────────────────
+   `fullscreen` gives the hero the whole viewport and centres the
+   content in it. Every inner page uses it: a hero that ends
+   two-thirds down the screen reads as the top of a document,
+   while one that owns the fold reads as an entrance — and it is
+   the only place on an inner page where the photograph gets
+   enough room to do any emotional work at all.
+
+   The home page keeps its own bespoke hero and does not use this.
+───────────────────────────────────────────────────────── */
 export function PageHero({
   eyebrow,
   title,
   titleAccent,
+  /** render the accent on the same line instead of breaking to a new one */
+  accentInline = false,
   subtitle,
   background,
+  /** how strongly the photograph reads through the mask */
+  bgOpacity = 0.16,
+  /** left | right | center — where the mask lets the image breathe */
+  imageSide = 'right',
   breadcrumbs,
   children,
   align = 'left',
   compact = false,
+  fullscreen = false,
+  scrollCue = false,
 }) {
   const bgRef = useLazyBackground(background);
   const centered = align === 'center';
+
+  /* Horizontal falloff so the photograph survives on one side
+     instead of being flattened to a uniform grey wash. */
+  const sideMask =
+    imageSide === 'left'
+      ? 'linear-gradient(to left, rgba(11,15,14,0.96) 0%, rgba(11,15,14,0.72) 44%, rgba(11,15,14,0.18) 100%)'
+      : imageSide === 'center'
+        ? 'linear-gradient(to bottom, rgba(11,15,14,0.86) 0%, rgba(11,15,14,0.72) 50%, rgba(11,15,14,0.92) 100%)'
+        : 'linear-gradient(to right, rgba(11,15,14,0.96) 0%, rgba(11,15,14,0.72) 44%, rgba(11,15,14,0.18) 100%)';
 
   return (
     <section
       style={{
         position: 'relative',
         background: 'var(--bg)',
-        padding: compact ? '150px 0 60px' : '170px 0 90px',
+        minHeight: fullscreen ? '100vh' : undefined,
+        display: fullscreen ? 'flex' : undefined,
+        alignItems: fullscreen ? 'center' : undefined,
+        padding: fullscreen
+          ? 'clamp(140px, 17vh, 190px) 0 clamp(70px, 10vh, 110px)'
+          : compact ? '150px 0 60px' : '170px 0 90px',
         overflow: 'hidden',
       }}
     >
@@ -137,7 +169,7 @@ export function PageHero({
           style={{
             position: 'absolute', inset: 0, zIndex: 0,
             backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: 0.16,
+            opacity: bgOpacity,
           }}
         />
       )}
@@ -147,10 +179,22 @@ export function PageHero({
         aria-hidden="true"
         style={{
           position: 'absolute', inset: 0, zIndex: 1,
-          background:
-            'linear-gradient(to bottom, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.65) 40%, var(--bg) 100%)',
+          background: fullscreen
+            ? sideMask
+            : 'linear-gradient(to bottom, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.65) 40%, var(--bg) 100%)',
         }}
       />
+
+      {/* Bottom fade into the next section */}
+      {fullscreen && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute', inset: 0, zIndex: 1,
+            background: 'linear-gradient(to bottom, rgba(11,15,14,0.55) 0%, transparent 26%, transparent 68%, var(--bg) 100%)',
+          }}
+        />
+      )}
 
       {/* Ambient glow */}
       <div
@@ -189,7 +233,7 @@ export function PageHero({
             {title}
             {titleAccent && (
               <>
-                <br />
+                {accentInline ? ' ' : <br />}
                 <span
                   style={{
                     fontStyle: 'italic', fontWeight: 400,
@@ -207,22 +251,84 @@ export function PageHero({
 
         {subtitle && (
           <FadeIn delay={0.16}>
-            <p
+            <Rich
+              as="p"
+              text={subtitle}
               style={{
-                fontSize: 'clamp(1rem, 1.4vw, 1.1875rem)',
-                color: 'rgba(255,255,255,0.6)', lineHeight: 1.75,
-                maxWidth: '660px',
+                fontSize: 'clamp(1.0313rem, 1.45vw, 1.25rem)',
+                color: 'rgba(255,255,255,0.68)', lineHeight: 1.78,
+                maxWidth: '700px',
                 margin: centered ? '0 auto' : 0,
               }}
-            >
-              {subtitle}
-            </p>
+            />
           </FadeIn>
         )}
 
         {children && <FadeIn delay={0.24}><div style={{ marginTop: '40px' }}>{children}</div></FadeIn>}
+
+        {scrollCue && (
+          <FadeIn delay={0.4}>
+            <div
+              aria-hidden="true"
+              className="mc-scroll-cue"
+              style={{
+                marginTop: 'clamp(40px, 6vh, 68px)',
+                display: 'inline-flex', alignItems: 'center', gap: '12px',
+                fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.38)',
+              }}
+            >
+              <span style={{ position: 'relative', display: 'block', width: '1px', height: '34px', background: 'rgba(255,255,255,0.14)', overflow: 'hidden' }}>
+                <span className="mc-scroll-cue__run" />
+              </span>
+              Scroll
+            </div>
+          </FadeIn>
+        )}
       </div>
     </section>
+  );
+}
+
+/* ─── Hero stat row ───────────────────────────────────────
+   Numbers next to the primary CTA. Three facts a buyer wants
+   before they will click anything: how long, what it costs them
+   to wait, and who they are dealing with.
+───────────────────────────────────────────────────────── */
+export function HeroStats({ stats = [] }) {
+  if (!stats.length) return null;
+
+  return (
+    <div className="mc-hero-stats" style={{ display: 'flex', alignItems: 'stretch', gap: '0', flexWrap: 'wrap' }}>
+      {stats.map((s, i) => (
+        <div
+          key={s.label}
+          style={{
+            padding: i === 0 ? '0 26px 0 0' : '0 26px',
+            borderLeft: i === 0 ? 'none' : '1px solid var(--border-subtle)',
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 2.4vw, 2rem)',
+              fontWeight: 600, color: 'var(--color-primary)', lineHeight: 1.1,
+            }}
+          >
+            {s.value}
+          </div>
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', letterSpacing: '0.1em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.46)', marginTop: '7px',
+              lineHeight: 1.5, maxWidth: '150px',
+            }}
+          >
+            {s.label}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -752,6 +858,30 @@ export function PageKitStyles() {
       /* A breadcrumb is navigation; it is not part of the article. */
       @media print {
         .mc-breadcrumbs { display: none !important; }
+      }
+
+      /* Scroll cue: a single travelling tick, not a bouncing arrow. */
+      .mc-scroll-cue__run {
+        position: absolute;
+        left: 0; top: 0;
+        width: 1px; height: 12px;
+        background: var(--color-primary);
+        animation: mc-cue-run 2.1s var(--ease-out-expo) infinite;
+      }
+
+      @keyframes mc-cue-run {
+        0%   { transform: translateY(-14px); opacity: 0; }
+        35%  { opacity: 1; }
+        100% { transform: translateY(34px); opacity: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .mc-scroll-cue__run { animation: none; opacity: 0.6; }
+      }
+
+      @media (max-width: 560px) {
+        .mc-hero-stats > div { padding: 0 18px !important; }
+        .mc-hero-stats > div:first-child { padding-left: 0 !important; }
       }
     `}</style>
   );

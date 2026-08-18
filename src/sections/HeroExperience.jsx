@@ -5,9 +5,7 @@ import AuroraField from '../components/AuroraField';
 import { prefersReducedMotion } from '../utils/motion';
 import { trackCta, trackVideoPlay } from '../utils/analytics';
 
-/* Video URL from external CDN was broken (empty file).
-   Using Aurora Field background instead. */
-const VIDEO_URL = null;
+const VIDEO_URL = 'https://files.catbox.moe/24krt8.mp4';
 
 /* Save-Data and 2G/3G connections: the film is decoration, and
    decoration should not cost a visitor on a metered connection
@@ -32,14 +30,21 @@ export default function HeroExperience() {
   const [allowVideo, setAllowVideo] = useState(false);
 
   useEffect(() => {
-    setAllowVideo(!shouldSkipVideo());
+    const skip = shouldSkipVideo();
+    console.log('[Hero] Video allowed:', !skip);
+    setAllowVideo(!skip);
   }, []);
 
   /* Fallback: if video doesn't load within 4s, show it anyway
      so it doesn't block the hero on slow connections. */
   useEffect(() => {
-    if (!allowVideo) return;
+    if (!allowVideo) {
+      console.log('[Hero] allowVideo is false, skipping video');
+      return;
+    }
+    console.log('[Hero] Setting 4s timeout for video');
     const timeout = setTimeout(() => {
+      console.log('[Hero] 4s timeout fired, setting videoReady');
       setVideoReady(true);
     }, 4000);
     return () => clearTimeout(timeout);
@@ -63,7 +68,7 @@ export default function HeroExperience() {
       {/* Layer 0: Video Background */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <AuroraField />
-        {allowVideo && !videoFailed && VIDEO_URL && (
+        {allowVideo && !videoFailed && (
           <video
             autoPlay
             loop
@@ -75,13 +80,23 @@ export default function HeroExperience() {
             /* A failed load is not an error state here — the aurora
                field underneath is a complete background on its own,
                so we simply stop trying and show nothing. */
-            onError={() => setVideoFailed(true)}
-            onCanPlay={() => setVideoReady(true)}
-            onPlaying={() => trackVideoPlay('hero_film', 'homepage_hero')}
+            onError={(e) => {
+              console.log('[Hero] Video error:', e);
+              setVideoFailed(true);
+            }}
+            onCanPlay={() => {
+              console.log('[Hero] Video canplay event fired');
+              setVideoReady(true);
+            }}
+            onPlaying={() => {
+              console.log('[Hero] Video playing');
+              trackVideoPlay('hero_film', 'homepage_hero');
+            }}
+            onLoadedMetadata={() => console.log('[Hero] Video metadata loaded')}
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'cover',
-              opacity: videoReady ? 0.35 : 0,
+              opacity: videoReady ? 0.6 : 0,
               transition: 'opacity 1.2s var(--ease-out-expo)',
             }}
           >

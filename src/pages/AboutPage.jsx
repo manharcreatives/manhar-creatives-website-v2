@@ -1,37 +1,48 @@
 import { Link } from 'react-router-dom';
 import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
 import {
-  PageHero, PageSection, SectionHeading, CtaBand, FaqList,
+  PageHero, PageSection, SectionHeading, FaqList,
   GlassCard, StatStrip, SplitPoints,
 } from '../components/PageKit';
+import { ImageCard, WorkKitStyles } from '../components/WorkKit';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { SERVICES } from '../data/services';
 import { SITE, STATS, CITIES } from '../data/site';
 
 const EASE = [0.16, 1, 0.3, 1];
 
+/* Each principle carries its own photograph. Six identical glass
+   cards made six different commitments read as one block of text
+   nobody finished — the image is what makes each one a separate
+   thought. Paths are slots: drop new artwork over the filename. */
 const PRINCIPLES = [
   {
+    image: '/images/about/principle-01.webp',
     title: 'Business outcome over appearance',
     desc: 'A beautiful website that generates nothing is a failed project. Every decision we make is judged against whether it helps the business get found, get trusted, or get contacted.',
   },
   {
+    image: '/images/about/principle-02.webp',
     title: 'Say the honest thing',
     desc: 'We will tell you when you need less than you asked for, when an off-the-shelf tool beats a custom build, and when the problem is not the thing you think it is. Agreement is easy; usefulness is not.',
   },
   {
+    image: '/images/about/principle-03.webp',
     title: 'You own everything',
     desc: 'Source code, domain, hosting account, data. All registered in your name, all handed over in full. No lock-in, no leverage, no awkward conversation if you ever want to move.',
   },
   {
+    image: '/images/about/principle-04.webp',
     title: 'Scope before start',
     desc: 'A written scope and a fixed price before work begins. Anything new is a change request with its own quote — never a silent delay or a surprise invoice at the end.',
   },
   {
+    image: '/images/about/principle-05.webp',
     title: 'Build systems, not deliverables',
     desc: 'A logo is an asset; a brand system keeps every future design consistent. A page is a deliverable; a structured site keeps ranking. We build the thing that keeps working after we leave.',
   },
   {
+    image: '/images/about/principle-06.webp',
     title: 'Support after launch',
     desc: 'Handover includes training, documentation and a support period. The relationship does not end the moment the final invoice is settled.',
   },
@@ -92,12 +103,18 @@ export default function AboutPage() {
         ]}
       />
 
+      <WorkKitStyles />
+
       <PageHero
+        fullscreen
+        scrollCue
         eyebrow="ABOUT US"
         title="We don’t sell websites."
         titleAccent="We build growth systems."
         subtitle={`${SITE.name} is a digital solutions and branding company based in ${SITE.address.locality}, ${SITE.address.region}. We work with businesses that have built real reputation offline and need that same credibility to exist online.`}
-        background="/images/backgrounds/story-bg.webp"
+        background="/images/pages/about-hero.webp"
+        bgOpacity={0.55}
+        imageSide="right"
         breadcrumbs={[
           { name: 'Home', path: '/' },
           { name: 'About', path: '/about' },
@@ -193,29 +210,7 @@ export default function AboutPage() {
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
           {PRINCIPLES.map((p, i) => (
-            <ViewAnimator
-              key={p.title}
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-8%' }}
-              transition={{ duration: 0.58, delay: (i % 3) * 0.08, ease: EASE }}
-              style={{ height: '100%' }}
-            >
-              <GlassCard>
-                <span
-                  style={{
-                    display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.8125rem',
-                    color: 'var(--color-primary)', opacity: 0.7, marginBottom: '16px',
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.0938rem', fontWeight: 600, color: '#fff', marginBottom: '12px', lineHeight: 1.35 }}>
-                  {p.title}
-                </h3>
-                <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.54)', lineHeight: 1.78 }}>{p.desc}</p>
-              </GlassCard>
-            </ViewAnimator>
+            <ImageCard key={p.title} item={p} index={i} minHeight="330px" />
           ))}
         </div>
       </PageSection>
@@ -283,13 +278,6 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
-      <CtaBand
-        eyebrow="Let’s talk"
-        title="Tell us what you’re trying to build."
-        text="Describe the business problem. We will tell you honestly what fixes it — and what does not."
-        secondaryLabel="Our Process"
-        secondaryHref="/process"
-      />
     </>
   );
 }

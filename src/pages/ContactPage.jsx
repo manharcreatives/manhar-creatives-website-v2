@@ -112,11 +112,15 @@ export default function ContactPage() {
       />
 
       <PageHero
+        fullscreen
+        scrollCue
         eyebrow="GET IN TOUCH"
         title="Tell us what you’re"
         titleAccent="trying to build."
         subtitle="Describe the business problem rather than the solution. We will tell you honestly what it takes to fix it — including when you need less than you think."
-        background="/images/backgrounds/contact-bg.webp"
+        background="/images/pages/contact-hero.webp"
+        bgOpacity={0.55}
+        imageSide="left"
         breadcrumbs={[
           { name: 'Home', path: '/' },
           { name: 'Contact', path: '/contact' },

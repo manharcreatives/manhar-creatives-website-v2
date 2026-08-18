@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { SITE } from '../data/site';
+import { plain } from './Rich';
 
 /* ═══════════════════════════════════════════════════════════
    SEO — per-route head manager
@@ -118,7 +119,13 @@ export default function Seo({
   return null;
 }
 
-/* ─── SCHEMA BUILDERS ─────────────────────────────────── */
+/* ─── SCHEMA BUILDERS ─────────────────────────────────────
+   Copy in the data files marks emphasis with **double asterisks**
+   for <Rich> to render. Structured data is machine-read and has
+   no renderer, so every string that comes from that copy is put
+   through `plain()` on the way out — otherwise Google ingests the
+   asterisks verbatim as part of the description.
+───────────────────────────────────────────────────────── */
 
 export const orgSchema = () => ({
   '@context': 'https://schema.org',
@@ -161,8 +168,8 @@ export const faqSchema = (faqs) => {
     '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({
       '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
+      name: plain(f.q),
+      acceptedAnswer: { '@type': 'Answer', text: plain(f.a) },
     })),
   };
 };
@@ -172,9 +179,12 @@ export const serviceSchema = (service) => ({
   '@type': 'Service',
   '@id': `${SITE.url}/services/${service.slug}#service`,
   name: service.title,
-  description: service.description,
+  description: plain(service.description),
   serviceType: service.title,
   url: `${SITE.url}/services/${service.slug}`,
+  /* The hero photograph, not the generic site OG image — this is
+     what shows up beside the service in rich results. */
+  image: `${SITE.url}${service.media?.hero || service.image}`,
   provider: { '@id': `${SITE.url}/#organization` },
   areaServed: [
     { '@type': 'City', name: 'Ahmedabad' },
@@ -188,7 +198,7 @@ export const serviceSchema = (service) => ({
     name: `${service.title} Deliverables`,
     itemListElement: (service.deliverables || []).map((d) => ({
       '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: d.title, description: d.desc },
+      itemOffered: { '@type': 'Service', name: plain(d.title), description: plain(d.desc) },
     })),
   },
 });
@@ -199,7 +209,7 @@ export const articleSchema = (post, wordCount) => ({
   '@id': `${SITE.url}/blog/${post.slug}#article`,
   headline: post.title,
   alternativeHeadline: post.h1,
-  description: post.excerpt,
+  description: plain(post.excerpt),
   image: `${SITE.url}${post.image}`,
   datePublished: post.date,
   dateModified: post.updated || post.date,

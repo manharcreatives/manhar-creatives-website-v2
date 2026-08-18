@@ -120,7 +120,18 @@ html, body {
 #root {
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden; /* Safe here — fixed elements escape #root's stacking context */
+
+  /* overflow-x:hidden makes the browser compute overflow-y as `auto`,
+     which turns #root into a scroll container — and a scroll container
+     ancestor is what silently breaks every position:sticky inside it
+     (the pinned horizontal panels on the service pages depend on it).
+
+     `clip` does the same visual job without creating a scroll container,
+     so it is declared second and wins wherever it is supported. The
+     `hidden` line above stays as the fallback for Safari < 16. */
+  overflow-x: hidden; /* fallback — fixed elements escape #root's stacking context */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* Lenis smooth scroll */
@@ -1353,5 +1364,86 @@ textarea::placeholder {
   .btn-primary:hover:not(:disabled) {
     animation: none !important;
     box-shadow: 0 8px 32px rgba(var(--color-primary-rgb), 0.4);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INLINE EMPHASIS
+   Body copy marks its load-bearing phrases with **double
+   asterisks** in the data files; <Rich> turns them into these.
+   A highlight rather than a colour swap, because on a dark
+   surface coloured text reads as a link and gets clicked.
+   ═══════════════════════════════════════════════════════════ */
+.mc-hl {
+  background: linear-gradient(
+    to bottom,
+    transparent 58%,
+    rgba(var(--color-primary-rgb), 0.34) 58%,
+    rgba(var(--color-primary-rgb), 0.34) 92%,
+    transparent 92%
+  );
+  color: #ffffff;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0 1px;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* <mark> carries an implicit ARIA role in some engines; the
+   emphasis here is presentational, so it is not announced. */
+.mc-hl::before,
+.mc-hl::after {
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.mc-quiet {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER TAP TARGETS
+   Footer links render around 24px tall, which is the WCAG 2.5.8
+   floor and well under the ~44px a thumb reliably hits. On touch
+   screens the row is padded out vertically; pointer devices keep
+   the original tighter rhythm, so nothing shifts on desktop.
+   ═══════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .mc-footer-tap {
+    min-height: 44px;
+    padding-block: 10px;
+  }
+
+  /* The padding would otherwise double the visual gap between rows. */
+  footer nav {
+    gap: 2px !important;
+  }
+
+  /* The address block and the legal row are separate components that
+     render links at 19–22px. Rather than tag each one, every link in
+     the footer gets the same floor on touch — the footer is the one
+     place on the site where links are stacked tightly enough for a
+     mistap to be likely. */
+  footer a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Inline .mc-link rows in the contact block render at 19px, under the
+     24px WCAG 2.5.8 floor. The underline animation is drawn on ::after
+     positioned against the link box, so the box is padded rather than
+     given a min-height — that keeps the underline sitting on the text
+     instead of drifting away from it. */
+  .mc-link {
+    display: inline-block;
+    padding-block: 8px;
   }
 }

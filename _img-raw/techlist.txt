@@ -1,0 +1,28 @@
+react|React
+nextjs|Next.js
+vite|Vite
+tailwind|Tailwind CSS
+nodejs|Node.js
+wordpress|WordPress
+vercel|Vercel
+cloudflare|Cloudflare
+python|Python
+postgresql|PostgreSQL
+mysql|MySQL
+supabase|Supabase
+restapis|REST APIs
+docker|Docker
+aws|AWS
+cloudhosting|Cloud Hosting
+adobeillustrator|Adobe Illustrator
+adobephotoshop|Adobe Photoshop
+figma|Figma
+indesign|InDesign
+aftereffects|After Effects
+adobeindesign|Adobe InDesign
+coreldraw|CorelDRAW
+googlebusinessprofile|Google Business Profile
+googlesearchconsole|Google Search Console
+googleanalytics4|Google Analytics 4
+googletagmanager|Google Tag Manager
+whatsappbusiness|WhatsApp Business

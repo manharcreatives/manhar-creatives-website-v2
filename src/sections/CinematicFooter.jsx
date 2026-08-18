@@ -114,6 +114,10 @@ function FooterLink({ href, children, external = false }) {
     display: 'flex', alignItems: 'center', gap: '10px',
     fontSize: '0.9375rem', color: h ? '#fff' : 'rgba(255,255,255,0.5)',
     textDecoration: 'none', transition: 'color 0.28s', width: 'fit-content',
+    /* A 24px-tall link is a coin toss to hit on a phone. The class adds
+       vertical padding on touch screens only — see mc-footer-tap in the
+       stylesheet below — so the desktop rhythm is unchanged. */
+    minHeight: '24px',
   };
 
   const inner = (
@@ -131,14 +135,14 @@ function FooterLink({ href, children, external = false }) {
 
   if (external || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" style={style} {...handlers}>
+      <a href={href} target="_blank" rel="noopener noreferrer" className="mc-footer-tap" style={style} {...handlers}>
         {inner}
       </a>
     );
   }
 
   return (
-    <Link to={href} style={style} {...handlers}>
+    <Link to={href} className="mc-footer-tap" style={style} {...handlers}>
       {inner}
     </Link>
   );
@@ -395,9 +399,9 @@ export default function CinematicFooter() {
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.08 * (col + 1) }}
             >
-              <h4 id={`footer-nav-${heading.toLowerCase()}`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#22C55E', marginBottom: '26px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+              <h3 id={`footer-nav-${heading.toLowerCase()}`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#22C55E', marginBottom: '26px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
                 {heading}
-              </h4>
+              </h3>
               <nav aria-labelledby={`footer-nav-${heading.toLowerCase()}`} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {links.map(l => (
                   <FooterLink key={l.label} href={l.href} external={l.external}>{l.label}</FooterLink>

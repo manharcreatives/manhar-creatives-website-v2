@@ -148,8 +148,8 @@ export default function BlogIndexPage() {
     <>
       <Seo
         path="/blog"
-        title="Blog — Website, Software & Branding Insights for Indian Businesses | Manhar Creatives"
-        description="Practical, detailed guides on website development cost, custom CRM software, Google Business Profile optimisation, branding, Core Web Vitals and business automation — written for business owners, not developers."
+        title="Blog — Website, Software & Branding Guides | Manhar Creatives"
+        description="Detailed guides on website cost, custom CRM, Google Business Profile, branding and site speed — written for business owners rather than developers."
         keywords={[
           'website development blog india',
           'custom software insights',
@@ -170,11 +170,15 @@ export default function BlogIndexPage() {
       />
 
       <PageHero
+        fullscreen
+        scrollCue
         eyebrow="INSIGHTS & RESOURCES"
         title="Guides worth"
         titleAccent="actually reading."
         subtitle="Detailed, honest writing on websites, custom software, branding and getting found online — including the numbers, trade-offs and uncomfortable answers most agencies leave out."
-        background="/images/backgrounds/blog-bg.webp"
+        background="/images/pages/blog-hero.webp"
+        bgOpacity={0.55}
+        imageSide="right"
         breadcrumbs={[
           { name: 'Home', path: '/' },
           { name: 'Blog', path: '/blog' },
@@ -296,13 +300,17 @@ export default function BlogIndexPage() {
           </div>
         </FadeIn>
 
-        {/* Result count — a live region so the number is announced
-            as it changes rather than only being visible. */}
-        <p
+        {/* Result count — a live region so the number is announced as it
+            changes rather than only being visible. It doubles as the
+            heading for the list below, which keeps the document outline
+            continuous (h1 → h2 → the h3 on each card) without adding a
+            second visible title to the page. */}
+        <h2
           id="blog-search-status"
           role="status"
           aria-live="polite"
           style={{
+            fontWeight: 400, letterSpacing: '0.06em',
             marginBottom: '28px', minHeight: '20px',
             fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
             letterSpacing: '0.06em', color: 'rgba(255,255,255,0.48)',
@@ -311,7 +319,7 @@ export default function BlogIndexPage() {
           {searching || active !== 'All'
             ? `${filtered.length} article${filtered.length === 1 ? '' : 's'}${searching ? ` matching “${trimmed}”` : ` in ${active}`}`
             : `${POSTS.length} articles`}
-        </p>
+        </h2>
 
         {/* Grid */}
         <AnimatePresence mode="wait" initial={false}>
@@ -443,13 +451,6 @@ export default function BlogIndexPage() {
         </FadeIn>
       </PageSection>
 
-      <CtaBand
-        eyebrow="Have a project?"
-        title="Reading is useful. Building is better."
-        text="Tell us what your business needs to achieve and we will scope it honestly — including when you need less than you think."
-        secondaryLabel="View Services"
-        secondaryHref="/services"
-      />
 
       <style>{`
         .blog-search:focus-within {

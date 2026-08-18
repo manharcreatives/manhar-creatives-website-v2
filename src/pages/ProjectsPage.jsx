@@ -2,12 +2,46 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
-import { PageHero, PageSection, SectionHeading, CtaBand, FaqList, StatStrip, TagRow } from '../components/PageKit';
+import { PageHero, PageSection, SectionHeading, FaqList, StatStrip } from '../components/PageKit';
+import { CaseRow, CapabilityGroups, WorkKitStyles } from '../components/WorkKit';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { PROJECTS, INDUSTRIES } from '../utils/constants';
 import { SITE, STATS } from '../data/site';
 
 const EASE = [0.16, 1, 0.3, 1];
+
+const CAPABILITIES = [
+  {
+    title: 'Interfaces people finish using',
+    desc: 'Front-end work built mobile-first and tested on the screens your customers actually own, not just the one it was designed on.',
+    tools: ['React', 'Next.js', 'Tailwind CSS', 'Figma', 'WordPress', 'Shopify'],
+  },
+  {
+    title: 'Systems that hold your data',
+    desc: 'Back-end, database and integration work for anything the site has to remember, calculate or send somewhere else.',
+    tools: ['Node.js', 'Python', 'PostgreSQL', 'Supabase', 'REST APIs'],
+  },
+  {
+    title: 'Speed that survives a weak signal',
+    desc: 'Performance treated as a build decision. Measured before handover, on a throttled connection, not on office fibre.',
+    tools: ['Core Web Vitals', 'Vercel', 'Cloudflare', 'Image optimisation'],
+  },
+  {
+    title: 'Structure search engines can read',
+    desc: 'Semantic markup, schema and clean URLs so a page can be indexed correctly the day it goes live.',
+    tools: ['Schema Markup', 'Sitemaps', 'Semantic HTML', 'Local SEO'],
+  },
+  {
+    title: 'Identity that stays consistent',
+    desc: 'Brand systems and print-ready artwork so the business looks like one company across screen, paper and signage.',
+    tools: ['Adobe Creative Suite', 'Figma', 'Brand guidelines', 'CMYK / print prep'],
+  },
+  {
+    title: 'Proof that it is working',
+    desc: 'Analytics and event tracking configured at handover, so enquiries can be traced back to what produced them.',
+    tools: ['Google Analytics 4', 'Google Tag Manager', 'Search Console', 'Event tracking'],
+  },
+];
 
 const WORK_FAQS = [
   {
@@ -27,168 +61,6 @@ const WORK_FAQS = [
     a: 'Often, yes — and it is frequently the better decision. Sometimes the design is fine and the real problem is speed, messaging or structure. We audit before recommending a rebuild, because a redesign that fixes the wrong problem is expensive and disappointing.',
   },
 ];
-
-function ProjectCard({ project, index }) {
-  const [h, setH] = useState(false);
-  const isExternal = Boolean(project.url);
-
-  const inner = (
-    <div
-      onMouseEnter={() => setH(true)}
-      onMouseLeave={() => setH(false)}
-      style={{
-        position: 'relative', display: 'flex', flexDirection: 'column', height: '100%',
-        borderRadius: 'var(--radius-lg)', overflow: 'hidden',
-        border: `1px solid ${h ? 'rgba(34,197,94,0.28)' : 'var(--border-subtle)'}`,
-        background: h ? 'rgba(31,41,55,0.42)' : 'rgba(31,41,55,0.22)',
-        backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
-        boxShadow: h ? '0 22px 54px rgba(0,0,0,0.48), 0 0 44px rgba(34,197,94,0.06)' : '0 4px 20px rgba(0,0,0,0.3)',
-        transform: h ? 'translateY(-6px)' : 'translateY(0)',
-        transition: 'all 0.38s var(--ease-out-expo)',
-      }}
-    >
-      <div
-        style={{
-          position: 'relative', paddingBottom: '58%', overflow: 'hidden',
-          background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(11,15,14,0.9))',
-        }}
-      >
-        <img
-          src={project.image}
-          alt={`${project.title} — ${project.category.toLowerCase()} by ${SITE.name}`}
-          loading="lazy"
-          decoding="async"
-          style={{
-            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-            transform: h ? 'scale(1.05)' : 'scale(1)',
-            transition: 'transform 0.75s var(--ease-out-expo)',
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(to top, rgba(11,15,14,0.9) 0%, rgba(11,15,14,0.15) 55%, transparent 100%)',
-          }}
-        />
-        <span
-          style={{
-            position: 'absolute', left: '20px', bottom: '18px',
-            fontFamily: 'var(--font-mono)', fontSize: '0.6375rem', letterSpacing: '0.16em',
-            color: 'var(--color-primary)', padding: '6px 13px', borderRadius: 'var(--radius-full)',
-            border: '1px solid rgba(34,197,94,0.28)', background: 'rgba(11,15,14,0.75)',
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          {project.category}
-        </span>
-        {project.year && (
-          <span
-            style={{
-              position: 'absolute', right: '20px', top: '18px',
-              fontFamily: 'var(--font-mono)', fontSize: '0.6875rem',
-              color: 'rgba(255,255,255,0.55)', padding: '5px 12px',
-              borderRadius: 'var(--radius-full)', background: 'rgba(11,15,14,0.7)',
-              backdropFilter: 'blur(8px)',
-            }}
-          >
-            {project.year}
-          </span>
-        )}
-      </div>
-
-      <div style={{ padding: '28px 28px 26px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <h3
-          style={{
-            fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 600,
-            color: h ? 'var(--color-primary)' : '#fff', marginBottom: '12px', lineHeight: 1.3,
-            transition: 'color 0.3s ease',
-          }}
-        >
-          {project.title}
-        </h3>
-        <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.52)', lineHeight: 1.75, marginBottom: '20px' }}>
-          {project.description}
-        </p>
-
-        {project.outcome && (
-          <div
-            style={{
-              padding: '16px 18px', borderRadius: 'var(--radius-md)', marginBottom: '20px',
-              border: '1px solid rgba(34,197,94,0.14)', background: 'rgba(34,197,94,0.04)',
-              borderLeft: '2px solid rgba(34,197,94,0.5)',
-            }}
-          >
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)', fontSize: '0.625rem', letterSpacing: '0.16em',
-                textTransform: 'uppercase', color: 'var(--color-primary)', marginBottom: '8px',
-              }}
-            >
-              Outcome
-            </p>
-            <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.62)', lineHeight: 1.7 }}>
-              {project.outcome}
-            </p>
-          </div>
-        )}
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginBottom: '20px' }}>
-          {(project.scope || project.tags).map((t) => (
-            <span
-              key={t}
-              style={{
-                padding: '5px 12px', borderRadius: 'var(--radius-full)',
-                border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)',
-                fontSize: '0.7188rem', color: 'rgba(255,255,255,0.48)',
-              }}
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div
-          style={{
-            marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            gap: '12px', paddingTop: '18px', borderTop: '1px solid var(--border-subtle)',
-          }}
-        >
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', color: 'rgba(255,255,255,0.48)' }}>
-            {project.industry}
-          </span>
-          {isExternal && (
-            <motion.span
-              animate={{ x: h ? 4 : 0 }}
-              transition={{ duration: 0.25 }}
-              style={{ color: 'var(--color-primary)', fontSize: '0.8125rem', fontWeight: 600, whiteSpace: 'nowrap' }}
-            >
-              Visit site ↗
-            </motion.span>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <ViewAnimator
-      initial={{ opacity: 0, y: 34 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-8%' }}
-      transition={{ duration: 0.65, delay: (index % 2) * 0.1, ease: EASE }}
-      style={{ height: '100%' }}
-    >
-      {isExternal ? (
-        <a href={project.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
-          {inner}
-        </a>
-      ) : (
-        <div style={{ height: '100%' }}>{inner}</div>
-      )}
-    </ViewAnimator>
-  );
-}
 
 const portfolioSchema = {
   '@context': 'https://schema.org',
@@ -212,7 +84,7 @@ export default function ProjectsPage() {
       <Seo
         path="/projects"
         title={`Our Work — Websites, Brand Systems & Digital Projects | ${SITE.name}`}
-        description="Selected work by Manhar Creatives — business websites, industrial and placement platforms, brand identity systems and digital menu solutions built for real businesses across India."
+        description="Selected work — business websites, industrial and placement platforms, brand systems and digital menus. Live links where the site is public, no mockups."
         keywords={[
           'web design portfolio india',
           'website development case studies',
@@ -231,12 +103,18 @@ export default function ProjectsPage() {
         ]}
       />
 
+      <WorkKitStyles />
+
       <PageHero
+        fullscreen
+        scrollCue
         eyebrow="SELECTED WORK"
         title="Work built to"
         titleAccent="do a job."
         subtitle="Every project here started with a specific business problem — credibility, visibility, operational drag — and was measured against whether it solved it, not whether it looked good in a portfolio."
-        background="/images/backgrounds/featured-bg.webp"
+        background="/images/pages/work-hero.webp"
+        bgOpacity={0.55}
+        imageSide="left"
         breadcrumbs={[
           { name: 'Home', path: '/' },
           { name: 'Work', path: '/projects' },
@@ -254,10 +132,22 @@ export default function ProjectsPage() {
         <StatStrip stats={STATS} />
       </PageSection>
 
-      <PageSection style={{ paddingTop: 0 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '24px' }}>
+      {/* ── Case rows ──
+          One project per band rather than a thumbnail grid. Each
+          carries year, industry, scope and the result — the things
+          a prospect is actually comparing — and links to the live
+          site, because a working site proves what a screenshot
+          cannot. */}
+      <PageSection style={{ paddingTop: 'var(--space-2xl)' }}>
+        <SectionHeading
+          eyebrow="SELECTED WORK"
+          title="Five projects,"
+          accent="and what each one had to fix"
+          subtitle="No mockups and no invented metrics. Where the site is live, the link goes straight to it."
+        />
+        <div>
           {PROJECTS.map((p, i) => (
-            <ProjectCard key={p.title} project={p} index={i} />
+            <CaseRow key={p.title} project={p} index={i} />
           ))}
         </div>
       </PageSection>
@@ -297,15 +187,13 @@ export default function ProjectsPage() {
 
       {/* ── Capabilities ── */}
       <PageSection>
-        <SectionHeading eyebrow="CAPABILITIES" title="What we bring to" accent="every project" />
-        <TagRow
-          items={[
-            'React', 'Next.js', 'Node.js', 'Python', 'PostgreSQL', 'Supabase', 'Tailwind CSS',
-            'WordPress', 'Shopify', 'Figma', 'Adobe Creative Suite', 'Vercel', 'Cloudflare',
-            'REST APIs', 'Core Web Vitals', 'Schema Markup', 'Google Analytics 4', 'Google Tag Manager',
-          ]}
-          accent
+        <SectionHeading
+          eyebrow="CAPABILITIES"
+          title="What we bring to"
+          accent="every project"
+          subtitle="Grouped by what it does for your business rather than by what it is called. The tools are listed as evidence, not as the argument."
         />
+        <CapabilityGroups groups={CAPABILITIES} />
       </PageSection>
 
       <PageSection tint>
@@ -314,13 +202,6 @@ export default function ProjectsPage() {
         </div>
       </PageSection>
 
-      <CtaBand
-        eyebrow="Your project next"
-        title="Let’s build something worth showing."
-        text="Tell us what the business needs to achieve. We will scope it honestly and build it properly."
-        secondaryLabel="Read Our Guides"
-        secondaryHref="/blog"
-      />
     </>
   );
 }
