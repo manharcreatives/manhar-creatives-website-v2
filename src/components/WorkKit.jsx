@@ -227,62 +227,131 @@ export function CaseRow({ project, index }) {
    they cannot tell React from Tailwind and they should not have
    to. Grouped by what the capability does for them, with the
    tools listed underneath as evidence rather than as the point.
+
+   Laid out as an index, not as a card grid. Six items in an
+   auto-fitting grid resolve to four columns on a desktop and
+   leave two dead cells sitting under the last row — the one
+   thing that makes an otherwise finished page look unfinished.
+   A stacked ledger cannot orphan a cell at any width, and it
+   buys something a grid never had: a single vertical rhythm the
+   eye can run down, with the numeral, the claim and the evidence
+   each holding their own column all the way through.
 ───────────────────────────────────────────────────────── */
 export function CapabilityGroups({ groups = [] }) {
   return (
     <div
       style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1px', background: 'var(--border-subtle)',
-        border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', overflow: 'hidden',
+        border: '1px solid var(--border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        background: 'rgba(11,15,14,0.74)',
+        overflow: 'hidden',
       }}
     >
       {groups.map((g, i) => (
-        <ViewAnimator
-          key={g.title}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-5%' }}
-          transition={{ duration: 0.55, delay: staggerDelay(i % 3, 0.08, 0.24), ease: EASE }}
-          style={{ background: 'rgba(11,15,14,0.74)', padding: 'clamp(26px, 2.8vw, 34px)', height: '100%' }}
-        >
-          <span
-            style={{
-              display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.6875rem',
-              letterSpacing: '0.18em', color: 'var(--color-primary)', marginBottom: '16px',
-            }}
-          >
-            {String(i + 1).padStart(2, '0')}
-          </span>
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600,
-              color: '#fff', marginBottom: '12px', lineHeight: 1.3,
-            }}
-          >
-            {g.title}
-          </h3>
-          <p style={{ fontSize: '0.9063rem', color: 'rgba(255,255,255,0.56)', lineHeight: 1.75, marginBottom: '20px' }}>
-            {g.desc}
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {g.tools.map((t) => (
-              <span
-                key={t}
-                style={{
-                  padding: '4px 11px', borderRadius: 'var(--radius-full)',
-                  border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)',
-                  fontSize: '0.6875rem', color: 'rgba(255,255,255,0.44)',
-                  fontFamily: 'var(--font-mono)',
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </ViewAnimator>
+        <CapabilityRow key={g.title} group={g} index={i} last={i === groups.length - 1} />
       ))}
     </div>
+  );
+}
+
+function CapabilityRow({ group, index, last }) {
+  const [h, setH] = useState(false);
+
+  return (
+    <ViewAnimator
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '-4%' }}
+      transition={{ duration: 0.55, delay: staggerDelay(index, 0.06, 0.3), ease: EASE }}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      className="mc-cap-row"
+      style={{
+        position: 'relative',
+        display: 'grid',
+        gridTemplateColumns: 'clamp(56px, 6vw, 88px) minmax(0, 0.82fr) minmax(0, 1.18fr)',
+        gap: 'clamp(18px, 2.4vw, 40px)',
+        alignItems: 'start',
+        padding: 'clamp(26px, 3vw, 40px) clamp(20px, 2.4vw, 34px)',
+        borderBottom: last ? 'none' : '1px solid var(--border-subtle)',
+      }}
+    >
+      {/* Hover wash, running left to right so it reads as the row
+          lighting up from the numeral rather than as a flat fill. */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'linear-gradient(90deg, rgba(34,197,94,0.07) 0%, rgba(34,197,94,0.02) 42%, transparent 78%)',
+          opacity: h ? 1 : 0,
+          transition: 'opacity 0.45s ease',
+        }}
+      />
+      {/* Accent rail on the active row — the same device the case
+          rows use for their result line, at row scale. */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: '2px',
+          background: 'var(--color-primary)',
+          transformOrigin: '50% 0',
+          transform: h ? 'scaleY(1)' : 'scaleY(0)',
+          transition: 'transform 0.5s var(--ease-out-expo)',
+        }}
+      />
+
+      <span
+        className="mc-cap-row__num"
+        style={{
+          position: 'relative',
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(1.5rem, 2.6vw, 2.375rem)',
+          fontWeight: 600, lineHeight: 1, letterSpacing: '-0.02em',
+          color: h ? 'var(--color-primary)' : 'transparent',
+          WebkitTextStroke: `1px ${h ? 'rgba(34,197,94,0.5)' : 'rgba(255,255,255,0.24)'}`,
+          transition: 'color 0.4s ease, -webkit-text-stroke-color 0.4s ease',
+        }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </span>
+
+      <h3
+        style={{
+          position: 'relative',
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(1.0625rem, 1.55vw, 1.375rem)',
+          fontWeight: 600, color: '#fff', lineHeight: 1.28, letterSpacing: '-0.015em',
+          transform: h ? 'translateX(4px)' : 'none',
+          transition: 'transform 0.45s var(--ease-out-expo)',
+        }}
+      >
+        {group.title}
+      </h3>
+
+      <div style={{ position: 'relative' }}>
+        <p style={{ fontSize: '0.9063rem', color: 'rgba(255,255,255,0.56)', lineHeight: 1.75, marginBottom: '18px' }}>
+          {group.desc}
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          {group.tools.map((t) => (
+            <span
+              key={t}
+              style={{
+                padding: '4px 11px', borderRadius: 'var(--radius-full)',
+                border: `1px solid ${h ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.08)'}`,
+                background: 'rgba(255,255,255,0.02)',
+                fontSize: '0.6875rem',
+                color: h ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.44)',
+                fontFamily: 'var(--font-mono)',
+                transition: 'color 0.35s ease, border-color 0.35s ease',
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </ViewAnimator>
   );
 }
 
@@ -367,6 +436,64 @@ export function ImageCard({ item, index, minHeight = '300px' }) {
 export function WorkKitStyles() {
   return (
     <style>{`
+      /* ─── Sector matrix ───────────────────────────────────
+         Fixed columns, not auto-fit: eight cells divide cleanly
+         by four, two and one, so the block is a filled rectangle
+         at every width instead of a five-across row with three
+         empty slots trailing it. The 1px gap is the hairline
+         rule — the container behind it supplies the colour. */
+      .mc-sector-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+      }
+
+      @media (max-width: 1040px) {
+        .mc-sector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 560px) {
+        .mc-sector-grid { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      /* ─── Capability ledger ───────────────────────────────
+         Three columns need roughly 900px before the middle one
+         stops setting two-word lines. Below that the numeral
+         keeps its gutter and the claim sits on top of its own
+         evidence, which is the reading order anyway. */
+      @media (max-width: 980px) {
+        .mc-cap-row {
+          grid-template-columns: clamp(40px, 7vw, 56px) minmax(0, 1fr) !important;
+          gap: 12px 16px !important;
+        }
+        .mc-cap-row > h3  { grid-column: 2 !important; grid-row: 1 !important; }
+        .mc-cap-row > div { grid-column: 2 !important; grid-row: 2 !important; }
+      }
+
+      /* ─── Principle mosaic ────────────────────────────────
+         Six cards in an auto-fitting grid land as four-plus-two
+         and leave a hole in the bottom row. A fixed twelve-column
+         bed with mirrored 5/4/3 spans fills the block exactly at
+         every breakpoint, and the widths changing down the page
+         is what stops six equal rectangles reading as a table. */
+      .mc-principle-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 20px;
+      }
+      .mc-principle-cell--5 { grid-column: span 5; }
+      .mc-principle-cell--4 { grid-column: span 4; }
+      .mc-principle-cell--3 { grid-column: span 3; }
+
+      @media (max-width: 1100px) {
+        .mc-principle-grid > * { grid-column: span 6 !important; }
+      }
+
+      @media (max-width: 640px) {
+        .mc-principle-grid { gap: 16px; }
+        .mc-principle-grid > * { grid-column: span 12 !important; }
+      }
+
       @media (max-width: 900px) {
         .mc-case-row { grid-template-columns: 1fr !important; gap: 28px !important; }
         /* On one column the image always leads, whatever the row index —

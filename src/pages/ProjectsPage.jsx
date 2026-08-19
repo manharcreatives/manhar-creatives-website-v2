@@ -5,6 +5,7 @@ import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
 import { PageHero, PageSection, SectionHeading, FaqList, StatStrip } from '../components/PageKit';
 import { CaseRow, CapabilityGroups, WorkKitStyles } from '../components/WorkKit';
 import { ViewAnimator } from '../utils/useInViewLenis';
+import { staggerDelay } from '../utils/motion';
 import { PROJECTS, INDUSTRIES } from '../utils/constants';
 import { SITE, STATS } from '../data/site';
 
@@ -61,6 +62,89 @@ const WORK_FAQS = [
     a: 'Often, yes — and it is frequently the better decision. Sometimes the design is fine and the real problem is speed, messaging or structure. We audit before recommending a rebuild, because a redesign that fixes the wrong problem is expensive and disappointing.',
   },
 ];
+
+/* ─── Sector cell ─────────────────────────────────────────
+   The eight sectors were eight identical paragraphs in eight
+   identical boxes — correct, and completely flat. The index in
+   the corner gives the matrix a reading order, and the hover
+   state gives the cell somewhere to go: the wash comes up from
+   the bottom, the rule under the heading draws itself across,
+   and the copy lifts out of its resting grey.
+───────────────────────────────────────────────────────── */
+function SectorCell({ industry, index }) {
+  const [h, setH] = useState(false);
+
+  return (
+    <ViewAnimator
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false }}
+      transition={{ duration: 0.5, delay: staggerDelay(index % 4, 0.06, 0.24), ease: EASE }}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{
+        position: 'relative',
+        background: 'rgba(11,15,14,0.78)',
+        padding: 'clamp(24px, 2.4vw, 32px) clamp(22px, 2.2vw, 28px)',
+        overflow: 'hidden',
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'linear-gradient(to top, rgba(34,197,94,0.09) 0%, transparent 72%)',
+          opacity: h ? 1 : 0,
+          transition: 'opacity 0.45s ease',
+        }}
+      />
+
+      <div style={{ position: 'relative' }}>
+        <span
+          style={{
+            display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.625rem',
+            letterSpacing: '0.18em',
+            color: h ? 'var(--color-primary)' : 'rgba(255,255,255,0.26)',
+            marginBottom: '16px', transition: 'color 0.35s ease',
+          }}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+
+        <h3
+          style={{
+            fontFamily: 'var(--font-display)', fontSize: '0.9688rem', fontWeight: 600,
+            color: '#fff', lineHeight: 1.35, marginBottom: '12px',
+          }}
+        >
+          {industry.name}
+        </h3>
+
+        <span
+          aria-hidden="true"
+          style={{
+            display: 'block', height: '1px', marginBottom: '12px',
+            background: 'var(--color-primary)',
+            transformOrigin: '0 50%',
+            transform: h ? 'scaleX(1)' : 'scaleX(0)',
+            opacity: 0.6,
+            transition: 'transform 0.55s var(--ease-out-expo)',
+          }}
+        />
+
+        <p
+          style={{
+            fontSize: '0.8438rem', lineHeight: 1.7,
+            color: h ? 'rgba(255,255,255,0.66)' : 'rgba(255,255,255,0.48)',
+            transition: 'color 0.35s ease',
+          }}
+        >
+          {industry.desc}
+        </p>
+      </div>
+    </ViewAnimator>
+  );
+}
 
 const portfolioSchema = {
   '@context': 'https://schema.org',
@@ -160,27 +244,20 @@ export default function ProjectsPage() {
           accent="build for"
           subtitle="Different sectors fail online in different ways. We adapt the approach rather than reusing one template."
         />
+        {/* Eight sectors in an auto-fitting grid resolved to five
+            across on a desktop and left three dead cells hanging
+            off the bottom row. A fixed four-column matrix divides
+            eight exactly — and it divides at every breakpoint
+            below it too, four into two into one. */}
         <div
+          className="mc-sector-grid"
           style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1px',
             background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)',
             borderRadius: 'var(--radius-lg)', overflow: 'hidden',
           }}
         >
           {INDUSTRIES.map((ind, i) => (
-            <ViewAnimator
-              key={ind.name}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: EASE }}
-              style={{ background: 'rgba(11,15,14,0.78)', padding: '26px 24px' }}
-            >
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '0.9688rem', fontWeight: 600, color: '#fff', marginBottom: '10px' }}>
-                {ind.name}
-              </h3>
-              <p style={{ fontSize: '0.8438rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.7 }}>{ind.desc}</p>
-            </ViewAnimator>
+            <SectorCell key={ind.name} industry={ind} index={i} />
           ))}
         </div>
       </PageSection>
