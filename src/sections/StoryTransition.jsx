@@ -128,7 +128,7 @@ export default function StoryTransition() {
               fontWeight: 400,
               textShadow: '0 2px 16px rgba(0,0,0,0.7)',
             }}>
-              Manhar Creatives is a digital solutions and branding partner focused on helping businesses build strong, professional, and growth-oriented digital presence.
+              Manhar Creatives is a digital solutions and branding partner — building websites, custom software and brand systems that help businesses grow with strength, professionalism, and purpose.
             </p>
             <p style={{
               fontSize: 'clamp(1.0625rem, 1.8vw, 1.25rem)',
@@ -157,7 +157,7 @@ export default function StoryTransition() {
                 {
                   num: '02',
                   title: 'Vision',
-                  desc: 'To become a trusted strategic partner for businesses by building strong, scalable, and growth-driven digital presence.',
+                  desc: 'To become a trusted strategic partner for businesses by building strong, scalable, and growth-driven digital systems.',
                 },
                 {
                   num: '03',

@@ -940,7 +940,7 @@ export const SERVICES = [
     heroStats: [
       { value: '2–3', label: 'Weeks from direction to first batch of creatives' },
       { value: '12+', label: 'Editable templates in a standard kit' },
-      { value: '6', label: 'Formats covered across feed, story and reel' },
+      { value: '6', label: 'Formats covered across feed, story and profile' },
     ],
 
     problem: {
@@ -1009,8 +1009,8 @@ export const SERVICES = [
         image: '/images/services/social/03-posts.webp',
       },
       {
-        title: 'Story & Reel Covers',
-        desc: 'Story frames and a reel cover set, so the profile stays **readable as a wall**.',
+        title: 'Story Covers',
+        desc: 'Story frames designed to match the feed, so the profile stays **readable as a wall**.',
         points: [
           'Story templates for offers, polls and reposts',
           'Safe areas checked against platform icons',
@@ -1038,7 +1038,7 @@ export const SERVICES = [
     ],
 
     /* Plain list kept for the home page and structured data. */
-    tech: ['Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'After Effects'],
+    tech: ['Figma', 'Adobe Photoshop', 'Adobe Illustrator'],
 
     techStack: [
       {
@@ -1047,7 +1047,7 @@ export const SERVICES = [
         logo: '/images/tech/figma.webp',
         points: [
           'Template system assembled with components and locked grids',
-          'Exports feed, story and reel sizes in one pass',
+          'Exports feed and story sizes in one pass',
         ],
       },
       {
@@ -1066,15 +1066,6 @@ export const SERVICES = [
         points: [
           'Icons, badges and offer devices that look yours',
           'Vector artwork moves from story frame to printed standee',
-        ],
-      },
-      {
-        name: 'After Effects',
-        role: 'Motion posts',
-        logo: '/images/tech/aftereffects.webp',
-        points: [
-          'Animated versions of the static templates for reels',
-          'Exported light enough to upload on shop wifi',
         ],
       },
     ],
@@ -1098,7 +1089,7 @@ export const SERVICES = [
     faqs: [
       {
         q: 'Do you also manage the social media accounts?',
-        a: 'No. We design the system and creatives; we do not post, write captions, reply to comments or run ads. That needs somebody inside your business who can answer a price question at nine at night — a staff member, trained intern or social manager. You get templates, a usage sheet and a content structure. **Ask us what a fair rate is; we take no cut.**',
+        a: 'No. We design the system and creatives; we do not post, write captions, reply to comments or run ads. That needs somebody inside your business who can answer a price question at nine at night — a staff member, trained intern or social manager. You get templates, a usage sheet and a content structure. Video and reel editing works the same way — if you already have raw footage shot, we can edit it on request, but it sits outside the standard package. **Ask us what a fair rate is; we take no cut.**',
       },
       {
         q: 'Can you match our existing brand?',
@@ -1106,7 +1097,7 @@ export const SERVICES = [
       },
       {
         q: 'What formats do you deliver?',
-        a: 'Square and portrait feed posts, carousels, story frames, reel covers, profile images and highlight covers — exported at correct dimensions for Instagram, Facebook and LinkedIn, not one size stretched across three. Editable Figma or Canva files included. Text sits inside safe areas, clear of the username, caption fold and story reply box. **Motion versions ship as MP4, light enough to upload on a shop connection.**',
+        a: 'Square and portrait feed posts, carousels, story frames, profile images and highlight covers — exported at correct dimensions for Instagram, Facebook and LinkedIn, not one size stretched across three. Editable Figma or Canva files included. Text sits inside safe areas, clear of the username, caption fold and story reply box. **Reel and other motion formats are handled separately — ask us if you need them.**',
       },
       {
         q: 'Can we edit the templates ourselves afterwards?',

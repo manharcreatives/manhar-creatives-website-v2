@@ -142,6 +142,7 @@ export const orgSchema = () => ({
   slogan: SITE.tagline,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
     addressLocality: SITE.address.locality,
     addressRegion: SITE.address.region,
     postalCode: SITE.address.postalCode,
@@ -242,6 +243,7 @@ export const localBusinessSchema = (city) => ({
   priceRange: '₹₹',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
     addressLocality: SITE.address.locality,
     addressRegion: SITE.address.region,
     postalCode: SITE.address.postalCode,

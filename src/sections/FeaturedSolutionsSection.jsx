@@ -17,7 +17,7 @@ import { trackCta } from '../utils/analytics';
 const SOLUTIONS = [
   {
     icon: '◈',
-    title: 'Digital Presence',
+    title: 'Website Development',
     tagline: 'Your digital headquarters.',
     description: 'Professionally designed websites that help businesses build trust, showcase their services, and create a stronger online presence.',
     benefits: ['Builds business credibility', 'Accessible 24/7', 'Supports customer enquiries'],
@@ -51,8 +51,8 @@ const SOLUTIONS = [
     tagline: 'Operations made simpler.',
     description: 'Practical digital systems that help businesses improve communication, customer experience, and day-to-day operations through structured digital tools and workflows.',
     benefits: ['Improved customer experience', 'More efficient operations', 'Better business communication'],
-    features: ['QR code menus', 'Online ordering', 'Table reservations', 'Admin dashboard'],
-    useCases: ['QR Menu Systems', 'Digital Setup', 'Business Communication', 'Workflow Solutions'],
+    features: ['Custom CRM Systems', 'Business Automation', 'Admin Dashboards', 'Internal Tools', 'API & System Integration'],
+    useCases: ['Sales & CRM', 'Inventory & Orders', 'Billing & Accounts', 'Staff & Operations'],
     versus: {
       generic: 'Off-the-shelf software with a monthly seat fee',
       ours: 'Built to how your business already works, with no per-user pricing and no data held hostage.',

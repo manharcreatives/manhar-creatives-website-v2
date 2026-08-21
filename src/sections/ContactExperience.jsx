@@ -830,7 +830,12 @@ export default function ContactExperience() {
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
               <span style={{ display: 'block', color: '#fff', marginBottom: '4px', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>LOCATION</span>
-              Visnagar, Mahesana, Gujarat, India
+              <span style={{ display: 'block', marginBottom: '8px' }}>
+                Sona Complex, A-252, Kansa Cross Road, Opp. Khodiyar Hotel, Visnagar, Mehsana, Gujarat 384315
+              </span>
+              <a href="https://maps.app.goo.gl/XibakBTyA6x1ECLJ7" target="_blank" rel="noopener noreferrer" className="mc-link">
+                Get Directions →
+              </a>
             </div>
           </div>
         </div>

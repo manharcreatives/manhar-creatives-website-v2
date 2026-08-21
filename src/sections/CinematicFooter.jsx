@@ -296,7 +296,7 @@ export default function CinematicFooter() {
             letterSpacing: '-0.03em', color: '#fff',
             marginBottom: '24px',
           }}>
-            Let's Build{' '}
+            Describe the problem.{' '}
             <span style={{
               fontStyle: 'italic',
               background: 'linear-gradient(135deg, #22C55E, #4ADE80)',
@@ -304,10 +304,9 @@ export default function CinematicFooter() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
               display: 'inline-block',
-              paddingRight: '14px',
             }}>
-              Something That Works
-            </span>.
+              We will name the service.
+            </span>
           </h2>
           <p style={{
             fontSize: '1.0625rem',
@@ -316,7 +315,7 @@ export default function CinematicFooter() {
             margin: '0 auto 40px',
             lineHeight: 1.7,
           }}>
-            Get in touch to discuss your project goals, explore how we can help, or schedule a consultation.
+            You do not need to know which one you need. Tell us what the business is struggling with and we will tell you what actually fixes it — including when that is less than you expected.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <MagneticBtn href="/contact" internal onClick={() => trackCta('Book a Discovery Call', 'footer', '/contact')}>
@@ -356,7 +355,7 @@ export default function CinematicFooter() {
               style={{ height: 48, width: 'auto', marginBottom: '20px' }}
             />
             <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.8, maxWidth: '300px', marginBottom: '28px' }}>
-              A digital solutions and branding partner focused on helping businesses build credible, professional, and growth-oriented digital presence.
+              A digital solutions and branding partner — websites, custom software and brand systems built to help businesses grow with credibility and confidence.
             </p>
             {/* Contact details are copyable as well as clickable.
                 On a desktop `mailto:` opens a mail client many
@@ -367,10 +366,13 @@ export default function CinematicFooter() {
                 { icon: '◎', text: 'info@manharcreatives.com', href: 'mailto:info@manharcreatives.com', copy: 'email' },
                 { icon: '◈', text: '+91 97145 71522', href: 'tel:+919714571522', copy: 'phone' },
                 { icon: '◆', text: 'Visnagar, Gujarat, India', href: null, copy: null },
-              ].map(({ icon, text, href, copy }) => (
+                { icon: '↗', text: 'Get Directions', href: 'https://maps.app.goo.gl/XibakBTyA6x1ECLJ7', copy: null, external: true },
+              ].map(({ icon, text, href, copy, external }) => (
                 <span key={text} style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                   <motion.a
                     href={href || undefined}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
                     whileHover={href && !prefersReducedMotion() ? { x: 5 } : {}}
                     style={{
                       display: 'flex', alignItems: 'center', gap: '10px',

@@ -5,37 +5,37 @@ const VALUE_PROPS = [
   {
     number: '01',
     title: 'Strategic Approach',
-    description: 'Every project begins with understanding your business, goals, and requirements to ensure every solution is built with purpose and direction.',
+    description: 'Every project starts from a blank canvas, built around your business, goals and requirements. Never a repurposed website, never a template in new colours — what you get is built for you, and only you.',
     image: '/images/cards/value-strategic.webp',
   },
   {
     number: '02',
     title: 'Professional Execution',
-    description: 'We focus on clean design, structured systems, and attention to detail to deliver solutions that strengthen credibility and trust.',
+    description: "Execution stays precise and professional, but it feels personal — like working with your own team. We don't stop at the brief; once we understand your business, we bring you strategic ideas that help it grow further.",
     image: '/images/cards/value-execution.webp',
   },
   {
     number: '03',
-    title: 'Business-Focused Solutions',
-    description: 'Our work is designed to support visibility, customer trust, and long-term business growth — not just visual presentation.',
+    title: "Client Satisfaction First",
+    description: "Within the agreed scope, we work until you're genuinely happy with the outcome — not just signed off. Most clients love the very first draft, because it's designed only for them, never adapted from someone else's work.",
     image: '/images/cards/value-business.webp',
   },
   {
     number: '04',
     title: 'Structured Workflow',
-    description: 'A clear and organized process helps maintain transparency, smooth communication, and consistent project execution.',
+    description: 'A clear process and timelines you can rely on. If we commit to a delivery date, that date holds — structure here is not just a promise, it is how every project actually runs.',
     image: '/images/cards/value-workflow.webp',
   },
   {
     number: '05',
     title: 'Growth-Focused Thinking',
-    description: 'Every solution is planned with scalability, usability, and long-term business value in mind.',
+    description: "We don't build for the sake of finishing a task. Every decision, from structure to design, is made while thinking about what actually grows your business — not just what fills the brief.",
     image: '/images/cards/value-growth.webp',
   },
   {
     number: '06',
     title: 'Reliable Collaboration',
-    description: 'We value professionalism, clear communication, and long-term relationships built on trust and consistency.',
+    description: 'Projects matter, but the relationship matters just as much. We invest in genuine collaboration and long-term trust — once a business partners with us, they rarely feel the need to look anywhere else.',
     image: '/images/cards/value-collaboration.webp',
   },
 ];
@@ -80,7 +80,7 @@ export default function ValuePropsSection() {
             marginTop: '24px',
             marginBottom: '48px',
           }}>
-            We combine structured execution, professional design, and business-focused thinking to deliver solutions that create long-term value.
+            We combine structured execution, original design thinking, and business-focused strategy to deliver solutions built only for you — never templated, never copied.
           </p>
         </FadeIn>
 

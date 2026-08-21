@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
-import { PageHero, PageSection, SectionHeading, CtaBand, FaqList, StatStrip } from '../components/PageKit';
+import { PageHero, PageSection, SectionHeading, FaqList, StatStrip } from '../components/PageKit';
 import ServiceComparison from '../components/ServiceComparison';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { WorkKitStyles } from '../components/WorkKit';
@@ -33,7 +33,156 @@ const SERVICE_FAQS = [
     q: 'What if I am not sure what I need?',
     a: 'That is the normal starting point. Describe the business problem rather than the solution, and we will map what is actually required — including when you need less than you think.',
   },
+  {
+    q: 'Do you also do SEO, Meta Ads or AI automation?',
+    a: 'On request, once scoped to your specific need. These need ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve — they are not part of our six fixed-scope services.',
+  },
 ];
+
+/* ─── On-request offerings ─────────────────────────────────
+   Retainer-style work — SEO, Meta Ads, AI automation — that runs
+   on ongoing monthly effort rather than a fixed-scope build, and
+   that the team isn't ready to formally list as a seventh or
+   eighth service yet. Deliberately lighter than ServiceCard: no
+   photography, no hover reveal, no detail page to link to — a
+   flat, quiet row that reads as "also available", not as part of
+   the committed six above it. */
+const ON_REQUEST = [
+  {
+    icon: '◐',
+    title: 'SEO Growth Retainer',
+    desc: 'Ongoing search ranking work — content, on-page and technical SEO, tracked monthly. Scoped after your website or Digital Presence Setup is live.',
+    image: '/images/cards/on-request-seo.webp',
+  },
+  {
+    icon: '▣',
+    title: 'Meta Ads Management',
+    desc: 'Instagram and Facebook ad campaigns — creative, targeting and budget management, reported monthly. Ad spend billed separately from our fee.',
+    image: '/images/cards/on-request-ads.webp',
+  },
+  {
+    icon: '⬢',
+    title: 'AI & Automation Solutions',
+    desc: 'Workflow automation and AI tools built around one specific business process — quoted once we understand what you’re trying to automate.',
+    image: '/images/cards/on-request-automation.webp',
+  },
+];
+
+/* ─── On-request card ─────────────────────────────────────
+   The brief asked for a specific soft-UI ("neumorphic") card
+   effect — a surface that reads as pressed out of its own
+   background via a dark shadow and a faint light-catching edge,
+   rather than a bordered box. Kept in the brand's dark palette
+   instead of the light-grey reference: the card's base colour is
+   `--bg` itself, so the shadow pair is what creates the shape,
+   not a fill colour or a border. A vignetted background image
+   sits behind the content as ambient texture (not a photograph
+   competing with the effect), and the icon well is pressed in
+   with an inset version of the same shadow pair — the two
+   directions soft-UI normally uses together. This is deliberately
+   more distinctive than every other card on the page, since the
+   brief flagged this section as not noticeable enough. */
+function OnRequestCard({ item, index }) {
+  const [h, setH] = useState(false);
+
+  return (
+    <ViewAnimator
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '-8%' }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
+      style={{ height: '100%' }}
+    >
+      <div
+        className="mc-on-request-card"
+        onMouseEnter={() => setH(true)}
+        onMouseLeave={() => setH(false)}
+        style={{
+          position: 'relative',
+          isolation: 'isolate',
+          overflow: 'hidden',
+          height: '100%',
+          padding: '34px 28px',
+          borderRadius: 'var(--radius-xl)',
+          /* A flat fill the exact colour of the page would leave the
+             shadow pair to do all the work — on a near-black theme
+             that reads as almost nothing. A faint directional gradient
+             (lighter where the highlight lands, darker where the shadow
+             falls) sells the "pressed out of its own surface" illusion
+             the same way the box-shadow's two directions do. */
+          background: 'linear-gradient(155deg, #161e1a 0%, #0d1211 45%, #07090a 100%)',
+          transform: h ? 'translateY(-6px)' : 'translateY(0)',
+          boxShadow: h
+            ? '18px 18px 40px rgba(0,0,0,0.72), -12px -12px 30px rgba(255,255,255,0.08), 0 0 56px rgba(34,197,94,0.2), inset 0 1px 0 rgba(255,255,255,0.06)'
+            : '14px 14px 32px rgba(0,0,0,0.68), -10px -10px 26px rgba(255,255,255,0.06), 0 0 30px rgba(34,197,94,0.05), inset 0 1px 0 rgba(255,255,255,0.04)',
+          transition: 'transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), background 0.45s ease',
+        }}
+      >
+        {/* Ambient art — low-opacity and vignetted into the card's own
+            surface, so it reads as texture behind the soft-UI shape
+            rather than a photo competing with it. */}
+        <span
+          aria-hidden="true"
+          style={{
+            position: 'absolute', inset: 0, zIndex: 0,
+            backgroundImage: `url(${item.image})`,
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: h ? 0.22 : 0.14,
+            transform: h ? 'scale(1.05)' : 'scale(1)',
+            transition: 'opacity 0.5s ease, transform 0.9s var(--ease-out-expo)',
+          }}
+        />
+        <span
+          aria-hidden="true"
+          style={{
+            position: 'absolute', inset: 0, zIndex: 0,
+            /* Fades the art into the card's own tone rather than a flat
+               var(--bg) — matches the gradient above so no visible seam
+               forms where the vignette takes over from the artwork. */
+            background: 'radial-gradient(120% 100% at 30% 0%, transparent 0%, rgba(13,18,17,0.97) 78%)',
+          }}
+        />
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: '44px', height: '44px', borderRadius: 'var(--radius-full)',
+              background: '#0a0e0d',
+              boxShadow: h
+                ? 'inset 4px 4px 9px rgba(0,0,0,0.65), inset -4px -4px 9px rgba(255,255,255,0.07), 0 0 20px rgba(34,197,94,0.32)'
+                : 'inset 4px 4px 9px rgba(0,0,0,0.6), inset -4px -4px 9px rgba(255,255,255,0.06)',
+              color: 'var(--color-primary)', fontSize: '1.125rem',
+              marginBottom: '20px',
+              transition: 'box-shadow 0.4s ease',
+            }}
+          >
+            {item.icon}
+          </span>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.0625rem', fontWeight: 600, color: '#fff', marginBottom: '10px' }}>
+            {item.title}
+          </h3>
+          <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.58)', lineHeight: 1.72, marginBottom: '20px' }}>
+            {item.desc}
+          </p>
+          <Link
+            to="/contact"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: h ? 'var(--color-accent)' : 'var(--color-primary)', textDecoration: 'none',
+              transition: 'color 0.3s ease',
+            }}
+          >
+            Ask us about this →
+          </Link>
+        </div>
+      </div>
+    </ViewAnimator>
+  );
+}
 
 /* ─── Service card ────────────────────────────────────────
    The old card was a glass rectangle carrying an icon, a title,
@@ -279,6 +428,32 @@ export default function ServicesPage() {
         <ServiceComparison />
       </PageSection>
 
+      {/* ── On request ── */}
+      <PageSection tint style={{ paddingTop: 0 }}>
+        <SectionHeading
+          eyebrow="ALSO AVAILABLE"
+          title="Need something more"
+          accent="specific?"
+          subtitle="Ongoing work outside our six fixed-scope services — scoped and priced once we understand exactly what you need."
+        />
+        <div
+          className="mc-on-request-grid"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}
+        >
+          {ON_REQUEST.map((item, i) => (
+            <OnRequestCard key={item.title} item={item} index={i} />
+          ))}
+        </div>
+        <style>{`
+          @media (max-width: 1024px) {
+            .mc-on-request-grid { grid-template-columns: 1fr 1fr !important; }
+          }
+          @media (max-width: 768px) {
+            .mc-on-request-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
+      </PageSection>
+
       {/* ── Stats ── */}
       <PageSection tint style={{ paddingTop: 0 }}>
         <StatStrip stats={STATS} />
@@ -361,14 +536,6 @@ export default function ServicesPage() {
           <FaqList faqs={SERVICE_FAQS} title="Questions before you start" />
         </div>
       </PageSection>
-
-      <CtaBand
-        eyebrow="Start here"
-        title="Describe the problem. We will name the service."
-        text="You do not need to know which one you need. Tell us what the business is struggling with and we will tell you what actually fixes it — including when that is less than you expected."
-        secondaryLabel="See Our Work"
-        secondaryHref="/projects"
-      />
     </>
   );
 }

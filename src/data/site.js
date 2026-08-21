@@ -23,13 +23,15 @@ export const SITE = {
   companyProfile:
     'https://drive.google.com/uc?export=download&id=1RdGn0DZyyL_f2liZHFeJVqLUyYGWKSny',
   address: {
+    street: 'Sona Complex, A-252, Kansa Cross Road, Opp. Khodiyar Hotel',
     locality: 'Visnagar',
     region: 'Gujarat',
     country: 'India',
     countryCode: 'IN',
     postalCode: '384315',
   },
-  geo: { lat: '23.6989', lng: '72.5517' },
+  geo: { lat: '23.7047957', lng: '72.5359769' },
+  mapsUrl: 'https://maps.app.goo.gl/XibakBTyA6x1ECLJ7',
   founded: '2022',
   ogImage: '/og-image.png',
   logo: '/images/logos/nav-logo.webp',
@@ -213,9 +215,8 @@ export const LEGACY_REDIRECTS = (() => {
 /* ─── STATS ───────────────────────────────────────────── */
 export const STATS = [
   { value: 4, suffix: '+', label: 'Years Experience' },
-  { value: 10, suffix: '+', label: 'Projects Completed' },
-  { value: 100, suffix: '%', label: 'Custom Solutions' },
-  { value: 100, suffix: '%', label: 'Client-Centric Approach' },
+  { value: 50, suffix: '+', label: 'Projects Completed' },
+  { value: 100, suffix: '%', label: 'Custom, Client-Focused Work' },
   { value: 24, suffix: '/7', label: 'Online Presence' },
 ];
 

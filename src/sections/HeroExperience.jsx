@@ -31,20 +31,14 @@ export default function HeroExperience() {
 
   useEffect(() => {
     const skip = shouldSkipVideo();
-    console.log('[Hero] Video allowed:', !skip);
     setAllowVideo(!skip);
   }, []);
 
   /* Fallback: if video doesn't load within 4s, show it anyway
      so it doesn't block the hero on slow connections. */
   useEffect(() => {
-    if (!allowVideo) {
-      console.log('[Hero] allowVideo is false, skipping video');
-      return;
-    }
-    console.log('[Hero] Setting 4s timeout for video');
+    if (!allowVideo) return;
     const timeout = setTimeout(() => {
-      console.log('[Hero] 4s timeout fired, setting videoReady');
       setVideoReady(true);
     }, 4000);
     return () => clearTimeout(timeout);
@@ -80,19 +74,9 @@ export default function HeroExperience() {
             /* A failed load is not an error state here — the aurora
                field underneath is a complete background on its own,
                so we simply stop trying and show nothing. */
-            onError={(e) => {
-              console.log('[Hero] Video error:', e);
-              setVideoFailed(true);
-            }}
-            onCanPlay={() => {
-              console.log('[Hero] Video canplay event fired');
-              setVideoReady(true);
-            }}
-            onPlaying={() => {
-              console.log('[Hero] Video playing');
-              trackVideoPlay('hero_film', 'homepage_hero');
-            }}
-            onLoadedMetadata={() => console.log('[Hero] Video metadata loaded')}
+            onError={() => setVideoFailed(true)}
+            onCanPlay={() => setVideoReady(true)}
+            onPlaying={() => trackVideoPlay('hero_film', 'homepage_hero')}
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'cover',
@@ -121,54 +105,71 @@ export default function HeroExperience() {
 
       {/* Hero Content */}
       <div className="container hero-content-container" style={{ position: 'relative', zIndex: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '28px', paddingTop: 'clamp(40px, 10vh, 80px)' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="pill"
-          style={{ color: '#4ADE80', textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
-        >
-          <span className="pill-dot" />
-          YOUR DIGITAL PRESENCE SPEAKS FIRST
-        </motion.div>
+        {/* Wordmark + tagline lockup. The wordmark is the brand's first
+            impression — large and high-contrast because it is the
+            identity, not a caption; "Manhar" carries the same white
+            treatment the tagline uses for connective words, "Creatives"
+            carries the same brand-green treatment the tagline uses for
+            its verbs — one colour system, two roles. It's a <p>, not a
+            heading: the tagline stays the page's single <h1>, styled
+            small and tracked underneath, so search engines still read
+            the sentence rather than the logo, and the two read as one
+            close-set unit instead of two separate hero rows. */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: 'var(--font-display)', fontWeight: 700,
+              fontSize: 'clamp(2.25rem, 8vw, 5rem)',
+              lineHeight: 1.05, letterSpacing: '-0.01em',
+              textShadow: '0 4px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
+              margin: 0,
+            }}
+          >
+            <span style={{ color: '#fff' }}>Manhar</span>{' '}
+            <span className="gradient-text">Creatives</span>
+          </motion.p>
 
-        {/* Heading — unchanged */}
-        <motion.h1
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.0, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: 'var(--font-display)', fontWeight: 700,
-            fontSize: 'clamp(2rem, 9vw, 5.5rem)',
-            lineHeight: 1.06, letterSpacing: '-0.03em',
-            maxWidth: '900px',
-            textShadow: '0 4px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
-          }}
-        >
-          We <span className="gradient-text">Design</span>, We{' '}
-          <span className="gradient-text">Build</span>,{' '}
-          <span className="gradient-text">You Grow</span>
-        </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: 'var(--font-display)', fontWeight: 600,
+              fontSize: 'clamp(0.8125rem, 1.6vw, 1.0625rem)',
+              lineHeight: 1.4, letterSpacing: '0.14em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.72)',
+              textShadow: '0 2px 20px rgba(0,0,0,0.6)',
+              margin: 0,
+            }}
+          >
+            We <span className="gradient-text">Design</span>, We{' '}
+            <span className="gradient-text">Build</span>,{' '}
+            <span className="gradient-text">You Grow</span>
+          </motion.h1>
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.3, duration: 0.8 }}
+          transition={{ delay: 0.65, duration: 0.7 }}
           style={{
             color: 'rgba(255,255,255,0.85)',
             fontSize: '1.125rem',
-            maxWidth: '580px',
+            maxWidth: '600px',
             lineHeight: 1.7,
             textShadow: '0 2px 30px rgba(0,0,0,0.9)',
           }}
         >
-          We build digital foundations that help businesses strengthen credibility, improve visibility, and create a lasting presence in the market.
+          From websites to custom software built around how your business actually runs — we create digital systems that earn trust, get you found, and help you grow with confidence.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.6, duration: 0.8 }}
+          transition={{ delay: 0.85, duration: 0.7 }}
           style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '12px', width: '100%' }}
         >
           <MagneticButton
@@ -193,7 +194,7 @@ export default function HeroExperience() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.2, duration: 0.8 }}
+          transition={{ delay: 1.05, duration: 0.7 }}
           style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', marginTop: '8px' }}
         >
           {[

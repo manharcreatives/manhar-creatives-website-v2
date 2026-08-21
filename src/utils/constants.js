@@ -147,6 +147,10 @@ export const FAQS = [
     a: 'Yes. We build custom CRM systems, admin dashboards, internal tools, business automation and API integrations designed around your existing workflow — so your team stops working around software limitations. You own the source code and the data outright, with no per-user licence cost.',
   },
   {
+    q: 'Do you also handle SEO, Meta Ads or AI automation?',
+    a: 'On request, once scoped to your specific need. These involve ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve — they sit alongside our six core services rather than being one of them.',
+  },
+  {
     q: 'How does your project process work?',
     a: 'Every project follows a structured workflow: Discovery, Research, Planning, Design & Development, Review & Refinement, and Delivery & Support. This ensures clarity, transparency, and consistent quality throughout the project.',
   },

@@ -52,6 +52,7 @@ const localBusiness = {
   foundingDate: SITE.founded,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
     addressLocality: SITE.address.locality,
     addressRegion: SITE.address.region,
     postalCode: SITE.address.postalCode,
