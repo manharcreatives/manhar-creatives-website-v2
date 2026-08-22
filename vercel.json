@@ -1,4 +1,5 @@
 {
+  "buildCommand": "npm run build:fast",
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
