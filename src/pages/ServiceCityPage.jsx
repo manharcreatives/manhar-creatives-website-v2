@@ -51,7 +51,7 @@ const localServiceSchema = (page) => ({
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: `${page.service.shortTitle} — ${page.city.name}`,
+    name: `${page.service.shortTitle}: ${page.city.name}`,
     itemListElement: (page.service.deliverables || []).map((d) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: d.title, description: d.desc },
@@ -153,7 +153,7 @@ export default function ServiceCityPage({ slug }) {
                   textTransform: 'uppercase', color: 'var(--color-primary)', marginBottom: '20px',
                 }}
               >
-                {city.name} — market context
+                {city.name}: market context
               </p>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '28px' }}>
                 {city.context.map((c) => (
@@ -229,7 +229,7 @@ export default function ServiceCityPage({ slug }) {
       {/* ── FAQ ── */}
       <PageSection tint>
         <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-          <FaqList faqs={faqs} title={`${service.shortTitle} in ${city.name} — questions we get asked`} />
+          <FaqList faqs={faqs} title={`${service.shortTitle} in ${city.name}: questions we get asked`} />
         </div>
       </PageSection>
 

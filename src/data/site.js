@@ -36,7 +36,7 @@ export const SITE = {
   ogImage: '/og-image.png',
   logo: '/images/logos/nav-logo.webp',
   description:
-    'Manhar Creatives is a premium digital solutions and branding company in Gujarat, India — building websites, custom software, brand identities and digital presence systems that help businesses grow.',
+    'Manhar Creatives is a premium digital solutions and branding company in Gujarat, India, building websites, custom software, brand identities and digital presence systems that help businesses grow.',
 };
 
 export const WHATSAPP_LINK = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(
@@ -82,11 +82,11 @@ export const CITIES = {
     region: 'Gujarat',
     short: 'the commercial capital of Gujarat',
     intro:
-      'Ahmedabad is Gujarat’s commercial engine — a city where textile houses, chemical manufacturers, real estate developers, healthcare groups and a fast-growing startup ecosystem all compete for the same attention. Digital credibility is not optional here; it is the baseline a customer checks before making the first call.',
+      'Ahmedabad is Gujarat’s commercial engine: a city where textile houses, chemical manufacturers, real estate developers, healthcare groups and a fast-growing startup ecosystem all compete for the same attention. Digital credibility is not optional here; it is the baseline a customer checks before making the first call.',
     context: [
       'One of India’s densest concentrations of SMEs and family-run manufacturing businesses',
       'A mature startup and D2C ecosystem centred around SG Highway, Prahlad Nagar and GIFT City',
-      'High competition on local search terms — the three-pack is genuinely contested',
+      'High competition on local search terms, with the three-pack genuinely contested',
       'Buyers routinely verify a company online before responding to a quotation',
     ],
     industries: ['Manufacturing & Industrial', 'Real Estate', 'Healthcare & Clinics', 'Retail & D2C', 'Startups & SaaS', 'Education'],
@@ -108,11 +108,11 @@ export const CITIES = {
     region: 'North Gujarat',
     short: 'a fast-growing industrial and trading hub in North Gujarat',
     intro:
-      'Mehsana anchors North Gujarat’s industrial belt — dairy, oil and gas, agri-processing, engineering and a dense network of trading businesses. Many are decades old, well-run, and almost invisible online. That gap is the single largest untapped advantage available to businesses here.',
+      'Mehsana anchors North Gujarat’s industrial belt: dairy, oil and gas, agri-processing, engineering and a dense network of trading businesses. Many are decades old, well-run, and almost invisible online. That gap is the single largest untapped advantage available to businesses here.',
     context: [
-      'A strong industrial base — dairy, ONGC-linked services, agri-processing and engineering',
+      'A strong industrial base spanning dairy, ONGC-linked services, agri-processing and engineering',
       'Established businesses with strong offline reputation but minimal digital presence',
-      'Local search competition is significantly lower than in Ahmedabad — ranking is achievable faster',
+      'Local search competition is significantly lower than in Ahmedabad, so ranking is achievable faster',
       'Buyers increasingly research suppliers online before visiting in person',
     ],
     industries: ['Dairy & Agro', 'Oil & Gas Services', 'Engineering & Fabrication', 'Trading & Distribution', 'Healthcare', 'Education'],
@@ -133,10 +133,10 @@ export const CITIES = {
     region: 'North Gujarat',
     short: 'our home town in North Gujarat',
     intro:
-      'Visnagar is where Manhar Creatives is based. We know the businesses here — the manufacturers, traders, clinics, educational institutions and retail establishments that have built reputation over generations through word of mouth. Our work is about translating that existing trust into a digital presence that reaches beyond the people who already know you.',
+      'Visnagar is where Manhar Creatives is based. We know the businesses here: the manufacturers, traders, clinics, educational institutions and retail establishments that have built reputation over generations through word of mouth. Our work is about translating that existing trust into a digital presence that reaches beyond the people who already know you.',
     context: [
       'A strong manufacturing and trading base with deep generational business relationships',
-      'Reputation is built locally through word of mouth — but new customers search online first',
+      'Reputation is built locally through word of mouth, but new customers search online first',
       'Very low local search competition means well-built pages rank quickly',
       'Being locally based means face-to-face meetings, not just calls and emails',
     ],

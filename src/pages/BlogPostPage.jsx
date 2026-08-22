@@ -254,7 +254,7 @@ function ShareRow({ post }) {
   const [nativeShare, setNativeShare] = useState(false);
   const toast = useToast();
   const url = `${SITE.url}/blog/${post.slug}`;
-  const text = encodeURIComponent(`${post.title} — ${url}`);
+  const text = encodeURIComponent(`${post.title}: ${url}`);
 
   /* navigator.share only exists on mobile and only over https.
      Checking on mount rather than during render keeps the
@@ -387,7 +387,7 @@ function HelpfulPrompt({ post }) {
     setAnswer(value);
     track('mc_article_feedback', { slug: post.slug, helpful: value });
     toast.success(
-      value ? 'Thanks — noted' : 'Thanks for telling us',
+      value ? 'Thanks, noted' : 'Thanks for telling us',
       value
         ? 'Good to know this one landed.'
         : 'We will look at what this guide is missing.'
@@ -450,7 +450,7 @@ function HelpfulPrompt({ post }) {
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9375rem', lineHeight: 1.6 }}>
               {answer
                 ? 'Thanks. If it raised a question it did not answer, ask us directly.'
-                : 'Thanks — that is useful. Tell us what you were looking for and we will cover it.'}
+                : 'Thanks, that is useful. Tell us what you were looking for and we will cover it.'}
             </p>
             <Link
               to="/contact"
@@ -725,7 +725,7 @@ export default function BlogPostPage() {
                 />
                 <div style={{ flex: 1, minWidth: '240px' }}>
                   <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, fontSize: '0.9375rem', marginBottom: '16px' }}>
-                    Written by the team at <strong style={{ color: '#fff' }}>{SITE.name}</strong> — a digital solutions
+                    Written by the team at <strong style={{ color: '#fff' }}>{SITE.name}</strong>, a digital solutions
                     and branding company in {SITE.address.locality}, {SITE.address.region}. We build websites,
                     custom software and brand systems for businesses across India.
                   </p>
@@ -804,7 +804,7 @@ export default function BlogPostPage() {
       <CtaBand
         eyebrow="Ready when you are"
         title="Let’s turn this into something built."
-        text="Book a discovery call and we will map out exactly what your business needs — and what it does not."
+        text="Book a discovery call and we will map out exactly what your business needs, and what it does not."
         secondaryLabel="See Our Services"
         secondaryHref="/services"
       />

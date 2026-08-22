@@ -41,7 +41,7 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Website Development Company in Gujarat — Manhar Creatives',
+    metaTitle: 'Website Development Company in Gujarat: Manhar Creatives',
     metaDescription:
       'Custom website development in Ahmedabad, Mehsana, Visnagar and across India. Fast, mobile-first, SEO-ready business sites built to turn visitors into enquiries.',
     keywords: [
@@ -55,17 +55,19 @@ export const SERVICES = [
       'seo friendly website',
       'website redesign services',
       'fast loading website',
+      'website development company for international clients',
+      'hire website development agency india',
     ],
 
     hero: {
       title: 'Website development for businesses',
       accent: 'that are tired of being overlooked',
       subtitle:
-        'A visitor decides in **eight seconds** whether your business is worth contacting. We build sites that win those seconds — fast on phones, clear about what you do.',
+        'A visitor decides in **eight seconds** whether your business is worth contacting. We build sites that win those seconds. Fast on phones, clear about what you do.',
     },
 
     heroStats: [
-      { value: '2–6', label: 'Weeks to launch' },
+      { value: '2+', label: 'Weeks to launch' },
       { value: '70%+', label: 'Of your visitors arrive on a phone' },
       { value: '8 sec', label: 'To earn the first impression' },
     ],
@@ -87,20 +89,20 @@ export const SERVICES = [
     solution: {
       heading: 'We do not build websites. We build the reason someone chooses you.',
       body: [
-        'A website is the room where a buying decision happens, before you speak to anyone. So we start there: who lands here, what they must believe, and the one action that matters. Structure, speed and SEO first — **visual design once the argument is right**.',
+        'A website is the room where a buying decision happens, before you speak to anyone. So we start there: who lands here, what they must believe, and the one action that matters. Structure, speed and SEO first: **visual design once the argument is right**.',
       ],
       pillars: [
         {
           title: 'Decision-first structure',
-          desc: 'Sitemap, page order and messaging mapped to how your customer decides — not what looks tidy in navigation.',
+          desc: 'Sitemap, page order and messaging mapped to how your customer decides, not what looks tidy in navigation.',
         },
         {
           title: 'Fast by construction',
-          desc: 'Optimised media, minimal blocking scripts and Core Web Vitals handled during development — not cleaned up afterwards.',
+          desc: 'Optimised media, minimal blocking scripts and Core Web Vitals handled during development, not cleaned up afterwards.',
         },
         {
           title: 'Found, then trusted',
-          desc: 'Semantic structure, schema and clean URLs so Google can read it — a design that makes people stay.',
+          desc: 'Semantic structure, schema and clean URLs so Google can read it; a design that makes people stay.',
         },
       ],
       quote: 'We design, we build, you grow. The website is where that sentence starts proving itself.',
@@ -118,7 +120,7 @@ export const SERVICES = [
       },
       {
         title: 'Custom Interface Design',
-        desc: 'A design system built for **your** brand — not a template with your logo dropped in.',
+        desc: 'A design system built for **your** brand, not a template with your logo dropped in.',
         points: [
           'Desktop, tablet and mobile layouts designed, not guessed',
           'Reusable component set for future pages',
@@ -145,7 +147,7 @@ export const SERVICES = [
       },
       {
         title: 'On-Page SEO Foundation',
-        desc: 'The technical groundwork ranking depends on — **built in, not sold back to you later**.',
+        desc: 'The technical groundwork ranking depends on: **built in, not sold back to you later**.',
         points: [
           'Schema markup, sitemap, robots and clean URLs',
           'Local SEO structure for city and service pages',
@@ -154,7 +156,7 @@ export const SERVICES = [
       },
       {
         title: 'Analytics, Handover & Support',
-        desc: 'You leave **owning it** — code, domain, hosting, data, and support after launch.',
+        desc: 'You leave **owning it**: code, domain, hosting, data, and support after launch.',
         points: [
           'Analytics, Search Console and Tag Manager configured',
           'Recorded walkthrough and written documentation',
@@ -209,7 +211,7 @@ export const SERVICES = [
         logo: '/images/tech/nodejs.webp',
         points: [
           'Powers forms, integrations and anything the site must reach',
-          'One language front and back — faster to maintain',
+          'One language front and back, faster to maintain',
         ],
       },
       {
@@ -218,7 +220,7 @@ export const SERVICES = [
         logo: '/images/tech/wordpress.webp',
         points: [
           'Chosen when your team publishes without calling a developer',
-          'Built lean and hardened — not twenty stacked plugins',
+          'Built lean and hardened, not twenty stacked plugins',
         ],
       },
       {
@@ -255,32 +257,32 @@ export const SERVICES = [
     },
 
     faqNote:
-      'These come up in almost every first call. If yours is not here, **ask it directly** — you get a straight answer.',
+      'These come up in almost every first call. If yours is not here, **ask it directly**: you get a straight answer.',
 
     faqs: [
       {
-        q: 'How long does it take to build a business website?',
-        a: 'A minimum of two weeks. A focused landing page or small business site is typically ready in 2 to 3 weeks. A larger multi-page corporate site with custom sections, content and integrations usually runs 4 to 6 weeks. Anyone promising a serious website in three days is using a template or skipping what makes it work. You get a written timeline before we begin.',
+        q: 'How does the process actually work?',
+        a: 'We research your business before the first call. Within **48 hours** you get a Welcome Kit: terms, an SRS with scope and timeline, and the investment amount. Work starts on **50% advance**. A minimum of **three weeks**; the rest depends on scope and is written into your SRS, not guessed.',
       },
       {
         q: 'Will my website work properly on mobile?',
-        a: 'Yes. Every site is designed mobile-first and tested across real phone widths, tablets and desktop browsers. Most of your visitors arrive on a phone, so the mobile experience is designed first and the desktop layout expanded from it — not the other way around, which is how sites end up cramped on the screen that matters most.',
+        a: 'Yes. Every site is designed mobile-first and tested across real phone widths, tablets and desktop browsers. Most of your visitors arrive on a phone, so the mobile experience is designed first and the desktop layout expanded from it, not the other way around, which is how sites end up cramped on the screen that matters most.',
       },
       {
         q: 'Do you build websites that rank on Google?',
-        a: 'We build the technical foundation ranking depends on — semantic structure, fast loading, schema markup, clean URLs, sitemaps and mobile usability. That is the part a developer controls. Rankings also depend on content, local signals and consistency over months, which we can support through ongoing SEO and content work. We will tell you honestly which of the two your business needs.',
+        a: 'We build the technical foundation ranking depends on: semantic structure, fast loading, schema markup, clean URLs, sitemaps and mobile usability. That is the part a developer controls. Rankings also depend on content, local signals and consistency over months, which we can support through ongoing SEO and content work. We will tell you honestly which of the two your business needs.',
       },
       {
-        q: 'Can I update the website myself after launch?',
-        a: 'Yes. Depending on the build we either connect a content management system or provide a simple editing workflow, plus a recorded handover walkthrough. If you would rather not manage it at all, we offer ongoing maintenance — but that is your choice, not a lock-in.',
+        q: 'What happens between approval and launch, and after?',
+        a: 'You get a **progress showcase** partway through, then a live link to review before anything ships. Final changes go into one document, not scattered messages. Once approved, full setup (analytics, hosting, domain, security, SEO) is live within **24 hours**. Fixes are free for **two weeks**, then maintenance runs free for **4 weeks (static) or 8 (dynamic)** before it is chargeable.',
       },
       {
         q: 'What does a website cost?',
-        a: 'Cost follows scope — number of pages, custom functionality, content requirements and integrations. We scope the project first and share a fixed quote before starting, so there is no mid-project surprise. If your budget is better spent on something other than a new website, we will say so.',
+        a: 'Cost follows scope: pages, functionality, content and integrations. **Domain, hosting, basic SEO and security are included** in every project; anything outside agreed scope is quoted and charged separately. We scope first and share a fixed quote, so there is no mid-project surprise, and if something else would serve you better, we will say so.',
       },
       {
         q: 'What do you need from me to start?',
-        a: 'A conversation about what the business needs to achieve, whatever brand assets you already have, and a point of contact who can approve decisions. Content and photography can come from you or from us — we will tell you which parts genuinely need your input and which we can handle without holding up the build.',
+        a: 'A conversation about what the business needs to achieve, whatever brand assets you already have, and a point of contact who can approve decisions. Content and photography can come from you or from us; we will tell you which parts genuinely need your input and which we can handle without holding up the build.',
       },
     ],
 
@@ -296,7 +298,7 @@ export const SERVICES = [
     shortTitle: 'Custom Software',
     tagline: 'Software built around how your business actually runs.',
     description:
-      'Custom CRM, ERP modules, internal dashboards, admin panels and business automation tools built around your exact workflow — replacing scattered spreadsheets and manual processes with one reliable system.',
+      'Custom CRM, ERP modules, internal dashboards, admin panels and business automation tools built around your exact workflow, replacing scattered spreadsheets and manual processes with one reliable system.',
     image: '/images/services/custom-software.webp',
     layout: 'right',
     features: [
@@ -322,9 +324,9 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Custom Software & CRM Development Company in Gujarat — Manhar Creatives',
+    metaTitle: 'Custom Software & CRM Development Company in Gujarat: Manhar Creatives',
     metaDescription:
-      'Custom CRM, ERP modules, admin dashboards and business automation built around your actual workflow. Replace spreadsheets and manual work with one system you own.',
+      'Custom CRM, ERP modules, admin dashboards and business automation built around your actual workflow, backed by ten weeks of free support after every launch.',
     keywords: [
       'custom software development',
       'custom crm development',
@@ -338,6 +340,8 @@ export const SERVICES = [
       'api integration services',
       'workflow automation software',
       'bespoke software development india',
+      'custom software development company for remote clients',
+      'offshore software development team india',
     ],
 
     hero: {
@@ -348,7 +352,7 @@ export const SERVICES = [
     },
 
     heroStats: [
-      { value: '6–12', label: 'Weeks to a first working module' },
+      { value: '3+', label: 'Weeks to a first working module' },
       { value: '₹0', label: 'Per-user licence once it is yours' },
       { value: '100%', label: 'Source code and data in your name' },
     ],
@@ -356,13 +360,13 @@ export const SERVICES = [
     problem: {
       heading: 'Every week, your team rebuilds the same information by hand',
       body: [
-        'One Excel file for orders, a WhatsApp group for the field team, another sheet for payments. Nobody notices the week they stopped agreeing. Now a simple question — what is pending with this customer — takes **four files and two phone calls** to answer.',
+        'One Excel file for orders, a WhatsApp group for the field team, another sheet for payments. Nobody notices the week they stopped agreeing. Now a simple question (what is pending with this customer) takes **four files and two phone calls** to answer.',
       ],
       points: [
         'Sales, dispatch and accounts each enter **the same order**',
-        'Month-end takes days — every number needs **reconciling first**',
+        'Month-end takes days, every number needs **reconciling first**',
         'Ready-made tools make your process **bend around their limits**',
-        'Per-user licences rise with every hire — **rented forever**',
+        'Per-user licences rise with every hire, **rented forever**',
         'Critical knowledge sits in **one person’s laptop** and walks out',
       ],
     },
@@ -387,7 +391,7 @@ export const SERVICES = [
         },
       ],
       quote:
-        'We design, we build, you grow — in software, the same team handling twice the work without twice the effort.',
+        'We design, we build, you grow: in software, the same team handling twice the work without twice the effort.',
     },
 
     deliverables: [
@@ -402,7 +406,7 @@ export const SERVICES = [
       },
       {
         title: 'System Architecture',
-        desc: 'Data model, roles and integrations decided before development — getting this wrong makes change **expensive later**.',
+        desc: 'Data model, roles and integrations decided before development, getting this wrong makes change **expensive later**.',
         points: [
           'Schema built for the reports you will want',
           'Integration and data migration plan agreed up front',
@@ -513,7 +517,7 @@ export const SERVICES = [
         role: 'Primary database',
         logo: '/images/tech/postgresql.webp',
         points: [
-          'Default when records relate — orders, stock, ledgers, approvals',
+          'Default when records relate: orders, stock, ledgers, approvals',
           'Transaction safety, so half-finished entries never corrupt closing numbers',
         ],
       },
@@ -601,7 +605,7 @@ export const SERVICES = [
     faqs: [
       {
         q: 'What is custom software development?',
-        a: 'Software built for one business instead of sold to thousands — your stage names, your approval rules, your GST formats, the exception you make for one large customer every month. A ready-made product handles the common eighty per cent well and leaves the rest to people. Custom becomes worth building when that remaining twenty per cent is where your hours, errors and margin quietly go.',
+        a: 'Software built for one business instead of sold to thousands: your stage names, your approval rules, your GST formats, the exception you make for one large customer every month. A ready-made product handles the common eighty per cent well and leaves the rest to people. Custom becomes worth building when that remaining twenty per cent is where your hours, errors and margin quietly go.',
       },
       {
         q: 'Why build a custom CRM instead of buying a ready-made one?',
@@ -609,31 +613,31 @@ export const SERVICES = [
       },
       {
         q: 'How much does custom software cost in India?',
-        a: 'Any figure quoted before discovery is a guess. One focused module — CRM, job-card system, inventory tool — is measured in lakhs, not tens of lakhs. Multi-department, covering sales, stock and accounts, is several times that. We price in phases: fund one module, check it saved the hours we claimed, then commit. If a ₹3,000-a-month subscription solves it for another year, we will say so.',
+        a: 'Any figure quoted before discovery is a guess. One focused module (CRM, job-card system, inventory tool) is measured in lakhs, not tens of lakhs. Multi-department, covering sales, stock and accounts, is several times that. We price in phases: fund one module, check it saved the hours we claimed, then commit. If a ₹3,000-a-month subscription solves it for another year, we will say so.',
       },
       {
-        q: 'How long does a custom software project take?',
-        a: 'Discovery is one to two weeks. A focused first module is typically six to twelve weeks to production use, and the last two of those are testing and data migration. Larger multi-module systems run several months, in phases that each work alone. Anyone quoting a full ERP in six weeks is describing a demo, not a system your accounts team will trust at month end.',
+        q: 'How does the process work, and how long does it take?',
+        a: 'We research your business before we meet. Within **48 hours**, a Welcome Kit (terms, SRS, investment amount) arrives by email. Work starts on **50% advance**; minimum **four weeks**, the rest scoped in your SRS. A progress showcase and a live preview happen before anything ships, with feedback in one document.',
       },
       {
         q: 'Can it integrate with the tools we already use?',
-        a: 'Usually, yes. We connect WhatsApp Business, Razorpay and other payment gateways, Google Workspace, Tally, Shopify and WooCommerce regularly. Some Indian business software exposes no real API, so integration becomes scheduled import and export, not live sync — workable, but a file exchange. Some integrations carry platform charges, WhatsApp being the obvious example. Both get checked during discovery, so costs are known before you approve scope.',
+        a: 'Usually, yes. We connect WhatsApp Business, Razorpay and other payment gateways, Google Workspace, Tally, Shopify and WooCommerce regularly. Some Indian business software exposes no real API, so integration becomes scheduled import and export, not live sync: workable, but a file exchange. Some integrations carry platform charges, WhatsApp being the obvious example. Both get checked during discovery, so costs are known before you approve scope.',
       },
       {
         q: 'Who owns the software and the data?',
         a: 'You do, in writing. Source code lives in a repository in your name, the database sits in a hosting account you control, and credentials are handed to you at handover. There is no per-user licence and nothing preventing another developer from working on the system later. We ask only that you keep the documentation, because that makes the system maintainable by anyone.',
       },
       {
-        q: 'What happens if we stop working with you?',
-        a: 'The system keeps running, which is the point of putting code, database and hosting in your name from day one. At the close of any engagement you receive the current source, a schema document, environment details and deployment steps, so another developer can take over without reverse-engineering our decisions. We would rather keep a client because the work is good than because leaving is painful.',
+        q: 'What happens after launch: support and handover?',
+        a: 'Once you approve the final build, full account handover (hosting, domain, database, security) completes within **24 hours**. You get **10 weeks** of free maintenance after go-live (longer than a website, since software carries more risk once live), chargeable beyond that. Source, schema and deployment steps are yours either way, so leaving is never painful.',
       },
       {
         q: 'Is our business data secure?',
-        a: 'Role-based access, encrypted connections, hashed passwords, audit logs on the records that matter, and automated backups we restore-test before go-live — an untested backup is not a backup. If your data is sensitive, or a client contract demands it, we deploy inside your own cloud account so nothing sits with us. No system is unbreakable, but one staff member’s mistake cannot expose everything.',
+        a: 'Role-based access, encrypted connections, hashed passwords, audit logs on the records that matter, and automated backups we restore-test before go-live: an untested backup is not a backup. If your data is sensitive, or a client contract demands it, we deploy inside your own cloud account so nothing sits with us. No system is unbreakable, but one staff member’s mistake cannot expose everything.',
       },
       {
         q: 'When should we not build custom software?',
-        a: 'If your process is standard and a subscription does it, buy it — accounting, payroll and email marketing are almost always a mistake to build. If nobody follows the process, software just makes the mess faster. If the workflow still changes monthly, wait — you would be building a moving target. Custom fits a settled process, specific to how you win, and expensive by hand.',
+        a: 'If your process is standard and a subscription does it, buy it: accounting, payroll and email marketing are almost always a mistake to build. If nobody follows the process, software just makes the mess faster. If the workflow still changes monthly, wait: you would be building a moving target. Custom fits a settled process, specific to how you win, and expensive by hand.',
       },
     ],
 
@@ -669,9 +673,9 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Branding & Logo Design Agency in Gujarat — Manhar Creatives',
+    metaTitle: 'Branding & Logo Design Agency in Gujarat: Manhar Creatives',
     metaDescription:
-      'Brand identity, logo design and brand guidelines for businesses across Gujarat. One mark, one palette, and rules that keep every future design consistent.',
+      'Brand identity and logo design for Gujarat businesses: explored broadly, narrowed deliberately, delivered as one complete brand system you can defend anywhere.',
     keywords: [
       'branding agency',
       'logo design services',
@@ -688,38 +692,38 @@ export const SERVICES = [
       title: 'Brand identity and logo design',
       accent: 'so the quality shows before you say a word',
       subtitle:
-        'People meet your business before they meet you — a board, a bill, a forwarded screenshot. We build the identity behind them: **one mark, one palette, rules that hold**.',
+        'People meet your business before they meet you, a board, a bill, a forwarded screenshot. We build the identity behind them: **one mark, one palette, rules that hold**.',
     },
 
     heroStats: [
-      { value: '3–5', label: 'Weeks from discovery to handover' },
-      { value: '30+', label: 'Logo files across print and digital formats' },
+      { value: '1+', label: 'Weeks from discovery to handover' },
+      { value: '100+', label: 'Logo directions explored before you choose' },
       { value: '7–10', label: 'Years before a built identity needs revisiting' },
     ],
 
     problem: {
       heading: 'You keep losing work to businesses that are worse at the job',
       body: [
-        'The logo was a rush job years ago — a JPG on WhatsApp, stretched onto banners since. The competitor two streets away does worse work, but his board, bill book and van agree, so **customers who cannot judge the work judge what they see**.',
+        'The logo was a rush job years ago, a JPG on WhatsApp, stretched onto banners since. The competitor two streets away does worse work, but his board, bill book and van agree, so **customers who cannot judge the work judge what they see**.',
       ],
       points: [
-        'Only a **JPG** — no vector, no source file',
+        'Only a **JPG**: no vector, no source file',
         'Board, bill book and Instagram show **three different colours**',
-        'Every new design starts from zero — **no rules written down**',
+        'Every new design starts from zero, **no rules written down**',
         'The printer redraws the mark, so **two versions circulate**',
-        'Nothing says what you do better — **you look interchangeable**',
+        'Nothing says what you do better, **you look interchangeable**',
       ],
     },
 
     solution: {
       heading: 'A logo is a signature. The identity is the handwriting behind it.',
       body: [
-        'Work begins with three questions: who you lose deals to, what a customer believes in four seconds, and the gap between them. The system — mark, palette, type, written rules — is handed over with sources, so **you never negotiate for an editable version of your logo**.',
+        'Work begins with three questions: who you lose deals to, what a customer believes in four seconds, and the gap between them. The system (mark, palette, type, written rules) is handed over with sources, so **you never negotiate for an editable version of your logo**.',
       ],
       pillars: [
         {
           title: 'Positioned, then drawn',
-          desc: 'Who you compete against, and what a customer must believe in four seconds — settled before anything is drawn.',
+          desc: 'Who you compete against, and what a customer must believe in four seconds, settled before anything is drawn.',
         },
         {
           title: 'Built for the hard applications',
@@ -731,7 +735,7 @@ export const SERVICES = [
         },
       ],
       quote:
-        'We design, we build, you grow — and with identity, growth means charging what the work is actually worth.',
+        'We design, we build, you grow, and with identity, growth means charging what the work is actually worth.',
     },
 
     deliverables: [
@@ -746,7 +750,7 @@ export const SERVICES = [
       },
       {
         title: 'Logo System',
-        desc: 'One primary mark plus horizontal, stacked, monogram and single-colour versions — **vector from the first line**.',
+        desc: 'One primary mark plus horizontal, stacked, monogram and single-colour versions, **vector from the first line**.',
         points: [
           'Primary mark with horizontal and stacked lockups',
           'Black, white and single-colour variants for print',
@@ -764,7 +768,7 @@ export const SERVICES = [
       },
       {
         title: 'Brand Guidelines',
-        desc: 'Minimum sizes, clear space, usage rules — written so **a printer can follow it without ringing anyone**.',
+        desc: 'Minimum sizes, clear space, usage rules, written so **a printer can follow it without ringing anyone**.',
         points: [
           'Do and do-not examples from real misuse',
           'Colour, type and imagery direction in one PDF',
@@ -773,7 +777,7 @@ export const SERVICES = [
       },
       {
         title: 'Brand Applications',
-        desc: 'Visiting card, letterhead, bill format, signage, vehicle branding and social profiles — designed as **one set**.',
+        desc: 'Visiting card, letterhead, bill format, signage, vehicle branding and social profiles, designed as **one set**.',
         points: [
           'Visiting card, letterhead and invoice format',
           'Signage, standee and vehicle branding artwork',
@@ -782,7 +786,7 @@ export const SERVICES = [
       },
       {
         title: 'Files & Handover',
-        desc: 'Print, web and office formats plus editable sources — **yours outright, no retainer needed to open them**.',
+        desc: 'Print, web and office formats plus editable sources, **yours outright, no retainer needed to open them**.',
         points: [
           'AI, EPS, SVG, PDF, PNG and JPG variants',
           'Recorded walkthrough of the guidelines and files',
@@ -836,7 +840,7 @@ export const SERVICES = [
     local: {
       heading: 'Built in Visnagar, applied wherever you trade',
       body:
-        'Based in Visnagar, working across Ahmedabad, Mehsana, North Gujarat and the rest of India. Proximity earns its keep at the **printing and fabrication stage** — the colour proof, the sign vendor, the sample that comes back wrong.',
+        'Based in Visnagar, working across Ahmedabad, Mehsana, North Gujarat and the rest of India. Proximity earns its keep at the **printing and fabrication stage**: the colour proof, the sign vendor, the sample that comes back wrong.',
       points: [
         'Artwork prepared to your printer and sign vendor specifications',
         'Bilingual lockups for Gujarati and English',
@@ -851,28 +855,28 @@ export const SERVICES = [
 
     faqs: [
       {
-        q: 'What is included in a brand identity project?',
-        a: 'Discovery, a logo system, colour and type, a written guidelines document, application designs and full file handover. That means one primary mark plus horizontal, stacked, monogram and single-colour versions; colours specified separately for screen, print and fabric; typefaces with licensing checked; and the visiting card, letterhead, bill format and social profiles. Scope is agreed in writing before we start.',
+        q: 'What is included, and how does the project start?',
+        a: 'We start with **50% advance** and research into your business and competitors’ identities, specifically how yours should stand apart, not blend in. Minimum **one week**; the real timeline depends on scope, set out in writing upfront. You receive discovery, a logo system, colour and type, guidelines, applications, and full files, plus **ongoing brand strategy guidance**, not a one-off handoff.',
       },
       {
         q: 'How is this different from just buying a logo?',
-        a: 'A logo is one file. An identity is the decisions that keep every future file consistent — colour, typeface, clear space, one-colour print. Buy only a logo and within eight months three versions are in circulation. If you are six months old with no signage, collateral or staff, a well-drawn mark and a two-page rules sheet may be enough, and we will say so.',
+        a: 'A logo is one file. An identity is the decisions that keep every future file consistent: colour, typeface, clear space, one-colour print. Buy only a logo and within eight months three versions are in circulation. If you are six months old with no signage, collateral or staff, a well-drawn mark and a two-page rules sheet may be enough, and we will say so.',
       },
       {
         q: 'Do you rebrand existing businesses?',
-        a: 'Yes. First an audit of what you already own — recognition, a colour people associate with you. That is years of spend, so the result is usually evolution rather than replacement: the equity stays, the execution gets fixed. A clean break is right only when the identity works against you — wrong industry signals, a legal conflict, or a name that no longer describes the business.',
+        a: 'Yes. First an audit of what you already own: recognition, a colour people associate with you. That is years of spend, so the result is usually evolution rather than replacement: the equity stays, the execution gets fixed. A clean break is right only when the identity works against you (wrong industry signals, a legal conflict, or a name that no longer describes the business).',
       },
       {
-        q: 'How many logo concepts will I see?',
-        a: 'Two or three, each a strategic argument, not a decoration. Studios presenting fifteen options are usually presenting one they believe in and fourteen to make it look chosen, which moves the decision from strategy to taste. Each concept is shown in context: on a board, on a card, on a phone, in one colour. Then two rounds of refinement on the direction you pick.',
+        q: 'How many logo concepts will I actually see?',
+        a: 'Every project starts with roughly **100 logo directions** explored, narrowed down to a **top 3**, each presented in full, with mockups and reasoning. All of it, the 3 finalists plus every other direction and **50+ colour palette options**, is compiled into a single PDF, so you are choosing from everything, not just what we picked for you.',
       },
       {
-        q: 'What file formats do I receive?',
-        a: 'Vector source in AI and EPS, SVG for web, layered PDF, plus PNG with transparency and JPG at several sizes. Each exists for every variant — primary, horizontal, stacked, monogram — in full colour, all black, all white and single colour. Folders are labelled by use rather than format. Editable sources are included; some studios hold those back, we hand them over.',
+        q: 'What do I actually receive at final delivery?',
+        a: 'One complete folder: the finished logo in vector form plus the editable **CDR source**, every size and format, mono and lockup versions, and full colour codes. Alongside it, a written explanation of what your mark means and a **usage guide**: which version belongs where, so nobody has to ask us again.',
       },
       {
         q: 'Do I own the copyright to the logo?',
-        a: 'Yes. On final payment, ownership of the final artwork transfers to you in writing — use it, modify it, trademark it, hand it to any designer. Typefaces are the exception: licensed, never owned, so we specify fonts you can legally use and flag which need buying for signage or web embedding. We also check obvious trademark conflicts in your category, but registrability is a lawyer job.',
+        a: 'Yes. On final payment, ownership of the final artwork transfers to you in writing: use it, modify it, trademark it, hand it to any designer. Typefaces are the exception: licensed, never owned, so we specify fonts you can legally use and flag which need buying for signage or web embedding. We also check obvious trademark conflicts in your category, but registrability is a lawyer job.',
       },
       {
         q: 'What if I do not like any of the concepts?',
@@ -916,9 +920,9 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Social Media Design & Content Creatives in Gujarat — Manhar Creatives',
+    metaTitle: 'Social Media Design & Content Creatives in Gujarat: Manhar Creatives',
     metaDescription:
-      'Social media design for Instagram, Facebook and LinkedIn — branded post templates and reusable creative systems that make your feed look like one company.',
+      'Social media design for Instagram, Facebook and LinkedIn: branded post templates and reusable creative systems that make your entire feed look like one company.',
     keywords: [
       'social media design',
       'instagram post design',
@@ -934,7 +938,7 @@ export const SERVICES = [
       title: 'Social media design and post templates',
       accent: 'so the feed finally looks like one company',
       subtitle:
-        'A feed stitched from five templates tells customers how seriously you take your business. We build direction, templates and creatives — **design only, not posting, captions or ads**.',
+        'A feed stitched from five templates tells customers how seriously you take your business. We build direction, templates and creatives: **design only, not posting, captions or ads**.',
     },
 
     heroStats: [
@@ -960,7 +964,7 @@ export const SERVICES = [
     solution: {
       heading: 'Recognition is not built by posting more. It is built by posting the same way.',
       body: [
-        'A short set of decisions made once — headline position, colour roles, photo crop — then applied without re-arguing weekly. A post takes twenty minutes instead of an afternoon. We design the system and creatives; **we do not run accounts, write captions or buy ads**.',
+        'A short set of decisions made once (headline position, colour roles, photo crop) then applied without re-arguing weekly. A post takes twenty minutes instead of an afternoon. We design the system and creatives; **we do not run accounts, write captions or buy ads**.',
       ],
       pillars: [
         {
@@ -973,11 +977,11 @@ export const SERVICES = [
         },
         {
           title: 'Judged at phone size',
-          desc: 'Checked the way it will be seen — scrolled past on a mid-range Android, not a designer’s monitor.',
+          desc: 'Checked the way it will be seen, scrolled past on a mid-range Android, not a designer’s monitor.',
         },
       ],
       quote:
-        'We design, we build, you grow — on social, growth starts when a stranger recognises your post before the name.',
+        'We design, we build, you grow: on social, growth starts when a stranger recognises your post before the name.',
     },
 
     deliverables: [
@@ -1019,7 +1023,7 @@ export const SERVICES = [
       },
       {
         title: 'Profile & Highlights',
-        desc: 'Profile image, highlight covers and bio structure designed together — **the shopfront of the account**.',
+        desc: 'Profile image, highlight covers and bio structure designed together, **the shopfront of the account**.',
         points: [
           'Profile image tested at circular thumbnail size',
           'Highlight cover set with clear labelling',
@@ -1028,7 +1032,7 @@ export const SERVICES = [
       },
       {
         title: 'Handover Kit',
-        desc: 'Templates, fonts, exports and a usage sheet — **yours to keep, editable without us**.',
+        desc: 'Templates, fonts, exports and a usage sheet: **yours to keep, editable without us**.',
         points: [
           'Editable Figma or Canva files, your account',
           'Recorded walkthrough of editing and exporting',
@@ -1073,7 +1077,7 @@ export const SERVICES = [
     local: {
       heading: 'Designed in Visnagar, posted from wherever you trade',
       body:
-        'We are based in Visnagar and design for businesses in Ahmedabad, Mehsana and across India. Locally it earns its keep two ways — **the post has to read in Gujarati as well as English**, and festival dates that actually matter.',
+        'We are based in Visnagar and design for businesses in Ahmedabad, Mehsana and across India. Locally it earns its keep two ways: **the post has to read in Gujarati as well as English**, and festival dates that actually matter.',
       points: [
         'Bilingual layouts that work in Gujarati and English',
         'Festival creatives planned around dates your customers keep',
@@ -1084,20 +1088,20 @@ export const SERVICES = [
     },
 
     faqNote:
-      'These answers include the parts most studios leave out — including **when this is not the thing to spend on yet**.',
+      'These answers include the parts most studios leave out, including **when this is not the thing to spend on yet**.',
 
     faqs: [
       {
         q: 'Do you also manage the social media accounts?',
-        a: 'No. We design the system and creatives; we do not post, write captions, reply to comments or run ads. That needs somebody inside your business who can answer a price question at nine at night — a staff member, trained intern or social manager. You get templates, a usage sheet and a content structure. Video and reel editing works the same way — if you already have raw footage shot, we can edit it on request, but it sits outside the standard package. **Ask us what a fair rate is; we take no cut.**',
+        a: 'Not yet. **Our social media work today is focused on design and creative**: posts, stories, campaign creatives and brand communication. Posting, captions and ad management need someone inside your business who can answer a price question at nine at night. Video and reel editing is available on request if you already have raw footage, sitting outside the standard package.',
       },
       {
         q: 'Can you match our existing brand?',
-        a: 'Yes. Where guidelines exist we work inside them — palette, typefaces, logo lockups, clear space. Where they do not, we define the minimum: two or three colour roles, a heading and body typeface, a logo placement rule, a grid. That is not a full identity project and is not priced like one. **If your signboard, bill book and website already disagree, fix the identity first.**',
+        a: 'Yes. Where guidelines exist we work inside them: palette, typefaces, logo lockups, clear space. Where they do not, we define the minimum: two or three colour roles, a heading and body typeface, a logo placement rule, a grid. That is not a full identity project and is not priced like one. **If your signboard, bill book and website already disagree, fix the identity first.**',
       },
       {
         q: 'What formats do you deliver?',
-        a: 'Square and portrait feed posts, carousels, story frames, profile images and highlight covers — exported at correct dimensions for Instagram, Facebook and LinkedIn, not one size stretched across three. Editable Figma or Canva files included. Text sits inside safe areas, clear of the username, caption fold and story reply box. **Reel and other motion formats are handled separately — ask us if you need them.**',
+        a: 'Square and portrait feed posts, carousels, story frames, profile images and highlight covers, exported at correct dimensions for Instagram, Facebook and LinkedIn, not one size stretched across three. Editable Figma or Canva files included. Text sits inside safe areas, clear of the username, caption fold and story reply box. **Reel and other motion formats are handled separately: ask us if you need them.**',
       },
       {
         q: 'Can we edit the templates ourselves afterwards?',
@@ -1105,11 +1109,11 @@ export const SERVICES = [
       },
       {
         q: 'How many designs come in one batch?',
-        a: 'A standard kit is twelve or more templates plus a launch batch of finished posts, the split written into scope upfront. Announcement, offer, tip, testimonial, product or menu highlight and a festival frame cover most of a year. Ongoing monthly batches from the same system cost less. **If your team can post three good creatives a week from the templates, we scope the system only.**',
+        a: 'Every batch is a **defined package**: a set number of templates and finished posts per cycle, agreed in scope upfront, not an open-ended brief. A standard kit runs twelve-plus templates and a launch batch; ongoing monthly packages from the same system cost less. If your team can run three posts a week from the templates alone, we scope the system only.',
       },
       {
         q: 'What do you need from us to start?',
-        a: 'Your logo in vector; if you lack one, we will say whether it survives at social sizes. Real photographs of your work, premises or team, even on a phone — stock imagery looks like every other account. A list of what you sell and the next step you want. One person who can approve: **three opinions and no decision-maker turns two weeks into two months.**',
+        a: 'Your logo in vector; if you lack one, we will say whether it survives at social sizes. Real photographs of your work, premises or team, even on a phone, stock imagery looks like every other account. A list of what you sell and the next step you want. One person who can approve: **three opinions and no decision-maker turns two weeks into two months.**',
       },
       {
         q: 'Do we actually need social media design yet?',
@@ -1149,9 +1153,9 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Print Design & Offline Branding in Gujarat — Manhar Creatives',
+    metaTitle: 'Print Design & Offline Branding in Gujarat: Manhar Creatives',
     metaDescription:
-      'Print design and offline branding in Gujarat: cards, brochures, signage and packaging, with press-ready artwork that prints exactly as it was approved.',
+      'Print design and offline branding in Gujarat: business cards, brochures, signage and packaging, with press-ready artwork that prints exactly as it was approved.',
     keywords: [
       'print design services',
       'brochure design',
@@ -1172,7 +1176,7 @@ export const SERVICES = [
     },
 
     heroStats: [
-      { value: '1–3', label: 'Weeks from brief to press-ready artwork' },
+      { value: '1', label: 'Week from brief to press-ready artwork' },
       { value: '300 DPI', label: 'CMYK minimum on every file that goes to press' },
       { value: '3 mm', label: 'Bleed on all four edges, with crop marks' },
     ],
@@ -1192,9 +1196,9 @@ export const SERVICES = [
     },
 
     solution: {
-      heading: 'Print is specified before it is designed — that order is the whole job',
+      heading: 'Print is specified before it is designed: that order is the whole job',
       body: [
-        'Trim size, paper weight and finish, the press, colour mode, resolution, bleed and quantity are settled before layout begins. Skip that and you are **designing for a screen and hoping the press agrees** — then ordering five thousand flyers to hand out four hundred.',
+        'Trim size, paper weight and finish, the press, colour mode, resolution, bleed and quantity are settled before layout begins. Skip that and you are **designing for a screen and hoping the press agrees**, then ordering five thousand flyers to hand out four hundred.',
       ],
       pillars: [
         {
@@ -1262,7 +1266,7 @@ export const SERVICES = [
       },
       {
         title: 'Press Coordination',
-        desc: 'We deal with the printer, or you order yourself — often **cheaper and completely fine**.',
+        desc: 'We deal with the printer, or you order yourself, often **cheaper and completely fine**.',
         points: [
           'Quotes compared on stock and finish, not rate',
           'Physical proof signed off before the full run',
@@ -1356,7 +1360,15 @@ export const SERVICES = [
       },
       {
         q: 'How much should I actually print?',
-        a: 'Less than you are about to order. A falling per-piece rate is how storerooms fill. Work backwards from six months of distribution. Cards: 500 per person covers a year. Profiles: 50–100 digital beats 1,000 offset you will revise after ten meetings. Flyers: only what you will distribute. Spend the difference on paper — a heavier card with a decent finish adds about ₹2 a piece.',
+        a: 'Less than you are about to order. A falling per-piece rate is how storerooms fill. Work backwards from six months of distribution. Cards: 500 per person covers a year. Profiles: 50–100 digital beats 1,000 offset you will revise after ten meetings. Flyers: only what you will distribute. Spend the difference on paper, a heavier card with a decent finish adds about ₹2 a piece.',
+      },
+      {
+        q: 'How does payment and timeline work for print projects?',
+        a: 'Print projects run on **full advance payment**, not a split: these are shorter-scope jobs, typically **one week** from brief to press-ready artwork. Nothing goes to press until you have explicitly **approved the final design for print**: that checkpoint protects you as much as it protects us.',
+      },
+      {
+        q: 'Do you print large hoardings or illuminated signage?',
+        a: 'Banners are fully within scope. Bigger hoardings, illuminated boards and similar large-format or installation work sit beyond what we produce directly ourselves, but we **extend the service to arrange them on request**: one point of contact, handled by us end to end.',
       },
     ],
 
@@ -1368,8 +1380,8 @@ export const SERVICES = [
     slug: 'digital-presence',
     category: 'DIGITAL PRESENCE',
     icon: '⟐',
-    title: 'Digital Presence Setup',
-    shortTitle: 'Digital Presence Setup',
+    title: 'Digital Presence & Growth',
+    shortTitle: 'Digital Presence & Growth',
     tagline: 'Build a stronger online presence.',
     description:
       'Essential digital setup services that help businesses present a professional image online, improve discoverability, and maintain consistency across key digital platforms.',
@@ -1392,7 +1404,7 @@ export const SERVICES = [
     },
 
     /* ── Page-level content ── */
-    metaTitle: 'Google Business Profile & Local SEO Setup in Gujarat — Manhar Creatives',
+    metaTitle: 'Google Business Profile & Local SEO Setup in Gujarat: Manhar Creatives',
     metaDescription:
       'Google Business Profile setup and local SEO for Gujarat businesses, so customers searching nearby can find, verify and contact you before a competitor does.',
     keywords: [
@@ -1402,7 +1414,7 @@ export const SERVICES = [
       'google maps listing',
       'business email setup',
       'whatsapp business setup',
-      'online presence setup',
+      'google maps ranking',
       'local business seo',
     ],
 
@@ -1436,7 +1448,7 @@ export const SERVICES = [
     solution: {
       heading: 'The cheapest ground in local search is still sitting there unclaimed',
       body: [
-        'Categories decide which searches you are eligible for. Photos are the proof, reviews the tiebreaker. **Every one is a field somebody has to complete.** This is a one-time correction, not a monthly retainer — after handover, keeping it right takes minutes a week.',
+        'Categories decide which searches you are eligible for. Photos are the proof, reviews the tiebreaker. **Every one is a field somebody has to complete.** This is a one-time correction, not a monthly retainer: after handover, keeping it right takes minutes a week.',
       ],
       pillars: [
         {
@@ -1445,7 +1457,7 @@ export const SERVICES = [
         },
         {
           title: 'Every field completed',
-          desc: 'Categories, services, attributes, hours and description completed deliberately — **on a map listing, the fields are the ranking signals**.',
+          desc: 'Categories, services, attributes, hours and description completed deliberately: **on a map listing, the fields are the ranking signals**.',
         },
         {
           title: 'Proof over polish',
@@ -1453,7 +1465,7 @@ export const SERVICES = [
         },
       ],
       quote:
-        'We design, we build, you grow — growth here starts with being the business that appears when someone is already looking.',
+        'We design, we build, you grow: growth here starts with being the business that appears when someone is already looking.',
     },
 
     deliverables: [
@@ -1477,7 +1489,7 @@ export const SERVICES = [
       },
       {
         title: 'Photos & Proof',
-        desc: 'We curate what you have — and say when **a half-day of real photography** does more.',
+        desc: 'We curate what you have, and say when **a half-day of real photography** does more.',
         points: [
           'Logo, cover, exterior, interior, team and work photos',
           'Phone photographs cleaned up, never replaced with stock',
@@ -1495,7 +1507,7 @@ export const SERVICES = [
       },
       {
         title: 'Review System',
-        desc: 'A routine, not a campaign — because **an answered review beats a five-star one**.',
+        desc: 'A routine, not a campaign, because **an answered review beats a five-star one**.',
         points: [
           'Review link and printable QR for the counter',
           'Response templates for positive, mixed and angry reviews',
@@ -1567,7 +1579,7 @@ export const SERVICES = [
     local: {
       heading: 'Local search is the one service where being local counts',
       body:
-        'Based in Visnagar, we set up profiles in Ahmedabad, Mehsana, across North Gujarat and the rest of India. **The search that matters happens in your language and your taluka** — and we see the same result pages your customers see.',
+        'Based in Visnagar, we set up profiles in Ahmedabad, Mehsana, across North Gujarat and the rest of India. **The search that matters happens in your language and your taluka**, and we see the same result pages your customers see.',
       points: [
         'Categories chosen from what customers here actually type',
         'Profiles written for English and Gujarati, including transliterated searches',
@@ -1583,11 +1595,11 @@ export const SERVICES = [
     faqs: [
       {
         q: 'How long does Google Business Profile verification take?',
-        a: 'Setup takes one to two weeks. Verification runs on Google’s timetable, and the method — video, phone, email or postcard — is assigned by Google. Video is most common: one sitting, if signage, premises, equipment and address proof are ready. Smooth cases verify in days; a rejected first attempt stretches it to two or three weeks. We submit, coach the recording, and re-file without charging again.',
+        a: 'Setup takes one to two weeks. Verification runs on Google’s timetable, and the method (video, phone, email or postcard) is assigned by Google. Video is most common: one sitting, if signage, premises, equipment and address proof are ready. Smooth cases verify in days; a rejected first attempt stretches it to two or three weeks. We submit, coach the recording, and re-file without charging again.',
       },
       {
         q: 'Will this help me rank on Google Maps?',
-        a: 'It makes you eligible and removes Google’s reasons to rank you below someone else. Position is relevance, distance and prominence. Relevance — category and service accuracy — we control completely. Prominence — reviews, photos, activity, consistent details — we control most of. Distance we cannot touch, and **nobody can promise a position**: anyone guaranteeing the top of the map pack has not read Google’s guidelines.',
+        a: 'It makes you eligible and removes Google’s reasons to rank you below someone else. Position is relevance, distance and prominence. Relevance (category and service accuracy) we control completely. Prominence (reviews, photos, activity, consistent details) we control most of. Distance we cannot touch, and **nobody can promise a position**: anyone guaranteeing the top of the map pack has not read Google’s guidelines.',
       },
       {
         q: 'Do I need a website for a Google Business Profile?',
@@ -1595,19 +1607,19 @@ export const SERVICES = [
       },
       {
         q: 'How long before we actually see results?',
-        a: 'First movement two to four weeks after verification; fair judgement at three months. Some get calls within days, because they were invisible and the category was wrong. In a crowded Ahmedabad category, three hundred reviews and eight years of activity mean months, and reviews move it. We record a baseline — calls, direction requests, searches, photo views — so at ninety days you compare numbers, not impressions.',
+        a: 'First movement two to four weeks after verification; fair judgement at three months. Some get calls within days, because they were invisible and the category was wrong. In a crowded Ahmedabad category, three hundred reviews and eight years of activity mean months, and reviews move it. We record a baseline (calls, direction requests, searches, photo views) so at ninety days you compare numbers, not impressions.',
       },
       {
         q: 'Can you get us reviews, or arrange a few to start with?',
-        a: 'No. We build the system that earns them and will not buy or arrange one. Google detects bought reviews — five stars from new accounts, same week, devices nowhere near you. Outcomes run from silent filtering — you paid for nothing — to a consumer alert or suspension, weeks to undo. Review gating, asking only happy customers, breaches Google’s policy. **Twenty genuine reviews beat a hundred bought ones.**',
+        a: 'No. We build the system that earns them and will not buy or arrange one. Google detects bought reviews: five stars from new accounts, same week, devices nowhere near you. Outcomes run from silent filtering (you paid for nothing) to a consumer alert or suspension, weeks to undo. Review gating, asking only happy customers, breaches Google’s policy. **Twenty genuine reviews beat a hundred bought ones.**',
       },
       {
         q: 'What if our listing is already claimed by somebody else?',
-        a: 'Usually an old agency, a former employee, or a personal account. Google has an ownership request: we submit from your account; the holder has seven days to respond. Ignore it and ownership transfers; refuse, and you appeal with proof — registration, utility bill, signage, GST — decided in a few weeks. **We will not create a second listing**: duplicates split reviews and ranking signals and invite suspension.',
+        a: 'Usually an old agency, a former employee, or a personal account. Google has an ownership request: we submit from your account; the holder has seven days to respond. Ignore it and ownership transfers; refuse, and you appeal with proof (registration, utility bill, signage, GST) decided in a few weeks. **We will not create a second listing**: duplicates split reviews and ranking signals and invite suspension.',
       },
       {
         q: 'What do you need from us to start?',
-        a: 'Proof of address: registration, GST, utility bill or rent agreement. The phone number and email you want listed — codes arrive there. Your exact name as on the board — keyword-stuffed versions are penalised. Opening hours, including closing days. Photographs of premises, team and work, even phone shots. What you sell, in your customers’ words. One decision-maker available for a twenty-minute video verification call.',
+        a: 'Proof of address: registration, GST, utility bill or rent agreement. The phone number and email you want listed: codes arrive there. Your exact name as on the board: keyword-stuffed versions are penalised. Opening hours, including closing days. Photographs of premises, team and work, even phone shots. What you sell, in your customers’ words. One decision-maker available for a twenty-minute video verification call.',
       },
     ],
 

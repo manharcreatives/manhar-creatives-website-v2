@@ -59,7 +59,7 @@ function FullscreenProject({ project, index }) {
           )}
           <motion.video
             autoPlay loop muted playsInline preload="metadata" poster={project.image}
-            aria-label={`${project.title} — showreel`}
+            aria-label={`${project.title}: showreel`}
             tabIndex={-1}
             onCanPlay={() => setVideoReady(true)}
             onPlaying={() => trackVideoPlay(project.title, 'project_showcase')}
@@ -188,7 +188,7 @@ function FullscreenProject({ project, index }) {
               href={project.ctaUrl || project.url || '#'}
               target={(project.ctaUrl || project.url) ? '_blank' : undefined}
               rel={(project.ctaUrl || project.url) ? 'noopener noreferrer' : undefined}
-              onClick={() => trackCta(`View project — ${project.title}`, 'project_showcase', project.ctaUrl || project.url)}
+              onClick={() => trackCta(`View project: ${project.title}`, 'project_showcase', project.ctaUrl || project.url)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

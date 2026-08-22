@@ -12,9 +12,9 @@ const BENEFITS = [
   {
     icon: '◈',
     title: 'Credibility & Authority',
-    description: 'A brand and website built specifically for your business — never a template — help you establish credibility and create a stronger first impression than competitors running generic setups.',
+    description: 'A brand and website built specifically for your business, never a template, help you establish credibility and create a stronger first impression than competitors running generic setups.',
     image: '/images/cards/benefit-credibility.webp',
-    detail: 'In practice: a site that loads fast, states clearly what you do, and shows real work — built for you and no one else, so a prospect who searched your name before replying to your quotation finds a company, not a placeholder.',
+    detail: 'In practice: a site that loads fast, states clearly what you do, and shows real work, built for you and no one else, so a prospect who searched your name before replying to your quotation finds a company, not a placeholder.',
     proof: ['Clear service pages', 'Real project evidence', 'Consistent contact details'],
   },
   {
@@ -22,7 +22,7 @@ const BENEFITS = [
     title: 'Brand Recognition',
     description: 'Consistent branding helps businesses communicate clearly, stand out from competitors, and remain memorable.',
     image: '/images/cards/benefit-recognition.webp',
-    detail: 'In practice: one logo system, one colour set, one typeface pairing — applied identically across your website, invoices, signage and social posts, so people recognise you before they read the name.',
+    detail: 'In practice: one logo system, one colour set, one typeface pairing, applied identically across your website, invoices, signage and social posts, so people recognise you before they read the name.',
     proof: ['Logo & usage rules', 'Colour and type system', 'Templates your team can reuse'],
   },
   {
@@ -30,7 +30,7 @@ const BENEFITS = [
     title: 'Customer Trust',
     description: 'Clear communication, professional presentation, and reliable experiences help customers feel confident choosing your business.',
     image: '/images/cards/benefit-trust.webp',
-    detail: 'In practice: honest pages that answer the questions people actually ask before buying — what it includes, how long it takes, what happens next — rather than making them phone to find out.',
+    detail: 'In practice: honest pages that answer the questions people actually ask before buying (what it includes, how long it takes, what happens next) rather than making them phone to find out.',
     proof: ['Plain-language service copy', 'Answered FAQs', 'Visible policies and terms'],
   },
   {
@@ -38,7 +38,7 @@ const BENEFITS = [
     title: 'Online Visibility',
     description: 'A strong digital presence improves discoverability and helps potential customers find your business more easily.',
     image: '/images/cards/benefit-visibility.webp',
-    detail: 'In practice: correct on-page and technical SEO built into the site at launch, structured data, a complete Google Business Profile and city-level pages — so you appear for the searches people in your area are already making. Ongoing SEO growth work, once you want it, is scoped separately after the foundation is live.',
+    detail: 'In practice: correct on-page and technical SEO built into the site at launch, structured data, a complete Google Business Profile and city-level pages, so you appear for the searches people in your area are already making. Ongoing SEO growth work, once you want it, is scoped separately after the foundation is live.',
     proof: ['Structured data & sitemaps', 'Google Business Profile setup', 'Location-specific pages'],
   },
   {
@@ -46,15 +46,15 @@ const BENEFITS = [
     title: 'Consistent Communication',
     description: 'Unified communication channels help businesses respond faster, maintain professionalism, and improve customer interactions.',
     image: '/images/cards/benefit-communication.webp',
-    detail: 'In practice: every enquiry lands in one place — email, sheet and CRM together — instead of being split across WhatsApp, a form nobody checks and a notebook.',
+    detail: 'In practice: every enquiry lands in one place (email, sheet and CRM together) instead of being split across WhatsApp, a form nobody checks and a notebook.',
     proof: ['Single enquiry inbox', 'Automatic CRM record', 'Defined response process'],
   },
   {
     icon: '◆',
     title: 'Scalable Foundation',
-    description: 'Structured systems and scalable digital infrastructure — built with where your business is headed in mind, not just where it is today — support long-term growth without requiring constant rebuilding.',
+    description: 'Structured systems and scalable digital infrastructure (built with where your business is headed in mind, not just where it is today) support long-term growth without requiring constant rebuilding.',
     image: '/images/cards/benefit-scalable.webp',
-    detail: 'In practice: you own the code, the domain and the accounts. Adding a service, a location or a language later is an edit — not a rebuild, and not a fresh negotiation.',
+    detail: 'In practice: you own the code, the domain and the accounts. Adding a service, a location or a language later is an edit, not a rebuild, and not a fresh negotiation.',
     proof: ['Full ownership of assets', 'Documented structure', 'Room to add pages and features'],
   },
 ];
@@ -94,7 +94,7 @@ function BenefitCard({ benefit, index }) {
           <img
             className="benefit-image"
             src={benefit.image}
-            alt={`${benefit.title} — ${benefit.description.slice(0, 60)}`}
+            alt={`${benefit.title}: ${benefit.description.slice(0, 60)}`}
             loading="lazy"
             decoding="async"
             onLoad={() => setImgLoaded(true)}

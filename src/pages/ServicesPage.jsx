@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1];
 const SERVICE_FAQS = [
   {
     q: 'Which service should I start with?',
-    a: 'Whichever is limiting you now. Cannot be found or verified online — Digital Presence Setup and a website. Team buried in spreadsheets — Custom Software. Business looks inconsistent — Branding. We will say which gives you the fastest return.',
+    a: 'Whichever is limiting you now. Cannot be found or verified online: Digital Presence & Growth and a website. Team buried in spreadsheets: Custom Software. Business looks inconsistent: Branding. We will say which gives you the fastest return.',
   },
   {
     q: 'Can I combine multiple services?',
@@ -27,15 +27,15 @@ const SERVICE_FAQS = [
   },
   {
     q: 'How do you price projects?',
-    a: 'We scope first and quote a fixed price before starting. Pricing follows scope — pages, custom functionality, content and integrations. Anything outside the agreed scope is quoted separately and needs your approval.',
+    a: 'We scope first and quote a fixed price before starting. Pricing follows scope: pages, custom functionality, content and integrations. Anything outside the agreed scope is quoted separately and needs your approval.',
   },
   {
     q: 'What if I am not sure what I need?',
-    a: 'That is the normal starting point. Describe the business problem rather than the solution, and we will map what is actually required — including when you need less than you think.',
+    a: 'That is the normal starting point. Describe the business problem rather than the solution, and we will map what is actually required, including when you need less than you think.',
   },
   {
     q: 'Do you also do SEO, Meta Ads or AI automation?',
-    a: 'On request, once scoped to your specific need. These need ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve — they are not part of our six fixed-scope services.',
+    a: 'On request, once scoped to your specific need. These need ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve. They are not part of our six fixed-scope services.',
   },
 ];
 
@@ -51,19 +51,19 @@ const ON_REQUEST = [
   {
     icon: '◐',
     title: 'SEO Growth Retainer',
-    desc: 'Ongoing search ranking work — content, on-page and technical SEO, tracked monthly. Scoped after your website or Digital Presence Setup is live.',
+    desc: 'Ongoing search ranking work: content, on-page and technical SEO, tracked monthly. Scoped after your website or Digital Presence & Growth is live.',
     image: '/images/cards/on-request-seo.webp',
   },
   {
     icon: '▣',
     title: 'Meta Ads Management',
-    desc: 'Instagram and Facebook ad campaigns — creative, targeting and budget management, reported monthly. Ad spend billed separately from our fee.',
+    desc: 'Instagram and Facebook ad campaigns: creative, targeting and budget management, reported monthly. Ad spend billed separately from our fee.',
     image: '/images/cards/on-request-ads.webp',
   },
   {
     icon: '⬢',
     title: 'AI & Automation Solutions',
-    desc: 'Workflow automation and AI tools built around one specific business process — quoted once we understand what you’re trying to automate.',
+    desc: 'Workflow automation and AI tools built around one specific business process, quoted once we understand what you’re trying to automate.',
     image: '/images/cards/on-request-automation.webp',
   },
 ];
@@ -353,7 +353,7 @@ export default function ServicesPage() {
     <>
       <Seo
         path="/services"
-        title="Services — Websites, Software, Branding & Local SEO | Manhar Creatives"
+        title="Services: Websites, Software, Branding & Local SEO | Manhar Creatives"
         description="Website development, custom software and CRM, branding, social and print design, and Google Business Profile setup for businesses across Gujarat and India."
         keywords={[
           'digital solutions company gujarat',
@@ -408,7 +408,7 @@ export default function ServicesPage() {
           eyebrow="WHAT WE DO"
           title="Six ways a business gets"
           accent="found, believed and chosen"
-          subtitle="Most businesses need one or two, not all six — and we will say which."
+          subtitle="Most businesses need one or two, not all six. We will say which."
         />
         <div className="mc-service-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
           {SERVICES.map((s, i) => (
@@ -418,7 +418,7 @@ export default function ServicesPage() {
       </PageSection>
 
       {/* ── Comparison ── */}
-      <PageSection style={{ paddingTop: 0 }}>
+      <PageSection>
         <SectionHeading
           eyebrow="SIDE BY SIDE"
           title="Which one"
@@ -429,12 +429,12 @@ export default function ServicesPage() {
       </PageSection>
 
       {/* ── On request ── */}
-      <PageSection tint style={{ paddingTop: 0 }}>
+      <PageSection tint>
         <SectionHeading
           eyebrow="ALSO AVAILABLE"
           title="Need something more"
           accent="specific?"
-          subtitle="Ongoing work outside our six fixed-scope services — scoped and priced once we understand exactly what you need."
+          subtitle="Ongoing work outside our six fixed-scope services, scoped and priced once we understand exactly what you need."
         />
         <div
           className="mc-on-request-grid"
@@ -455,7 +455,7 @@ export default function ServicesPage() {
       </PageSection>
 
       {/* ── Stats ── */}
-      <PageSection tint style={{ paddingTop: 0 }}>
+      <PageSection tint>
         <StatStrip stats={STATS} />
       </PageSection>
 

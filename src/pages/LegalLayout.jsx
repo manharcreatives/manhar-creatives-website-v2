@@ -299,7 +299,7 @@ export default function LegalLayout({
       <CtaBand
         eyebrow="Still here?"
         title="Let’s talk about your project instead."
-        text="Now that the fine print is out of the way — tell us what you are trying to build."
+        text="Now that the fine print is out of the way, tell us what you are trying to build."
         secondaryLabel="Explore Services"
         secondaryHref="/services"
       />

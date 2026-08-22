@@ -134,7 +134,7 @@ export default function ServiceDetailPage() {
       <ScrollPanels
         id="what-you-get"
         eyebrow="WHAT YOU GET"
-        title={`Included in every ${service.shortTitle.toLowerCase()} project —`}
+        title={`Included in every ${service.shortTitle.toLowerCase()} project,`}
         accent="written into the scope before work starts"
         subtitle="Defined deliverables, agreed up front, so you know exactly what you are paying for."
         panels={panels}
@@ -147,7 +147,7 @@ export default function ServiceDetailPage() {
             eyebrow="USE CASES"
             title="Where custom software"
             accent="pays for itself"
-            subtitle="The workflows businesses most often ask us to build — each one replacing manual effort with something reliable."
+            subtitle="The workflows businesses most often ask us to build. Each one replaces manual effort with something reliable."
           />
           <FeatureGrid items={service.useCases} />
         </PageSection>
@@ -175,7 +175,7 @@ export default function ServiceDetailPage() {
         heading={local?.heading || `${service.shortTitle} across Gujarat and India`}
         body={
           local?.body ||
-          `We are based in ${SITE.address.locality} and deliver ${service.title.toLowerCase()} projects across Ahmedabad, Mehsana, North Gujarat and the rest of India. Being locally based means face-to-face meetings when they help — and everything else handled over calls, WhatsApp and shared documents.`
+          `We are based in ${SITE.address.locality} and deliver ${service.title.toLowerCase()} projects across Ahmedabad, Mehsana, North Gujarat and the rest of India. Being locally based means face-to-face meetings when they help, and everything else handled over calls, WhatsApp and shared documents.`
         }
         points={
           local?.points || [

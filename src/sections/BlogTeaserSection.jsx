@@ -403,7 +403,7 @@ export default function BlogTeaserSection() {
             </FadeIn>
             <FadeIn delay={0.14}>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '1.0313rem', lineHeight: 1.75 }}>
-                Honest, detailed writing on websites, custom software, branding and local visibility —
+                Honest, detailed writing on websites, custom software, branding and local visibility,
                 including the parts most agencies would rather not explain.
               </p>
             </FadeIn>

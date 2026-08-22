@@ -238,7 +238,7 @@ export default function FeaturedSolutionsSection() {
 
                 <Link
                   to={solution.href}
-                  onClick={() => trackCta(`See examples — ${solution.title}`, 'featured_solutions', solution.href)}
+                  onClick={() => trackCta(`See examples: ${solution.title}`, 'featured_solutions', solution.href)}
                   style={{
                     marginTop: 'auto',
                     display: 'inline-flex', alignItems: 'center', gap: '8px',

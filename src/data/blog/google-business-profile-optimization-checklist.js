@@ -4,7 +4,7 @@ export default {
   h1: 'Google Business Profile Optimisation: An 18-Point Checklist That Actually Moves Rankings',
   excerpt:
     'The free local visibility most businesses never claim properly. An 18-point checklist covering every field, signal and habit that decides whether you appear in the Google Maps top three.',
-  metaTitle: 'Google Business Profile Optimisation Checklist (2026) — 18 Steps | Manhar Creatives',
+  metaTitle: 'Google Business Profile Optimisation Checklist (2026): 18 Steps | Manhar Creatives',
   metaDescription:
     'A complete Google Business Profile optimisation checklist for local businesses. Rank higher on Google Maps with correct categories, NAP consistency, photos, reviews and posting habits.',
   date: '2026-07-14',
@@ -14,7 +14,7 @@ export default {
   category: 'Local SEO',
   tags: ['Local SEO', 'Google Business Profile', 'Digital Presence'],
   image: '/images/blog/google-business-profile-checklist.webp',
-  imageAlt: 'Google Business Profile optimisation checklist — Manhar Creatives',
+  imageAlt: 'Google Business Profile optimisation checklist by Manhar Creatives',
   keywords: [
     'google business profile optimization',
     'google my business checklist',
@@ -38,7 +38,7 @@ export default {
     },
     {
       q: 'Does posting on Google Business Profile help rankings?',
-      a: 'Posts do not directly move rankings much, but they improve engagement signals and conversion — profiles with recent posts get more clicks and calls, and activity keeps the listing looking alive to both users and Google.',
+      a: 'Posts do not directly move rankings much, but they improve engagement signals and conversion: profiles with recent posts get more clicks and calls, and activity keeps the listing looking alive to both users and Google.',
     },
     {
       q: 'How do I get more Google reviews?',
@@ -46,19 +46,19 @@ export default {
     },
   ],
   content: [
-    { type: 'p', text: 'Roughly 46% of all Google searches have local intent. For a local business, the Google Maps three-pack — those three listings that appear above the normal results — is the single most valuable piece of free digital property available. It costs nothing. It takes a few hours to claim properly. Most businesses still get it wrong.' },
+    { type: 'p', text: 'Roughly 46% of all Google searches have local intent. For a local business, the Google Maps three-pack (those three listings that appear above the normal results) is the single most valuable piece of free digital property available. It costs nothing. It takes a few hours to claim properly. Most businesses still get it wrong.' },
     { type: 'p', text: 'This is the checklist we work through for every client. Work down it in order; the early items carry the most weight.' },
 
     { type: 'h2', text: 'Foundation: get the basics exactly right' },
 
     { type: 'h3', text: '1. Claim and verify the profile' },
-    { type: 'p', text: 'An unclaimed profile can be edited by the public and by competitors. Search your business name on Google, click "Own this business?", and complete verification — postcard, phone, email or video depending on what Google assigns you. Nothing else on this list matters until this is done.' },
+    { type: 'p', text: 'An unclaimed profile can be edited by the public and by competitors. Search your business name on Google, click "Own this business?", and complete verification: postcard, phone, email or video depending on what Google assigns you. Nothing else on this list matters until this is done.' },
 
     { type: 'h3', text: '2. Choose the right primary category' },
     { type: 'p', text: 'This is the highest-impact single field on the entire profile. Google uses your primary category to decide which searches you are even eligible for. Be specific: "Website Designer" behaves differently from "Marketing Agency"; "Dental Clinic" differently from "Doctor".' },
     { type: 'p', text: 'To find the right one, search your main keyword on Maps, open the top three competitors, and note their categories. Their categories are a direct readout of what Google associates with that search.' },
 
-    { type: 'h3', text: '3. Add secondary categories — but only relevant ones' },
+    { type: 'h3', text: '3. Add secondary categories, but only relevant ones' },
     { type: 'p', text: 'You can add up to nine secondary categories. Add every one that genuinely describes a service you offer, and none that do not. Irrelevant categories dilute relevance rather than expanding reach.' },
 
     { type: 'h3', text: '4. Lock your NAP and keep it identical everywhere' },
@@ -75,19 +75,19 @@ export default {
     { type: 'h2', text: 'Completeness: fill every single field' },
 
     { type: 'h3', text: '6. Write a proper business description' },
-    { type: 'p', text: 'You have 750 characters. Use them. Lead with what you do and who you serve, mention your city naturally, and describe your actual services. Write it for a human deciding whether to call you — keyword stuffing here reads as spam to both readers and Google.' },
+    { type: 'p', text: 'You have 750 characters. Use them. Lead with what you do and who you serve, mention your city naturally, and describe your actual services. Write it for a human deciding whether to call you: keyword stuffing here reads as spam to both readers and Google.' },
 
     { type: 'h3', text: '7. List services individually' },
-    { type: 'p', text: 'The Services section lets you add each service with its own name and description. This is genuinely underused and directly feeds relevance. A web agency should list "Website Development", "Logo Design", "Custom Software Development", "Google Business Profile Setup" as separate entries — not one line saying "digital services".' },
+    { type: 'p', text: 'The Services section lets you add each service with its own name and description. This is genuinely underused and directly feeds relevance. A web agency should list "Website Development", "Logo Design", "Custom Software Development", "Google Business Profile Setup" as separate entries, not one line saying "digital services".' },
 
     { type: 'h3', text: '8. Set accurate hours, including special hours' },
     { type: 'p', text: 'Wrong hours are the fastest way to earn a one-star review. Set regular hours, and set special hours before every festival and public holiday. Google actively surfaces "Hours might differ" warnings on listings it does not trust, which suppresses clicks.' },
 
     { type: 'h3', text: '9. Define your service area correctly' },
-    { type: 'p', text: 'If you serve customers at their location, set service areas. If customers visit you, keep the physical address visible. Businesses that do both should show the address — hiding it removes you from proximity-based results entirely.' },
+    { type: 'p', text: 'If you serve customers at their location, set service areas. If customers visit you, keep the physical address visible. Businesses that do both should show the address; hiding it removes you from proximity-based results entirely.' },
 
     { type: 'h3', text: '10. Turn on messaging and set up the call button' },
-    { type: 'p', text: 'Enable messaging only if someone will actually respond quickly — Google tracks response rate. Use a real, monitored phone number as the primary contact, not a number that rings unanswered.' },
+    { type: 'p', text: 'Enable messaging only if someone will actually respond quickly, since Google tracks response rate. Use a real, monitored phone number as the primary contact, not a number that rings unanswered.' },
 
     { type: 'h2', text: 'Visual signals: photos matter more than owners expect' },
 
@@ -99,7 +99,7 @@ export default {
         'Logo and a cover image that represents the business well',
         'Exterior shots from multiple angles and from the road, so people can find you',
         'Interior shots showing the actual space',
-        'Team photos — these build more trust than any stock image',
+        'Team photos, which build more trust than any stock image',
         'Work samples, products or completed projects',
       ],
     },
@@ -117,7 +117,7 @@ export default {
     { type: 'p', text: 'Twenty reviews arriving in one week looks manufactured. Two or three arriving every week, consistently, is a far stronger signal and far more durable. Aim for a rhythm, not a campaign.' },
 
     { type: 'h3', text: '15. Reply to every review, without exception' },
-    { type: 'p', text: 'Reply to positive reviews briefly and specifically. Reply to negative reviews calmly, publicly, and with a route to resolution. Prospective customers read the response far more carefully than the complaint — a professional reply to a bad review often builds more trust than a five-star rating.' },
+    { type: 'p', text: 'Reply to positive reviews briefly and specifically. Reply to negative reviews calmly, publicly, and with a route to resolution. Prospective customers read the response far more carefully than the complaint: a professional reply to a bad review often builds more trust than a five-star rating.' },
     {
       type: 'callout',
       title: 'Never do this',
@@ -127,13 +127,13 @@ export default {
     { type: 'h2', text: 'Ongoing activity' },
 
     { type: 'h3', text: '16. Post regularly' },
-    { type: 'p', text: 'Google Posts appear directly on your listing. Post offers, new work, announcements or useful tips — roughly weekly. The direct ranking effect is modest, but the effect on clicks and calls is real, and an active profile keeps you visually distinct from dormant competitors.' },
+    { type: 'p', text: 'Google Posts appear directly on your listing. Post offers, new work, announcements or useful tips, roughly weekly. The direct ranking effect is modest, but the effect on clicks and calls is real, and an active profile keeps you visually distinct from dormant competitors.' },
 
     { type: 'h3', text: '17. Use the Q&A section proactively' },
-    { type: 'p', text: 'Anyone can ask a question on your listing — and anyone can answer, including competitors. Get ahead of it: post the eight questions customers actually ask, and answer them yourself from the business account. This controls the narrative and adds keyword-relevant content to the profile.' },
+    { type: 'p', text: 'Anyone can ask a question on your listing, and anyone can answer, including competitors. Get ahead of it: post the eight questions customers actually ask, and answer them yourself from the business account. This controls the narrative and adds keyword-relevant content to the profile.' },
 
     { type: 'h3', text: '18. Connect it to a real website and track the results' },
-    { type: 'p', text: 'A profile linked to a fast, relevant, mobile-friendly website converts significantly better and ranks more reliably. Link to the most relevant page, not always the homepage — a location or service page often serves better. Then check the Insights tab monthly: searches, calls, direction requests and website clicks tell you exactly what is working.' },
+    { type: 'p', text: 'A profile linked to a fast, relevant, mobile-friendly website converts significantly better and ranks more reliably. Link to the most relevant page, not always the homepage: a location or service page often serves better. Then check the Insights tab monthly: searches, calls, direction requests and website clicks tell you exactly what is working.' },
 
     { type: 'h2', text: 'What to expect, and when' },
     {
@@ -146,7 +146,7 @@ export default {
         ['Month 3–6', 'Realistic window for competitive local three-pack placement'],
       ],
     },
-    { type: 'p', text: 'Local SEO compounds. The businesses in the top three did not do anything dramatic — they were consistent for longer than everyone else.' },
+    { type: 'p', text: 'Local SEO compounds. The businesses in the top three did not do anything dramatic; they were consistent for longer than everyone else.' },
 
     { type: 'h2', text: 'The five mistakes that cause most failures' },
     {
@@ -163,7 +163,7 @@ export default {
     {
       type: 'cta',
       title: 'Want this done properly, once?',
-      text: 'We set up and optimise Google Business Profiles end to end — categories, services, photos, NAP consistency across directories, and a review system your team can actually maintain.',
+      text: 'We set up and optimise Google Business Profiles end to end: categories, services, photos, NAP consistency across directories, and a review system your team can actually maintain.',
       label: 'Set Up My Profile',
       href: '/services/digital-presence',
     },

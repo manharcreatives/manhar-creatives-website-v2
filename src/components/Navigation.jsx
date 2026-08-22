@@ -554,7 +554,7 @@ export default function Navigation() {
             style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}
           >
             {/* Logo */}
-            <Link to="/" aria-label="Manhar Creatives — home" style={{ display: 'flex', alignItems: 'center', zIndex: 2, flexShrink: 0 }}>
+            <Link to="/" aria-label="Manhar Creatives, home" style={{ display: 'flex', alignItems: 'center', zIndex: 2, flexShrink: 0 }}>
               <img
                 src="/images/logos/nav-logo.webp"
                 alt="Manhar Creatives"

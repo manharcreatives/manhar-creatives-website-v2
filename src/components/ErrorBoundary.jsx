@@ -118,7 +118,7 @@ export default class ErrorBoundary extends Component {
 
         <p style={{ color: 'rgba(255,255,255,0.62)', maxWidth: '460px', lineHeight: 1.75, marginBottom: '32px' }}>
           {retryExhausted
-            ? 'That did not recover. Reloading the page usually clears it — and if it keeps happening, tell us and we will fix it.'
+            ? 'That did not recover. Reloading the page usually clears it, and if it keeps happening, tell us and we will fix it.'
             : 'This part of the page failed to load. Trying again usually fixes it without losing where you were.'}
         </p>
 

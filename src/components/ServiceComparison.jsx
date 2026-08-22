@@ -61,9 +61,9 @@ const ROWS = [
     label: 'Typical timeline',
     defaultOn: true,
     values: {
-      website: '3–6 weeks',
-      software: '6–14 weeks',
-      branding: '2–4 weeks',
+      website: '3 weeks+',
+      software: '4 weeks+',
+      branding: '1 week+',
     },
     emphasis: true,
   },
@@ -80,7 +80,7 @@ const ROWS = [
     defaultOn: true,
     values: {
       website: 'Content, approvals and one review round per stage.',
-      software: 'Highest — we need to understand how you actually work today.',
+      software: 'Highest: we need to understand how you actually work today.',
       branding: 'Two or three decision points. Mostly reviewing directions.',
     },
   },
@@ -109,7 +109,7 @@ const ROWS = [
     label: 'Works well with',
     defaultOn: false,
     values: {
-      website: 'Branding, Digital Presence Setup',
+      website: 'Branding, Digital Presence & Growth',
       software: 'Website Development',
       branding: 'Print & Offline, Social Media Design',
     },
@@ -262,7 +262,7 @@ export default function ServiceComparison() {
                 <th key={c.key} scope="col" style={{ ...headCell, width: '27%' }}>
                   <Link
                     to={c.href}
-                    onClick={() => trackCta(`Compare — ${c.name}`, 'service_comparison', c.href)}
+                    onClick={() => trackCta(`Compare: ${c.name}`, 'service_comparison', c.href)}
                     style={{ textDecoration: 'none', display: 'block' }}
                   >
                     <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontSize: '1.0625rem', fontWeight: 600, color: '#fff', lineHeight: 1.35, marginBottom: '6px' }}>
@@ -312,7 +312,7 @@ export default function ServiceComparison() {
                 <td key={c.key} style={{ ...bodyCell, borderBottom: 'none' }}>
                   <Link
                     to={c.href}
-                    onClick={() => trackCta(`Learn more — ${c.name}`, 'service_comparison', c.href)}
+                    onClick={() => trackCta(`Learn more: ${c.name}`, 'service_comparison', c.href)}
                     className="btn btn-outline"
                     style={{ padding: '10px 20px', fontSize: '0.8125rem', minHeight: '40px' }}
                   >
@@ -361,7 +361,7 @@ export default function ServiceComparison() {
 
             <Link
               to={c.href}
-              onClick={() => trackCta(`Learn more — ${c.name}`, 'service_comparison_mobile', c.href)}
+              onClick={() => trackCta(`Learn more: ${c.name}`, 'service_comparison_mobile', c.href)}
               className="btn btn-outline"
               style={{ marginTop: '22px', padding: '11px 22px', fontSize: '0.8125rem', width: '100%' }}
             >
@@ -373,7 +373,7 @@ export default function ServiceComparison() {
 
       <p style={{ marginTop: '22px', fontSize: '0.8438rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.7 }}>
         Timelines assume content and approvals arrive on schedule. Every project is scoped and
-        quoted in writing before work starts —{' '}
+        quoted in writing before work starts;{' '}
         <Link to="/contact" className="mc-link" style={{ color: 'var(--color-primary)' }}>
           book a call
         </Link>{' '}

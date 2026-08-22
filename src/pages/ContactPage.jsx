@@ -71,8 +71,8 @@ export default function ContactPage() {
     <>
       <Seo
         path="/contact"
-        title={`Contact Us — Book a Discovery Call | ${SITE.name}`}
-        description={`Get in touch with ${SITE.name} for website development, custom software, CRM systems, branding and digital presence. Based in ${SITE.address.locality}, ${SITE.address.region} — serving clients across India. Free discovery call, fixed pricing.`}
+        title={`Contact Us: Book a Discovery Call | ${SITE.name}`}
+        description={`Get in touch with ${SITE.name} for website development, custom software, CRM systems, branding and digital presence. Based in ${SITE.address.locality}, ${SITE.address.region}, serving clients across India. Free discovery call, fixed pricing.`}
         keywords={[
           'contact manhar creatives',
           'website development enquiry gujarat',
@@ -117,7 +117,7 @@ export default function ContactPage() {
         eyebrow="GET IN TOUCH"
         title="Tell us what you’re"
         titleAccent="trying to build."
-        subtitle="Describe the business problem rather than the solution. We will tell you honestly what it takes to fix it — including when you need less than you think."
+        subtitle="Describe the business problem rather than the solution. We will tell you honestly what it takes to fix it, including when you need less than you think."
         background="/images/pages/contact-hero.webp"
         bgOpacity={0.55}
         imageSide="left"
@@ -187,7 +187,7 @@ export default function ContactPage() {
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '20px' }}>
           {[
-            { n: '01', t: 'We respond', d: 'Within one working day — usually much faster on WhatsApp.' },
+            { n: '01', t: 'We respond', d: 'Within one working day, usually much faster on WhatsApp.' },
             { n: '02', t: 'Discovery call', d: 'A genuine conversation about your business, goals and constraints. Free, no obligation.' },
             { n: '03', t: 'Written proposal', d: 'Scope, deliverables, timeline and fixed pricing, in writing.' },
             { n: '04', t: 'Project starts', d: 'On approval and advance payment, work begins against the agreed plan.' },

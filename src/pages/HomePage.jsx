@@ -78,7 +78,7 @@ export default function HomePage() {
     <>
       <Seo
         path="/"
-        title="Website Development & Custom Software Company in Gujarat | Manhar Creatives"
+        title="Web Development & Custom Software Company in Gujarat | Manhar Creatives"
         description="Websites, custom software and CRM, branding and digital presence for businesses in Ahmedabad, Mehsana, Visnagar and across India. We design, we build, you grow."
         keywords={[
           'website development company gujarat',
@@ -91,6 +91,7 @@ export default function HomePage() {
           'logo design gujarat',
           'google business profile setup',
           'professional website design india',
+          'website development company for international clients',
         ]}
         schema={[
           orgSchema(),

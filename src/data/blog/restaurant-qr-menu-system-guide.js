@@ -3,8 +3,8 @@ export default {
   title: 'QR Menu Systems for Restaurants: The Complete 2026 Guide',
   h1: 'QR Menu Systems for Restaurants: What Actually Works in 2026',
   excerpt:
-    'QR menus survived the pandemic for a reason — but only when they are built properly. What separates a QR menu that increases order value from one that annoys customers.',
-  metaTitle: 'QR Menu System for Restaurants — Complete 2026 Guide | Manhar Creatives',
+    'QR menus survived the pandemic for a reason, but only when they are built properly. What separates a QR menu that increases order value from one that annoys customers.',
+  metaTitle: 'QR Menu System for Restaurants: Complete 2026 Guide | Manhar Creatives',
   metaDescription:
     'How QR menu systems work, what they cost, and how restaurants in India use digital menus to cut printing costs, update prices instantly and increase average order value.',
   date: '2026-06-16',
@@ -14,14 +14,14 @@ export default {
   category: 'Industry Guide',
   tags: ['Restaurants', 'Digital Menus', 'Industry Guide'],
   image: '/images/blog/qr-menu-system-guide.webp',
-  imageAlt: 'QR menu system guide for restaurants — Manhar Creatives',
+  imageAlt: 'QR menu system guide for restaurants by Manhar Creatives',
   keywords: [
     'qr menu system',
     'digital menu for restaurants',
     'restaurant qr code menu',
     'qr menu india',
     'online menu system',
-    'restaurant digital solutions',
+    'custom software for restaurants',
     'contactless menu',
     'restaurant website development',
   ],
@@ -30,7 +30,7 @@ export default {
   faqs: [
     {
       q: 'Are QR menus still used in 2026?',
-      a: 'Yes, though the reason changed. They were adopted for hygiene during the pandemic and retained for economics — instant price updates, no reprinting costs, and the ability to promote high-margin items dynamically.',
+      a: 'Yes, though the reason changed. They were adopted for hygiene during the pandemic and retained for economics: instant price updates, no reprinting costs, and the ability to promote high-margin items dynamically.',
     },
     {
       q: 'How much does a QR menu system cost in India?',
@@ -64,7 +64,7 @@ export default {
         ['Customer data', 'None', 'Views, popular items, peak times'],
       ],
     },
-    { type: 'p', text: 'The last row is the one restaurant owners consistently underestimate. A digital menu tells you which items people look at but do not order — a signal a printed menu can never give you, and one that directly informs pricing and menu design.' },
+    { type: 'p', text: 'The last row is the one restaurant owners consistently underestimate. A digital menu tells you which items people look at but do not order: a signal a printed menu can never give you, and one that directly informs pricing and menu design.' },
 
     { type: 'h2', text: 'Why most QR menus fail' },
     { type: 'p', text: 'If your experience of QR menus is negative, it is almost certainly because of one of these five failures.' },
@@ -90,7 +90,7 @@ export default {
       items: [
         '<strong>Instant load.</strong> Optimised images, minimal scripts, under two seconds on a weak connection.',
         '<strong>Sticky category navigation.</strong> Customers should jump to Starters or Desserts without scrolling through everything.',
-        '<strong>Photographs of high-margin items.</strong> Not every dish — the ones you want ordered.',
+        '<strong>Photographs of high-margin items.</strong> Not every dish, just the ones you want ordered.',
         '<strong>Clear dietary markers.</strong> Veg, non-veg, Jain, egg, spice level and allergen information.',
         '<strong>One-tap availability toggle.</strong> Staff can hide a sold-out item from the floor, immediately.',
         '<strong>Search.</strong> Essential the moment the menu exceeds roughly forty items.',
@@ -115,7 +115,7 @@ export default {
     {
       type: 'ul',
       items: [
-        'A Google review link, presented after the meal — by far the most effective review collection method available to a restaurant',
+        'A Google review link, presented after the meal: by far the most effective review collection method available to a restaurant',
         'Table reservation for the next visit',
         'Direct delivery ordering that bypasses aggregator commission',
         'A WhatsApp opt-in for offers, building an owned marketing channel',
@@ -131,7 +131,7 @@ export default {
       items: [
         'Photograph your top fifteen to twenty highest-margin dishes properly, in consistent lighting',
         'Structure the menu into clear categories with sensible ordering',
-        'Write short, appetising descriptions — two lines maximum per item',
+        'Write short, appetising descriptions: two lines maximum per item',
         'Build the menu as a fast mobile web page, not a PDF',
         'Test it on a mid-range Android phone with mobile data, not office WiFi',
         'Print QR codes large on durable table stands with a one-line instruction',
@@ -143,13 +143,13 @@ export default {
     { type: 'p', text: 'Point seven matters more than it appears. Some customers will never scan a QR code, and refusing to accommodate them costs goodwill for no benefit. Keep a small number of printed menus available without making it awkward to ask.' },
 
     { type: 'h2', text: 'Is it worth it?' },
-    { type: 'p', text: 'For a restaurant that changes prices more than once a year, runs seasonal items, or wants to promote specific dishes — yes, clearly. The printing savings alone usually justify it, and the ability to change the menu instantly is a genuine operational advantage.' },
+    { type: 'p', text: 'For a restaurant that changes prices more than once a year, runs seasonal items, or wants to promote specific dishes, the answer is yes, clearly. The printing savings alone usually justify it, and the ability to change the menu instantly is a genuine operational advantage.' },
     { type: 'p', text: 'For a small establishment with a fixed ten-item menu that has not changed in five years, a well-printed menu remains perfectly adequate. Digital is not automatically better. It is better when things change, and it is better when you want data.' },
 
     {
       type: 'cta',
       title: 'Building a digital menu or restaurant website?',
-      text: 'We build fast, branded digital menu systems and restaurant websites — designed for weak connections, real kitchens and staff who need to update prices in seconds.',
+      text: 'We build fast, branded digital menu systems and restaurant websites, designed for weak connections, real kitchens and staff who need to update prices in seconds.',
       label: 'Discuss Your Project',
       href: '/contact',
     },

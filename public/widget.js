@@ -66,9 +66,9 @@
         'site banana', 'website banana', 'website chahiye', 'website joiye'],
       name: { en: 'Website Development', hi: 'Website Development', gu: 'Website Development' },
       blurb: {
-        en: 'Custom business, corporate, portfolio and landing-page websites — built mobile-first, tuned for speed, with on-page SEO and analytics handed over at launch.',
-        hi: 'Custom business, corporate, portfolio aur landing-page websites — mobile-first build, speed tuning, on-page SEO aur analytics ke saath handover.',
-        gu: 'Custom business, corporate, portfolio ane landing-page websites — mobile-first build, speed tuning, on-page SEO ane analytics sathe handover.',
+        en: 'Custom business, corporate, portfolio and landing-page websites. Built mobile-first, tuned for speed, with on-page SEO and analytics handed over at launch.',
+        hi: 'Custom business, corporate, portfolio aur landing-page websites: mobile-first build, speed tuning, on-page SEO aur analytics ke saath handover.',
+        gu: 'Custom business, corporate, portfolio ane landing-page websites: mobile-first build, speed tuning, on-page SEO ane analytics sathe handover.',
       },
     },
     {
@@ -80,9 +80,9 @@
         'excel se', 'manual work', 'staff management', 'order management'],
       name: { en: 'Custom Software & CRM', hi: 'Custom Software & CRM', gu: 'Custom Software & CRM' },
       blurb: {
-        en: 'Software shaped around how your business already runs — custom CRM, inventory, billing, admin dashboards, integrations and automation that removes repeat manual work.',
-        hi: 'Aapke business ke actual workflow ke hisaab se software — custom CRM, inventory, billing, admin dashboards, integrations aur automation jo manual kaam hataata hai.',
-        gu: 'Tamara business na actual workflow pramane software — custom CRM, inventory, billing, admin dashboards, integrations ane automation je manual kaam hatave chhe.',
+        en: 'Software shaped around how your business already runs: custom CRM, inventory, billing, admin dashboards, integrations and automation that removes repeat manual work.',
+        hi: 'Aapke business ke actual workflow ke hisaab se software: custom CRM, inventory, billing, admin dashboards, integrations aur automation jo manual kaam hataata hai.',
+        gu: 'Tamara business na actual workflow pramane software: custom CRM, inventory, billing, admin dashboards, integrations ane automation je manual kaam hatave chhe.',
       },
     },
     {
@@ -94,8 +94,8 @@
       name: { en: 'Branding & Identity', hi: 'Branding & Identity', gu: 'Branding & Identity' },
       blurb: {
         en: 'Logo design with full variations, colour and typography systems, and a written brand guideline document so everything you publish stays consistent.',
-        hi: 'Logo design with variations, colour aur typography system, aur written brand guidelines — taaki har jagah brand consistent rahe.',
-        gu: 'Logo design with variations, colour ane typography system, ane written brand guidelines — jethi darek jagya brand consistent rahe.',
+        hi: 'Logo design with variations, colour aur typography system, aur written brand guidelines, taaki har jagah brand consistent rahe.',
+        gu: 'Logo design with variations, colour ane typography system, ane written brand guidelines, jethi darek jagya brand consistent rahe.',
       },
     },
     {
@@ -107,8 +107,8 @@
       name: { en: 'Social Media Design', hi: 'Social Media Design', gu: 'Social Media Design' },
       blurb: {
         en: 'A social brand kit plus editable post templates, campaign sets, profile and highlight design, and festival creatives that do not look like stock templates.',
-        hi: 'Social brand kit ke saath editable post templates, campaign sets, profile aur highlight design, aur festival creatives — generic template look ke bina.',
-        gu: 'Social brand kit sathe editable post templates, campaign sets, profile ane highlight design, ane festival creatives — generic template look vagar.',
+        hi: 'Social brand kit ke saath editable post templates, campaign sets, profile aur highlight design, aur festival creatives, generic template look ke bina.',
+        gu: 'Social brand kit sathe editable post templates, campaign sets, profile ane highlight design, ane festival creatives, generic template look vagar.',
       },
     },
     {
@@ -119,9 +119,9 @@
         'label', 'letterhead', 'stationery', 'standee'],
       name: { en: 'Print & Offline Branding', hi: 'Print & Offline Branding', gu: 'Print & Offline Branding' },
       blurb: {
-        en: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage and packaging — prepared print-ready at the correct scale and resolution.',
-        hi: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage aur packaging — print-ready, sahi scale aur resolution par.',
-        gu: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage ane packaging — print-ready, sacha scale ane resolution par.',
+        en: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage and packaging: prepared print-ready at the correct scale and resolution.',
+        hi: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage aur packaging: print-ready, sahi scale aur resolution par.',
+        gu: 'Visiting cards, letterheads, brochures, catalogues, flyers, standees, signage ane packaging: print-ready, sacha scale ane resolution par.',
       },
     },
     {
@@ -131,11 +131,11 @@
         'google my business', 'google maps', 'maps listing', 'business email', 'whatsapp business',
         'online presence', 'local seo', 'seo', 'ranking', 'google par', 'google pe',
         'search me', 'near me'],
-      name: { en: 'Digital Presence Setup', hi: 'Digital Presence Setup', gu: 'Digital Presence Setup' },
+      name: { en: 'Digital Presence & Growth', hi: 'Digital Presence & Growth', gu: 'Digital Presence & Growth' },
       blurb: {
         en: 'Google Business Profile setup and optimisation, Maps listing, business email, WhatsApp Business and the local-SEO groundwork that makes you findable nearby.',
-        hi: 'Google Business Profile setup aur optimisation, Maps listing, business email, WhatsApp Business aur local-SEO groundwork — taaki aas-paas ke log aapko dhundh sakein.',
-        gu: 'Google Business Profile setup ane optimisation, Maps listing, business email, WhatsApp Business ane local-SEO groundwork — jethi aaspas na loko tamne shodhi shake.',
+        hi: 'Google Business Profile setup aur optimisation, Maps listing, business email, WhatsApp Business aur local-SEO groundwork, taaki aas-paas ke log aapko dhundh sakein.',
+        gu: 'Google Business Profile setup ane optimisation, Maps listing, business email, WhatsApp Business ane local-SEO groundwork, jethi aaspas na loko tamne shodhi shake.',
       },
     },
   ];
@@ -268,9 +268,9 @@
 
   /* ─── Shared reply fragments ──────────────────────────── */
   const CTA = {
-    en: `Tell me a bit about the project and I'll pass it straight to the team — or reach us directly: ${BIZ.contact}`,
-    hi: `Project ke baare mein thoda batayiye, main seedha team tak pahuncha dunga — ya direct: ${BIZ.contact}`,
-    gu: `Project vishe thodu kaho, hu sidhu team sudhi pahochadi daish — athva direct: ${BIZ.contact}`,
+    en: `Tell me a bit about the project and I'll pass it straight to the team, or reach us directly: ${BIZ.contact}`,
+    hi: `Project ke baare mein thoda batayiye, main seedha team tak pahuncha dunga, ya direct: ${BIZ.contact}`,
+    gu: `Project vishe thodu kaho, hu sidhu team sudhi pahochadi daish, athva direct: ${BIZ.contact}`,
   };
 
   const CHIPS = {
@@ -300,8 +300,8 @@
       answer: () => ({
         text: {
           en: `Hi! 👋 I'm the Manhar Creatives assistant. I can tell you what we build, how the process runs, what it costs, and put you in front of the team when you're ready.\n\nWhat brings you here?`,
-          hi: `Namaste! 👋 Main Manhar Creatives ka assistant hoon. Main bata sakta hoon ki hum kya banate hain, process kaise chalta hai, cost kitni hoti hai — aur ready hone par team se connect kara dunga.\n\nAap kis cheez ke liye aaye hain?`,
-          gu: `Namaste! 👋 Hu Manhar Creatives no assistant chhu. Hu kahi shaku ke ame su banaviye chhie, process kevi rite chale chhe, kharch ketlo thay — ane taiyar hoy tyare team sathe jodi daish.\n\nTame sha mate aavya chho?`,
+          hi: `Namaste! 👋 Main Manhar Creatives ka assistant hoon. Main bata sakta hoon ki hum kya banate hain, process kaise chalta hai, cost kitni hoti hai, aur ready hone par team se connect kara dunga.\n\nAap kis cheez ke liye aaye hain?`,
+          gu: `Namaste! 👋 Hu Manhar Creatives no assistant chhu. Hu kahi shaku ke ame su banaviye chhie, process kevi rite chale chhe, kharch ketlo thay, ane taiyar hoy tyare team sathe jodi daish.\n\nTame sha mate aavya chho?`,
         },
         chips: chipSet(['services', 'pricing', 'work', 'start']),
       }),
@@ -330,9 +330,9 @@
         const svc = state.service || SERVICES[0];
         return {
           text: {
-            en: `**${svc.name.en}**\n\n${svc.blurb.en}\n\nFull breakdown — scope, deliverables and FAQs: ${BIZ.site}/services/${svc.slug}\n\nWant a quote for this?`,
-            hi: `**${svc.name.hi}**\n\n${svc.blurb.hi}\n\nPoori detail — scope, deliverables aur FAQs: ${BIZ.site}/services/${svc.slug}\n\nIska quote chahiye?`,
-            gu: `**${svc.name.gu}**\n\n${svc.blurb.gu}\n\nPuri detail — scope, deliverables ane FAQs: ${BIZ.site}/services/${svc.slug}\n\nEnu quote joiye chhe?`,
+            en: `**${svc.name.en}**\n\n${svc.blurb.en}\n\nFull breakdown (scope, deliverables and FAQs): ${BIZ.site}/services/${svc.slug}\n\nWant a quote for this?`,
+            hi: `**${svc.name.hi}**\n\n${svc.blurb.hi}\n\nPoori detail (scope, deliverables aur FAQs): ${BIZ.site}/services/${svc.slug}\n\nIska quote chahiye?`,
+            gu: `**${svc.name.gu}**\n\n${svc.blurb.gu}\n\nPuri detail (scope, deliverables ane FAQs): ${BIZ.site}/services/${svc.slug}\n\nEnu quote joiye chhe?`,
           },
           chips: chipSet(['pricing', 'timeline', 'work', 'start']),
         };
@@ -348,9 +348,9 @@
         const forSvc = svc ? ` for ${svc.name.en}` : '';
         return {
           text: {
-            en: `Every project is quoted individually — there are no fixed packages, because a five-page site and a custom CRM are not the same job.\n\nWhat the quote depends on${forSvc}: the number of screens or modules, whether content and images exist already, integrations needed, and how fast you need it live.\n\nShare the scope and you'll have a written quote with a fixed price and timeline within 24 hours: ${BIZ.contact}`,
-            hi: `Har project ka quote alag hota hai — fixed packages nahi hain, kyunki paanch-page ki site aur custom CRM ek jaisa kaam nahi hai.\n\nQuote kis par depend karta hai${svc ? ` (${svc.name.hi})` : ''}: kitne screens ya modules, content aur images ready hain ya nahi, kaunse integrations chahiye, aur kitni jaldi live karna hai.\n\nScope batayiye — 24 ghante mein fixed price aur timeline ke saath likhit quote milega: ${BIZ.contact}`,
-            gu: `Darek project nu quote alag hoy chhe — fixed packages nathi, kemke paanch-page ni site ane custom CRM ek sarkhu kaam nathi.\n\nQuote sha par aadharit chhe${svc ? ` (${svc.name.gu})` : ''}: ketla screens ke modules, content ane images taiyar chhe ke nahi, kaya integrations joiye, ane ketli jaldi live karvu chhe.\n\nScope kaho — 24 kalak ma fixed price ane timeline sathe lekhit quote malshe: ${BIZ.contact}`,
+            en: `Every project is quoted individually. There are no fixed packages, because a five-page site and a custom CRM are not the same job.\n\nWhat the quote depends on${forSvc}: the number of screens or modules, whether content and images exist already, integrations needed, and how fast you need it live.\n\nShare the scope and you'll have a written quote with a fixed price and timeline within 24 hours: ${BIZ.contact}`,
+            hi: `Har project ka quote alag hota hai. Fixed packages nahi hain, kyunki paanch-page ki site aur custom CRM ek jaisa kaam nahi hai.\n\nQuote kis par depend karta hai${svc ? ` (${svc.name.hi})` : ''}: kitne screens ya modules, content aur images ready hain ya nahi, kaunse integrations chahiye, aur kitni jaldi live karna hai.\n\nScope batayiye, 24 ghante mein fixed price aur timeline ke saath likhit quote milega: ${BIZ.contact}`,
+            gu: `Darek project nu quote alag hoy chhe. Fixed packages nathi, kemke paanch-page ni site ane custom CRM ek sarkhu kaam nathi.\n\nQuote sha par aadharit chhe${svc ? ` (${svc.name.gu})` : ''}: ketla screens ke modules, content ane images taiyar chhe ke nahi, kaya integrations joiye, ane ketli jaldi live karvu chhe.\n\nScope kaho, 24 kalak ma fixed price ane timeline sathe lekhit quote malshe: ${BIZ.contact}`,
           },
           chips: chipSet(['start', 'timeline', 'process', 'human']),
         };
@@ -367,9 +367,9 @@
         'kitne days', 'how much time'],
       answer: () => ({
         text: {
-          en: `Typical timelines once content is ready:\n\n- Landing page — **5–7 days**\n- Business website — **2–3 weeks**\n- Brand identity — **2–3 weeks**\n- Custom software / CRM — **4–10 weeks**, depending on modules\n- Social or print set — **3–6 days**\n\nThe usual delay is not the build, it's waiting on content. We tell you exactly what we need from you on day one.`,
-          hi: `Content ready hone ke baad typical timelines:\n\n- Landing page — **5–7 din**\n- Business website — **2–3 hafte**\n- Brand identity — **2–3 hafte**\n- Custom software / CRM — **4–10 hafte**, modules par depend\n- Social ya print set — **3–6 din**\n\nDeri build mein nahi, content ka wait karne mein hoti hai. Pehle din hi bata dete hain ki aapse kya chahiye.`,
-          gu: `Content taiyar thaya pachhi typical timelines:\n\n- Landing page — **5–7 divas**\n- Business website — **2–3 athvadiya**\n- Brand identity — **2–3 athvadiya**\n- Custom software / CRM — **4–10 athvadiya**, modules par aadhar\n- Social ke print set — **3–6 divas**\n\nModu build ma nahi, content ni raah jova ma thay chhe. Pehla divase j kahi daiye ke tamara thi su joiye.`,
+          en: `Typical timelines once content is ready:\n\n- Landing page: **5–7 days**\n- Business website: **2–3 weeks**\n- Brand identity: **2–3 weeks**\n- Custom software / CRM: **4–10 weeks**, depending on modules\n- Social or print set: **3–6 days**\n\nThe usual delay is not the build, it's waiting on content. We tell you exactly what we need from you on day one.`,
+          hi: `Content ready hone ke baad typical timelines:\n\n- Landing page: **5–7 din**\n- Business website: **2–3 hafte**\n- Brand identity: **2–3 hafte**\n- Custom software / CRM: **4–10 hafte**, modules par depend\n- Social ya print set: **3–6 din**\n\nDeri build mein nahi, content ka wait karne mein hoti hai. Pehle din hi bata dete hain ki aapse kya chahiye.`,
+          gu: `Content taiyar thaya pachhi typical timelines:\n\n- Landing page: **5–7 divas**\n- Business website: **2–3 athvadiya**\n- Brand identity: **2–3 athvadiya**\n- Custom software / CRM: **4–10 athvadiya**, modules par aadhar\n- Social ke print set: **3–6 divas**\n\nModu build ma nahi, content ni raah jova ma thay chhe. Pehla divase j kahi daiye ke tamara thi su joiye.`,
         },
         chips: chipSet(['pricing', 'process', 'start']),
       }),
@@ -381,9 +381,9 @@
         'how it works', 'procedure'],
       answer: () => ({
         text: {
-          en: `Six stages, same every time:\n\n1. **Discovery** — what the business does, who it serves, what success means\n2. **Research** — competitors, search demand, positioning gaps\n3. **Planning** — scope locked, structure mapped, timeline agreed\n4. **Design & Development** — built against that plan, with performance and SEO engineered in\n5. **Review** — tested across real devices and slower connections, not just the ideal case\n6. **Delivery & Support** — full handover, access, training walkthrough, post-launch support\n\nWalkthrough of each stage: ${BIZ.site}/process`,
-          hi: `Chhah stages, har baar same:\n\n1. **Discovery** — business kya karta hai, kiske liye, success ka matlab kya\n2. **Research** — competitors, search demand, positioning gaps\n3. **Planning** — scope lock, structure map, timeline final\n4. **Design & Development** — usi plan par build, performance aur SEO andar se\n5. **Review** — real devices aur slow connections par test, sirf ideal case par nahi\n6. **Delivery & Support** — poora handover, access, training walkthrough, launch ke baad support\n\nHar stage ka walkthrough: ${BIZ.site}/process`,
-          gu: `Chha stages, darek vakhat same:\n\n1. **Discovery** — business su kare chhe, kona mate, success no matlab su\n2. **Research** — competitors, search demand, positioning gaps\n3. **Planning** — scope lock, structure map, timeline final\n4. **Design & Development** — e j plan par build, performance ane SEO andar thi\n5. **Review** — real devices ane dhima connections par test, fakt ideal case par nahi\n6. **Delivery & Support** — puru handover, access, training walkthrough, launch pachhi support\n\nDarek stage no walkthrough: ${BIZ.site}/process`,
+          en: `Six stages, same every time:\n\n1. **Discovery**: what the business does, who it serves, what success means\n2. **Research**: competitors, search demand, positioning gaps\n3. **Planning**: scope locked, structure mapped, timeline agreed\n4. **Design & Development**: built against that plan, with performance and SEO engineered in\n5. **Review**: tested across real devices and slower connections, not just the ideal case\n6. **Delivery & Support**: full handover, access, training walkthrough, post-launch support\n\nWalkthrough of each stage: ${BIZ.site}/process`,
+          hi: `Chhah stages, har baar same:\n\n1. **Discovery**: business kya karta hai, kiske liye, success ka matlab kya\n2. **Research**: competitors, search demand, positioning gaps\n3. **Planning**: scope lock, structure map, timeline final\n4. **Design & Development**: usi plan par build, performance aur SEO andar se\n5. **Review**: real devices aur slow connections par test, sirf ideal case par nahi\n6. **Delivery & Support**: poora handover, access, training walkthrough, launch ke baad support\n\nHar stage ka walkthrough: ${BIZ.site}/process`,
+          gu: `Chha stages, darek vakhat same:\n\n1. **Discovery**: business su kare chhe, kona mate, success no matlab su\n2. **Research**: competitors, search demand, positioning gaps\n3. **Planning**: scope lock, structure map, timeline final\n4. **Design & Development**: e j plan par build, performance ane SEO andar thi\n5. **Review**: real devices ane dhima connections par test, fakt ideal case par nahi\n6. **Delivery & Support**: puru handover, access, training walkthrough, launch pachhi support\n\nDarek stage no walkthrough: ${BIZ.site}/process`,
         },
         chips: chipSet(['timeline', 'pricing', 'start']),
       }),
@@ -395,9 +395,9 @@
         'samples', 'show me', 'previous work', 'past work', 'clients you worked'],
       answer: () => ({
         text: {
-          en: `A few live ones:\n\n- **InfoTech Placement** — international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement** — US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries** — industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System** — branded digital menu built for weak connections\n\nAll of them with scope and outcome: ${BIZ.site}/projects`,
-          hi: `Kuch live projects:\n\n- **InfoTech Placement** — international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement** — US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries** — industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System** — weak connection ke liye bana branded digital menu\n\nScope aur outcome ke saath sab: ${BIZ.site}/projects`,
-          gu: `Ketlak live projects:\n\n- **InfoTech Placement** — international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement** — US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries** — industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System** — nabla connection mate banelu branded digital menu\n\nScope ane outcome sathe badha: ${BIZ.site}/projects`,
+          en: `A few live ones:\n\n- **InfoTech Placement**, international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement**, US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries**, industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System**, branded digital menu built for weak connections\n\nAll of them with scope and outcome: ${BIZ.site}/projects`,
+          hi: `Kuch live projects:\n\n- **InfoTech Placement**, international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement**, US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries**, industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System**, weak connection ke liye bana branded digital menu\n\nScope aur outcome ke saath sab: ${BIZ.site}/projects`,
+          gu: `Ketlak live projects:\n\n- **InfoTech Placement**, international career-consulting site: https://www.infotechplacement.com\n- **Averexa Placement**, US/Canada placement consultancy: https://www.averexaplacement.com\n- **Macron Industries**, industrial capability site: https://www.macronindustries.com\n- **Restaurant QR Menu System**, nabla connection mate banelu branded digital menu\n\nScope ane outcome sathe badha: ${BIZ.site}/projects`,
         },
         chips: chipSet(['services', 'pricing', 'start']),
       }),
@@ -413,13 +413,13 @@
         const known = c && ['ahmedabad', 'amdavad', 'mehsana', 'mahesana', 'visnagar'].indexOf(c) !== -1;
         const cityName = c === 'amdavad' ? 'ahmedabad' : c === 'mahesana' ? 'mehsana' : c;
         const localLine = known
-          ? `\n\nWe work with businesses in ${cityName.charAt(0).toUpperCase() + cityName.slice(1)} regularly — details here: ${BIZ.site}/${cityName}`
+          ? `\n\nWe work with businesses in ${cityName.charAt(0).toUpperCase() + cityName.slice(1)} regularly. Details here: ${BIZ.site}/${cityName}`
           : '';
         return {
           text: {
-            en: `We're based in ${BIZ.city}, ${BIZ.district} district, ${BIZ.state}, India 🇮🇳 — and we work with clients across Ahmedabad, Mehsana, Gandhinagar and the rest of Gujarat, plus remote clients in the US, UK, Canada, Australia, UAE and Europe.${localLine}\n\nMost of the work runs remotely; on-site visits happen within Gujarat when a project needs it.`,
-            hi: `Hum ${BIZ.city}, ${BIZ.district} district, ${BIZ.state}, India 🇮🇳 mein based hain — aur Ahmedabad, Mehsana, Gandhinagar aur poore Gujarat ke clients ke saath kaam karte hain, saath hi US, UK, Canada, Australia, UAE aur Europe ke remote clients.${localLine}\n\nZyada kaam remote chalta hai; Gujarat ke andar zaroorat par on-site visit bhi karte hain.`,
-            gu: `Ame ${BIZ.city}, ${BIZ.district} jilla, ${BIZ.state}, India 🇮🇳 ma chhie — ane Ahmedabad, Mehsana, Gandhinagar ane aakha Gujarat na clients sathe kaam kariye chhie, sathe US, UK, Canada, Australia, UAE ane Europe na remote clients pan.${localLine}\n\nMotu bhag nu kaam remote chale chhe; Gujarat ma jarur pade tyare on-site visit pan kariye chhie.`,
+            en: `We're based in ${BIZ.city}, ${BIZ.district} district, ${BIZ.state}, India 🇮🇳, and we work with clients across Ahmedabad, Mehsana, Gandhinagar and the rest of Gujarat, plus remote clients in the US, UK, Canada, Australia, UAE and Europe.${localLine}\n\nMost of the work runs remotely; on-site visits happen within Gujarat when a project needs it.`,
+            hi: `Hum ${BIZ.city}, ${BIZ.district} district, ${BIZ.state}, India 🇮🇳 mein based hain, aur Ahmedabad, Mehsana, Gandhinagar aur poore Gujarat ke clients ke saath kaam karte hain, saath hi US, UK, Canada, Australia, UAE aur Europe ke remote clients.${localLine}\n\nZyada kaam remote chalta hai; Gujarat ke andar zaroorat par on-site visit bhi karte hain.`,
+            gu: `Ame ${BIZ.city}, ${BIZ.district} jilla, ${BIZ.state}, India 🇮🇳 ma chhie, ane Ahmedabad, Mehsana, Gandhinagar ane aakha Gujarat na clients sathe kaam kariye chhie, sathe US, UK, Canada, Australia, UAE ane Europe na remote clients pan.${localLine}\n\nMotu bhag nu kaam remote chale chhe; Gujarat ma jarur pade tyare on-site visit pan kariye chhie.`,
           },
           chips: chipSet(['services', 'work', 'human']),
         };
@@ -447,9 +447,9 @@
         'bug', 'fix', 'warranty', 'amc', 'ongoing'],
       answer: () => ({
         text: {
-          en: `Yes. Every project ships with a handover walkthrough plus post-launch support, and we stay available for updates, fixes and future phases afterwards.\n\nYou own everything at the end — domain, hosting, source files, accounts. Nothing is held hostage.`,
-          hi: `Haan. Har project ke saath handover walkthrough aur launch ke baad support milta hai, aur uske baad updates, fixes aur future phases ke liye hum available rehte hain.\n\nAnt mein sab kuch aapka hota hai — domain, hosting, source files, accounts. Kuch bhi rok kar nahi rakha jaata.`,
-          gu: `Ha. Darek project sathe handover walkthrough ane launch pachhi support male chhe, ane tya pachhi updates, fixes ane future phases mate ame available rahiye chhie.\n\nChhelle badhu tamaru hoy chhe — domain, hosting, source files, accounts. Kai pan rokay ne rakhvama aavtu nathi.`,
+          en: `Yes. Every project ships with a handover walkthrough plus post-launch support, and we stay available for updates, fixes and future phases afterwards.\n\nYou own everything at the end: domain, hosting, source files, accounts. Nothing is held hostage.`,
+          hi: `Haan. Har project ke saath handover walkthrough aur launch ke baad support milta hai, aur uske baad updates, fixes aur future phases ke liye hum available rehte hain.\n\nAnt mein sab kuch aapka hota hai: domain, hosting, source files, accounts. Kuch bhi rok kar nahi rakha jaata.`,
+          gu: `Ha. Darek project sathe handover walkthrough ane launch pachhi support male chhe, ane tya pachhi updates, fixes ane future phases mate ame available rahiye chhie.\n\nChhelle badhu tamaru hoy chhe: domain, hosting, source files, accounts. Kai pan rokay ne rakhvama aavtu nathi.`,
         },
         chips: chipSet(['process', 'pricing', 'start']),
       }),
@@ -462,9 +462,9 @@
         'established', 'team size', 'guarantee', 'refund'],
       answer: () => ({
         text: {
-          en: `Fair question to ask.\n\nWe've been running since ${BIZ.founded}, and the work is public — the live sites in our portfolio are real client projects you can open and inspect right now, not mockups.\n\nHow we keep it low-risk for you: scope and price fixed in writing before work starts, staged reviews so you see progress rather than a reveal at the end, and full ownership handed over at delivery.`,
-          hi: `Sahi sawaal hai.\n\nHum ${BIZ.founded} se kaam kar rahe hain, aur kaam public hai — portfolio ki live sites real client projects hain, aap abhi khol kar dekh sakte hain, mockups nahi.\n\nRisk kam kaise rakhte hain: kaam shuru hone se pehle scope aur price likhit mein fix, staged reviews taaki aapko progress dikhe — end mein surprise nahi, aur delivery par poori ownership aapko.`,
-          gu: `Sacho sawal chhe.\n\nAme ${BIZ.founded} thi kaam kariye chhie, ane kaam public chhe — portfolio ni live sites real client projects chhe, tame atyare kholi ne joi shako, mockups nathi.\n\nRisk kevi rite ochho rakhiye: kaam shuru thaya pehla scope ane price lekhit ma fix, staged reviews jethi tamne progress dekhay — chhelle surprise nahi, ane delivery vakhate puri ownership tamne.`,
+          en: `Fair question to ask.\n\nWe've been running since ${BIZ.founded}, and the work is public: the live sites in our portfolio are real client projects you can open and inspect right now, not mockups.\n\nHow we keep it low-risk for you: scope and price fixed in writing before work starts, staged reviews so you see progress rather than a reveal at the end, and full ownership handed over at delivery.`,
+          hi: `Sahi sawaal hai.\n\nHum ${BIZ.founded} se kaam kar rahe hain, aur kaam public hai: portfolio ki live sites real client projects hain, aap abhi khol kar dekh sakte hain, mockups nahi.\n\nRisk kam kaise rakhte hain: kaam shuru hone se pehle scope aur price likhit mein fix, staged reviews taaki aapko progress dikhe, end mein surprise nahi, aur delivery par poori ownership aapko.`,
+          gu: `Sacho sawal chhe.\n\nAme ${BIZ.founded} thi kaam kariye chhie, ane kaam public chhe: portfolio ni live sites real client projects chhe, tame atyare kholi ne joi shako, mockups nathi.\n\nRisk kevi rite ochho rakhiye: kaam shuru thaya pehla scope ane price lekhit ma fix, staged reviews jethi tamne progress dekhay, chhelle surprise nahi, ane delivery vakhate puri ownership tamne.`,
         },
         chips: chipSet(['work', 'process', 'start']),
       }),
@@ -477,9 +477,9 @@
         'retail', 'shop', 'manufacturer', 'factory', 'school', 'real estate', 'startup'],
       answer: () => ({
         text: {
-          en: `We work across restaurants and cafés, clinics and healthcare, retail and showrooms, manufacturing and industrial, education, real estate, professional services and early-stage startups.\n\nThe industry matters less than the problem — a clinic needing appointments and a factory needing enquiries are the same shape of job underneath.`,
-          hi: `Hum restaurants aur cafés, clinics aur healthcare, retail aur showrooms, manufacturing aur industrial, education, real estate, professional services aur early-stage startups — sab ke saath kaam karte hain.\n\nIndustry se zyada problem matter karti hai — appointments chahiye wali clinic aur enquiries chahiye wali factory, andar se ek jaisa kaam hai.`,
-          gu: `Ame restaurants ane cafés, clinics ane healthcare, retail ane showrooms, manufacturing ane industrial, education, real estate, professional services ane early-stage startups — badha sathe kaam kariye chhie.\n\nIndustry karta problem vadhu matter kare chhe — appointments joiti clinic ane enquiries joiti factory, andar thi ek sarkhu kaam chhe.`,
+          en: `We work across restaurants and cafés, clinics and healthcare, retail and showrooms, manufacturing and industrial, education, real estate, professional services and early-stage startups.\n\nThe industry matters less than the problem: a clinic needing appointments and a factory needing enquiries are the same shape of job underneath.`,
+          hi: `Hum restaurants aur cafés, clinics aur healthcare, retail aur showrooms, manufacturing aur industrial, education, real estate, professional services aur early-stage startups, sab ke saath kaam karte hain.\n\nIndustry se zyada problem matter karti hai: appointments chahiye wali clinic aur enquiries chahiye wali factory, andar se ek jaisa kaam hai.`,
+          gu: `Ame restaurants ane cafés, clinics ane healthcare, retail ane showrooms, manufacturing ane industrial, education, real estate, professional services ane early-stage startups, badha sathe kaam kariye chhie.\n\nIndustry karta problem vadhu matter kare chhe: appointments joiti clinic ane enquiries joiti factory, andar thi ek sarkhu kaam chhe.`,
         },
         chips: chipSet(['work', 'services', 'start']),
       }),
@@ -490,9 +490,9 @@
       terms: ['blog', 'article', 'guide', 'read', 'insights', 'resources', 'learn'],
       answer: () => ({
         text: {
-          en: `We publish practical guides — no fluff:\n\n- Website development cost in India: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- How to choose a web development company: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nAll of them: ${BIZ.site}/blog`,
-          hi: `Hum practical guides publish karte hain — bina fluff ke:\n\n- India mein website development cost: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- Web development company kaise chunein: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nSab yahan: ${BIZ.site}/blog`,
-          gu: `Ame practical guides publish kariye chhie — fluff vagar:\n\n- India ma website development cost: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- Web development company kevi rite pasand karvi: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nBadha ahiya: ${BIZ.site}/blog`,
+          en: `We publish practical guides (no fluff):\n\n- Website development cost in India: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- How to choose a web development company: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nAll of them: ${BIZ.site}/blog`,
+          hi: `Hum practical guides publish karte hain (bina fluff ke):\n\n- India mein website development cost: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- Web development company kaise chunein: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nSab yahan: ${BIZ.site}/blog`,
+          gu: `Ame practical guides publish kariye chhie (fluff vagar):\n\n- India ma website development cost: ${BIZ.site}/blog/website-development-cost-india\n- Custom CRM vs ready-made CRM: ${BIZ.site}/blog/custom-crm-vs-readymade-crm\n- Google Business Profile checklist: ${BIZ.site}/blog/google-business-profile-optimization-checklist\n- Web development company kevi rite pasand karvi: ${BIZ.site}/blog/how-to-choose-web-development-company\n\nBadha ahiya: ${BIZ.site}/blog`,
         },
         chips: chipSet(['services', 'pricing', 'start']),
       }),
@@ -581,15 +581,15 @@
   }
 
   const FALLBACK = {
-    en: `I don't want to guess at that one — I'd rather get you a straight answer than a made-up one.\n\nThe team can answer it properly: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nMeanwhile, I can help with any of these:`,
-    hi: `Is par main guess nahi karna chahta — galat jawab dene se behtar hai sahi jawab dilana.\n\nTeam ise theek se answer kar degi: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nTab tak, in mein se kisi cheez mein madad kar sakta hoon:`,
-    gu: `Aa vishe hu andajo nathi lagavvo mangto — khota jawab karta sacho jawab apavvo saro.\n\nTeam ene barabar answer kari deshe: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nTya sudhi, aa ma thi kai pan ma madad kari shaku:`,
+    en: `I don't want to guess at that one. I'd rather get you a straight answer than a made-up one.\n\nThe team can answer it properly: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nMeanwhile, I can help with any of these:`,
+    hi: `Is par main guess nahi karna chahta. Galat jawab dene se behtar hai sahi jawab dilana.\n\nTeam ise theek se answer kar degi: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nTab tak, in mein se kisi cheez mein madad kar sakta hoon:`,
+    gu: `Aa vishe hu andajo nathi lagavvo mangto. Khota jawab karta sacho jawab apavvo saro.\n\nTeam ene barabar answer kari deshe: ${BIZ.contact} · WhatsApp ${BIZ.wa} · ${BIZ.email}\n\nTya sudhi, aa ma thi kai pan ma madad kari shaku:`,
   };
 
   const AMBIGUOUS = {
-    en: 'I can read that two ways — which one did you mean?',
-    hi: 'Ise do tarah se samajh sakta hoon — aapka matlab kaunsa tha?',
-    gu: 'Aane be rite samji shaku — tamaro matlab kayo hato?',
+    en: 'I can read that two ways: which one did you mean?',
+    hi: 'Ise do tarah se samajh sakta hoon: aapka matlab kaunsa tha?',
+    gu: 'Aane be rite samji shaku: tamaro matlab kayo hato?',
   };
 
   /* ═══════════════════════════════════════════════════════════
@@ -607,9 +607,9 @@
     {
       key: 'name',
       ask: {
-        en: `Good — let's get this moving. 🚀\n\nFirst, what should I call you?`,
-        hi: `Badhiya — shuru karte hain. 🚀\n\nPehle, aapko kya bulaun?`,
-        gu: `Saras — chalo shuru kariye. 🚀\n\nPehla, tamne su kahi ne bolavu?`,
+        en: `Good! Let's get this moving. 🚀\n\nFirst, what should I call you?`,
+        hi: `Badhiya! Shuru karte hain. 🚀\n\nPehle, aapko kya bulaun?`,
+        gu: `Saras! Chalo shuru kariye. 🚀\n\nPehla, tamne su kahi ne bolavu?`,
       },
       chips: [],
     },
@@ -634,9 +634,9 @@
     {
       key: 'brief',
       ask: {
-        en: `Last one — in a line or two, what are you trying to achieve? (What the business does, and what this project should change.)`,
-        hi: `Aakhri — ek-do line mein, aap kya achieve karna chahte hain? (Business kya karta hai, aur is project se kya badalna chahiye.)`,
-        gu: `Chhellu — ek-be line ma, tame su achieve karva mango chho? (Business su kare chhe, ane aa project thi su badlavu joiye.)`,
+        en: `Last one: in a line or two, what are you trying to achieve? (What the business does, and what this project should change.)`,
+        hi: `Aakhri: ek-do line mein, aap kya achieve karna chahte hain? (Business kya karta hai, aur is project se kya badalna chahiye.)`,
+        gu: `Chhellu: ek-be line ma, tame su achieve karva mango chho? (Business su kare chhe, ane aa project thi su badlavu joiye.)`,
       },
       chips: [],
     },
@@ -662,9 +662,9 @@
     try { localStorage.setItem('mch_lead', JSON.stringify(lead)); } catch (e) {}
     return {
       text: {
-        en: `That's everything I need, ${lead.name}. Here's your brief:\n\n- **Service** — ${lead.service || 'To be decided together'}\n- **Reach you on** — ${lead.contact}\n- **Goal** — ${lead.brief}\n\nSend it straight through and the team will reply within one working day:\n\n${waLink}\n\nPrefer email or a form instead? ${BIZ.email} · ${BIZ.contact}`,
-        hi: `Bas itna hi chahiye tha, ${lead.name}. Ye raha aapka brief:\n\n- **Service** — ${lead.service || 'Saath mein decide karenge'}\n- **Contact** — ${lead.contact}\n- **Goal** — ${lead.brief}\n\nSeedha bhej dijiye, team ek working day mein reply karegi:\n\n${waLink}\n\nEmail ya form better lage to: ${BIZ.email} · ${BIZ.contact}`,
-        gu: `Aatlu j joitu hatu, ${lead.name}. Aa rahyo tamaro brief:\n\n- **Service** — ${lead.service || 'Sathe malikne nakki karishu'}\n- **Contact** — ${lead.contact}\n- **Goal** — ${lead.brief}\n\nSidhu mokli do, team ek working day ma reply karshe:\n\n${waLink}\n\nEmail ke form saru lage to: ${BIZ.email} · ${BIZ.contact}`,
+        en: `That's everything I need, ${lead.name}. Here's your brief:\n\n- **Service**: ${lead.service || 'To be decided together'}\n- **Reach you on**: ${lead.contact}\n- **Goal**: ${lead.brief}\n\nSend it straight through and the team will reply within one working day:\n\n${waLink}\n\nPrefer email or a form instead? ${BIZ.email} · ${BIZ.contact}`,
+        hi: `Bas itna hi chahiye tha, ${lead.name}. Ye raha aapka brief:\n\n- **Service**: ${lead.service || 'Saath mein decide karenge'}\n- **Contact**: ${lead.contact}\n- **Goal**: ${lead.brief}\n\nSeedha bhej dijiye, team ek working day mein reply karegi:\n\n${waLink}\n\nEmail ya form better lage to: ${BIZ.email} · ${BIZ.contact}`,
+        gu: `Aatlu j joitu hatu, ${lead.name}. Aa rahyo tamaro brief:\n\n- **Service**: ${lead.service || 'Sathe malikne nakki karishu'}\n- **Contact**: ${lead.contact}\n- **Goal**: ${lead.brief}\n\nSidhu mokli do, team ek working day ma reply karshe:\n\n${waLink}\n\nEmail ke form saru lage to: ${BIZ.email} · ${BIZ.contact}`,
       },
       chips: chipSet(['services', 'work', 'process']),
     };

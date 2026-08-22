@@ -1,7 +1,7 @@
 export default {
   slug: 'website-speed-core-web-vitals-guide',
   title: 'Why Your Website Is Slow: Core Web Vitals Explained for Business Owners',
-  h1: 'Why Your Website Is Slow — Core Web Vitals Explained Without the Jargon',
+  h1: 'Why Your Website Is Slow: Core Web Vitals Explained Without the Jargon',
   excerpt:
     'Google measures three specific things about your website’s speed, and they directly affect both rankings and revenue. Here is what each one means, why sites fail them, and what to fix first.',
   metaTitle: 'Core Web Vitals Explained for Business Owners (2026) | Manhar Creatives',
@@ -14,7 +14,7 @@ export default {
   category: 'Website Performance',
   tags: ['Website Performance', 'SEO', 'Core Web Vitals'],
   image: '/images/blog/core-web-vitals-guide.webp',
-  imageAlt: 'Core Web Vitals explained — website speed guide by Manhar Creatives',
+  imageAlt: 'Core Web Vitals explained: website speed guide by Manhar Creatives',
   keywords: [
     'core web vitals',
     'website speed optimization',
@@ -35,7 +35,7 @@ export default {
     },
     {
       q: 'Do Core Web Vitals affect Google rankings?',
-      a: 'Yes, they are a confirmed ranking signal — though a relatively light one compared to content relevance. Their bigger impact is on user behaviour: slow pages get abandoned, which raises bounce rate and lowers conversions.',
+      a: 'Yes, they are a confirmed ranking signal, though a relatively light one compared to content relevance. Their bigger impact is on user behaviour: slow pages get abandoned, which raises bounce rate and lowers conversions.',
     },
     {
       q: 'What is a good LCP score?',
@@ -47,7 +47,7 @@ export default {
     },
   ],
   content: [
-    { type: 'p', text: 'Google publishes exactly what it measures about your website’s speed. It is three numbers. Most business owners have never seen them, and most websites fail at least one — usually badly, and usually on mobile.' },
+    { type: 'p', text: 'Google publishes exactly what it measures about your website’s speed. It is three numbers. Most business owners have never seen them, and most websites fail at least one, usually badly, and usually on mobile.' },
     { type: 'p', text: 'This matters for two separate reasons. Speed is a Google ranking signal, so it affects visibility. More importantly, slow pages get abandoned before they load, so it affects revenue directly. This guide explains what the three metrics mean in plain language and what to fix in what order.' },
 
     { type: 'h2', text: 'The three numbers Google measures' },
@@ -55,15 +55,15 @@ export default {
       type: 'table',
       head: ['Metric', 'What it measures', 'Good', 'Poor'],
       rows: [
-        ['LCP — Largest Contentful Paint', 'How long until the main content appears', 'Under 2.5s', 'Over 4s'],
-        ['INP — Interaction to Next Paint', 'How quickly the page responds to taps and clicks', 'Under 200ms', 'Over 500ms'],
-        ['CLS — Cumulative Layout Shift', 'How much the page jumps around while loading', 'Under 0.1', 'Over 0.25'],
+        ['LCP (Largest Contentful Paint)', 'How long until the main content appears', 'Under 2.5s', 'Over 4s'],
+        ['INP (Interaction to Next Paint)', 'How quickly the page responds to taps and clicks', 'Under 200ms', 'Over 500ms'],
+        ['CLS (Cumulative Layout Shift)', 'How much the page jumps around while loading', 'Under 0.1', 'Over 0.25'],
       ],
     },
-    { type: 'p', text: 'You can check all three for free at <strong>pagespeed.web.dev</strong>. Enter your URL and read the mobile score, not the desktop one — mobile is what the majority of your visitors experience and what Google weights.' },
+    { type: 'p', text: 'You can check all three for free at <strong>pagespeed.web.dev</strong>. Enter your URL and read the mobile score, not the desktop one: mobile is what the majority of your visitors experience and what Google weights.' },
 
     { type: 'h2', text: 'LCP: the "is anything happening?" number' },
-    { type: 'p', text: 'Largest Contentful Paint measures how long it takes for the biggest visible element — usually your hero image or main headline — to render. It is the closest technical proxy for the human question: <em>has this page loaded yet?</em>' },
+    { type: 'p', text: 'Largest Contentful Paint measures how long it takes for the biggest visible element (usually your hero image or main headline) to render. It is the closest technical proxy for the human question: <em>has this page loaded yet?</em>' },
     { type: 'p', text: 'The main causes of poor LCP, in order of how often they are responsible:' },
     {
       type: 'ul',
@@ -82,11 +82,11 @@ export default {
 
     { type: 'h2', text: 'INP: the "why is nothing happening?" number' },
     { type: 'p', text: 'Interaction to Next Paint measures the delay between a user tapping something and the page visually responding. It replaced the older First Input Delay metric in 2024 because it measures the whole interaction, not just the first one.' },
-    { type: 'p', text: 'High INP is what makes a page feel broken. The user taps a menu, nothing happens, they tap again, then the menu opens and closes. Usually the cause is heavy JavaScript occupying the browser’s main thread — too many plugins, chat widgets, tracking pixels, or a page builder generating far more code than the page needs.' },
+    { type: 'p', text: 'High INP is what makes a page feel broken. The user taps a menu, nothing happens, they tap again, then the menu opens and closes. Usually the cause is heavy JavaScript occupying the browser’s main thread: too many plugins, chat widgets, tracking pixels, or a page builder generating far more code than the page needs.' },
     { type: 'p', text: 'The fix is subtraction. Audit every third-party script and remove the ones nobody uses. Most business websites carry two or three tracking or widget scripts installed for a campaign that ended two years ago.' },
 
     { type: 'h2', text: 'CLS: the "why did the page move?" number' },
-    { type: 'p', text: 'Cumulative Layout Shift measures visual instability — content jumping around as the page loads. Everyone has experienced it: you go to tap a link, an image finishes loading above it, the page shifts, and you tap an advertisement instead.' },
+    { type: 'p', text: 'Cumulative Layout Shift measures visual instability: content jumping around as the page loads. Everyone has experienced it: you go to tap a link, an image finishes loading above it, the page shifts, and you tap an advertisement instead.' },
     { type: 'p', text: 'CLS is the easiest of the three to fix and the most frequently ignored. The causes are consistent:' },
     {
       type: 'ul',
@@ -100,7 +100,7 @@ export default {
     { type: 'p', text: 'Setting explicit dimensions on every image and reserving space for anything that loads late resolves the overwhelming majority of CLS problems.' },
 
     { type: 'h2', text: 'Why this affects money, not just rankings' },
-    { type: 'p', text: 'The SEO argument for performance is real but modest — Core Web Vitals are one signal among many, and excellent content on a slow page still outranks thin content on a fast one.' },
+    { type: 'p', text: 'The SEO argument for performance is real but modest: Core Web Vitals are one signal among many, and excellent content on a slow page still outranks thin content on a fast one.' },
     { type: 'p', text: 'The behavioural argument is much stronger. Bounce rate rises steeply with each additional second of load time, and the effect compounds on mobile connections. In India, where a large share of traffic arrives on mid-range Android devices over variable 4G, the gap between a 2-second and a 6-second page is the difference between an enquiry and a lost visitor.' },
     { type: 'p', text: 'And critically, you never see the loss. Nobody emails to say your website was too slow. They simply go to a competitor, and your analytics records it as a bounce.' },
 
@@ -124,8 +124,8 @@ export default {
     {
       type: 'ul',
       items: [
-        '<strong>PageSpeed Insights</strong> — a lab test plus real-user field data if your site has enough traffic. Use it for diagnosing specific issues.',
-        '<strong>Google Search Console → Core Web Vitals report</strong> — real data from actual visitors, grouped by page type. Use it to decide what to prioritise, because it reflects reality rather than a simulated test.',
+        '<strong>PageSpeed Insights:</strong> a lab test plus real-user field data if your site has enough traffic. Use it for diagnosing specific issues.',
+        '<strong>Google Search Console → Core Web Vitals report:</strong> real data from actual visitors, grouped by page type. Use it to decide what to prioritise, because it reflects reality rather than a simulated test.',
       ],
     },
     { type: 'p', text: 'Field data always beats lab data. A page can score 95 in a lab test and still fail for real users on slower devices and connections.' },
@@ -140,18 +140,18 @@ export default {
     {
       type: 'ul',
       items: [
-        'Nobody is finding the site at all — a visibility and SEO problem',
-        'Visitors arrive but cannot immediately tell what you do — a messaging problem',
-        'They understand the offer but are not convinced — a trust and proof problem',
-        'They are convinced but the next step is unclear — a conversion design problem',
+        'Nobody is finding the site at all: a visibility and SEO problem',
+        'Visitors arrive but cannot immediately tell what you do: a messaging problem',
+        'They understand the offer but are not convinced: a trust and proof problem',
+        'They are convinced but the next step is unclear: a conversion design problem',
       ],
     },
-    { type: 'p', text: 'Speed removes friction. It does not create demand. Fix it because it is measurable, cheap and compounding — but fix the message first if the message is what is broken.' },
+    { type: 'p', text: 'Speed removes friction. It does not create demand. Fix it because it is measurable, cheap and compounding, but fix the message first if the message is what is broken.' },
 
     {
       type: 'cta',
       title: 'Want to know what is actually slowing your site down?',
-      text: 'We audit performance, structure and conversion together — and tell you which one is genuinely costing you enquiries.',
+      text: 'We audit performance, structure and conversion together, and tell you which one is genuinely costing you enquiries.',
       label: 'Request a Website Audit',
       href: '/contact',
     },

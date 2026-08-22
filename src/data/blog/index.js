@@ -12,9 +12,11 @@ import brandingGuide from './small-business-branding-guide.js';
 import webVitals from './website-speed-core-web-vitals-guide.js';
 import qrMenu from './restaurant-qr-menu-system-guide.js';
 import automation from './business-automation-guide-india.js';
+import brandingCost from './logo-design-branding-cost-india.js';
 
 /* Newest first — this order drives the blog index page */
 export const POSTS = [
+  brandingCost,
   websiteCost,
   crmComparison,
   gbpChecklist,

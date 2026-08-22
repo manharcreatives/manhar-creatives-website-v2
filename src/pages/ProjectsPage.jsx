@@ -47,7 +47,7 @@ const CAPABILITIES = [
 const WORK_FAQS = [
   {
     q: 'Can I see live examples of your work?',
-    a: 'Yes — most of the projects on this page link directly to the live website. We prefer showing working sites over static mockups, because a screenshot cannot demonstrate speed, mobile behaviour or how the site actually converts.',
+    a: 'Yes, most of the projects on this page link directly to the live website. We prefer showing working sites over static mockups, because a screenshot cannot demonstrate speed, mobile behaviour or how the site actually converts.',
   },
   {
     q: 'Will my project be shown publicly?',
@@ -59,7 +59,7 @@ const WORK_FAQS = [
   },
   {
     q: 'Can you improve an existing website instead of rebuilding it?',
-    a: 'Often, yes — and it is frequently the better decision. Sometimes the design is fine and the real problem is speed, messaging or structure. We audit before recommending a rebuild, because a redesign that fixes the wrong problem is expensive and disappointing.',
+    a: 'Often, yes, and it is frequently the better decision. Sometimes the design is fine and the real problem is speed, messaging or structure. We audit before recommending a rebuild, because a redesign that fixes the wrong problem is expensive and disappointing.',
   },
 ];
 
@@ -149,7 +149,7 @@ function SectorCell({ industry, index }) {
 const portfolioSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Our Work — ${SITE.name}`,
+  name: `Our Work: ${SITE.name}`,
   url: `${SITE.url}/projects`,
   description: 'Selected websites, brand systems and digital solutions built by Manhar Creatives.',
   hasPart: PROJECTS.map((p) => ({
@@ -167,8 +167,8 @@ export default function ProjectsPage() {
     <>
       <Seo
         path="/projects"
-        title={`Our Work — Websites, Brand Systems & Digital Projects | ${SITE.name}`}
-        description="Selected work — business websites, industrial and placement platforms, brand systems and digital menus. Live links where the site is public, no mockups."
+        title={`Our Work: Websites, Brand Systems & Digital Projects | ${SITE.name}`}
+        description="Selected work: business websites, industrial and placement platforms, brand systems and digital menus. Live links where the site is public, no mockups."
         keywords={[
           'web design portfolio india',
           'website development case studies',
@@ -195,7 +195,7 @@ export default function ProjectsPage() {
         eyebrow="SELECTED WORK"
         title="Work built to"
         titleAccent="do a job."
-        subtitle="Every project here started with a specific business problem — credibility, visibility, operational drag — and was measured against whether it solved it, not whether it looked good in a portfolio."
+        subtitle="Every project here started with a specific business problem (credibility, visibility, operational drag) and was measured against whether it solved it, not whether it looked good in a portfolio."
         background="/images/pages/work-hero.webp"
         bgOpacity={0.55}
         imageSide="left"

@@ -11,7 +11,7 @@ const EASE = [0.16, 1, 0.3, 1];
 const PROCESS_FAQS = [
   {
     q: 'How long does each stage take?',
-    a: 'Discovery and research typically take 2–4 days. Planning takes 1–2 days. Design and development is the longest stage — 1–3 weeks for a website, 4–8 weeks for a custom software module. Review adds a few days, and delivery is same-day once approved.',
+    a: 'Discovery and research typically take 2–4 days. Planning takes 1–2 days. Design and development is the longest stage: as little as 1 week for a landing page, up to 5 weeks or more for a premium custom website, 4 weeks or more for a custom software module. Review adds a few days, and delivery is same-day once approved.',
   },
   {
     q: 'What do you need from me during the project?',
@@ -19,11 +19,11 @@ const PROCESS_FAQS = [
   },
   {
     q: 'How many revision rounds are included?',
-    a: 'The number is stated in your proposal — typically two to three structured rounds per stage. A revision round means one consolidated set of feedback, not an open-ended series of individual changes. Additional rounds are quoted separately.',
+    a: 'The number is stated in your proposal: typically two to three structured rounds per stage. A revision round means one consolidated set of feedback, not an open-ended series of individual changes. Additional rounds are quoted separately.',
   },
   {
     q: 'What happens if requirements change mid-project?',
-    a: 'We raise a change request with its own scope and quote, and you decide whether to approve it. We do not silently absorb new work and then deliver late — that is how projects lose both timeline and trust.',
+    a: 'We raise a change request with its own scope and quote, and you decide whether to approve it. We do not silently absorb new work and then deliver late. That is how projects lose both timeline and trust.',
   },
   {
     q: 'What does handover include?',
@@ -36,7 +36,7 @@ export default function ProcessPage() {
     <>
       <Seo
         path="/process"
-        title={`Our Process — How We Deliver Projects | ${SITE.name}`}
+        title={`Our Process: How We Deliver Projects | ${SITE.name}`}
         description="A six-stage process built to remove uncertainty: discovery, research, planning, build, review and delivery. Written scope and fixed pricing before anything starts."
         keywords={[
           'web development process',
@@ -74,7 +74,7 @@ export default function ProcessPage() {
         eyebrow="OUR PROCESS"
         title="Six stages. No"
         titleAccent="guesswork."
-        subtitle="Most project failures are not technical — they are the result of unclear scope, undefined approvals and silent delays. Our process exists to make each of those impossible."
+        subtitle="Most project failures are not technical. They are the result of unclear scope, undefined approvals and silent delays. Our process exists to make each of those impossible."
         background="/images/pages/process-hero.webp"
         bgOpacity={0.55}
         imageSide="left"
@@ -110,7 +110,7 @@ export default function ProcessPage() {
           {[
             {
               t: 'Scope is written before work starts',
-              d: 'A documented scope with fixed pricing. If something new comes up, it becomes a change request with its own quote — not an invisible delay or an argument at the end.',
+              d: 'A documented scope with fixed pricing. If something new comes up, it becomes a change request with its own quote, not an invisible delay or an argument at the end.',
             },
             {
               t: 'One person approves',
@@ -174,13 +174,13 @@ export default function ProcessPage() {
             </thead>
             <tbody>
               {[
-                ['Landing page', '3–7 days', 'Content readiness'],
-                ['Business website (5–10 pages)', '1–3 weeks', 'Content and image sourcing'],
-                ['Premium custom website', '3–6 weeks', 'Design approval rounds'],
-                ['Brand identity system', '2–4 weeks', 'Direction approval'],
-                ['Custom software module', '4–8 weeks', 'Process clarity from your team'],
-                ['Multi-module system', 'Phased, 3–6 months', 'Phase-by-phase sign-off'],
-                ['Google Business Profile setup', '3–5 days + verification', 'Google verification method'],
+                ['Landing page', '1 week+', 'Content readiness'],
+                ['Business website (5–10 pages)', '3 weeks+', 'Content and image sourcing'],
+                ['Premium custom website', '5 weeks+', 'Design approval rounds'],
+                ['Brand identity system', '1 week+', 'Direction approval'],
+                ['Custom software module', '4 weeks+', 'Process clarity from your team'],
+                ['Multi-module system', 'Phased, 6 weeks+', 'Phase-by-phase sign-off'],
+                ['Google Business Profile setup', 'Up to 1 week + verification', 'Google verification method'],
               ].map((row, ri) => (
                 <tr key={ri}>
                   {row.map((cell, ci) => (
@@ -206,7 +206,7 @@ export default function ProcessPage() {
       {/* ── FAQ ── */}
       <PageSection tint>
         <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-          <FaqList faqs={PROCESS_FAQS} title="Process — common questions" />
+          <FaqList faqs={PROCESS_FAQS} title="Process: common questions" />
         </div>
       </PageSection>
 

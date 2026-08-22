@@ -29,12 +29,12 @@ const SECTIONS = [
       {
         type: 'ul',
         items: [
-          '<strong>Website Development</strong> — business websites, corporate websites, landing pages and portfolio websites',
-          '<strong>Custom Software Development</strong> — CRM systems, admin dashboards, internal tools, business automation and API integrations',
-          '<strong>Branding & Identity</strong> — logo design, brand identity systems, brand guidelines and visual systems',
-          '<strong>Social Media Design</strong> — post templates, campaign creatives and content design systems',
-          '<strong>Print & Offline Branding</strong> — stationery, brochures, signage, packaging and marketing collateral',
-          '<strong>Digital Presence Setup</strong> — Google Business Profile, business email, WhatsApp Business and local visibility foundations',
+          '<strong>Website Development</strong>: business websites, corporate websites, landing pages and portfolio websites',
+          '<strong>Custom Software Development</strong>: CRM systems, admin dashboards, internal tools, business automation and API integrations',
+          '<strong>Branding & Identity</strong>: logo design, brand identity systems, brand guidelines and visual systems',
+          '<strong>Social Media Design</strong>: post templates, campaign creatives and content design systems',
+          '<strong>Print & Offline Branding</strong>: stationery, brochures, signage, packaging and marketing collateral',
+          '<strong>Digital Presence & Growth</strong>: Google Business Profile, business email, WhatsApp Business and local visibility foundations',
         ],
       },
       {
@@ -78,9 +78,10 @@ const SECTIONS = [
         type: 'ul',
         items: [
           'All prices are quoted in Indian Rupees (INR) unless stated otherwise. Applicable taxes are additional.',
+          'Shorter-scope work, such as Print & Offline Branding, requires <strong>full advance payment</strong> before work begins, as set out in that service\'s own terms, rather than the staged structure above.',
           'Payments are accepted by bank transfer, UPI or other methods communicated at the time of invoicing.',
           'Final files, source code, credentials and production assets are released only after full payment is received.',
-          'Third-party costs — domains, hosting, premium fonts, stock imagery, plugin licences, paid APIs — are billed separately at actual cost unless explicitly included in the proposal.',
+          'Third-party costs (domains, hosting, premium fonts, stock imagery, plugin licences, paid APIs) are billed separately at actual cost unless explicitly included in the proposal.',
           'We reserve the right to pause work on a project where payment is overdue beyond the agreed terms.',
         ],
       },
@@ -136,7 +137,7 @@ const SECTIONS = [
           '<strong>You own</strong> the final delivered designs, website, source code and brand assets created specifically for your project.',
           '<strong>You own</strong> the domain name, hosting account and all data associated with them. We never register a client domain in our own name.',
           '<strong>We retain</strong> ownership of our internal tools, frameworks, reusable components, methodologies and pre-existing intellectual property used to produce the work.',
-          '<strong>Third-party assets</strong> — fonts, stock photography, plugins and libraries — remain governed by their respective licences, which are transferred to you where the licence permits.',
+          '<strong>Third-party assets</strong> (fonts, stock photography, plugins and libraries) remain governed by their respective licences, which are transferred to you where the licence permits.',
           '<strong>Rejected concepts</strong> and unused design directions remain our property and may be repurposed.',
         ],
       },
@@ -215,7 +216,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'Both parties agree to keep confidential any non-public business information disclosed during an engagement — including pricing, strategy, customer data, internal processes and technical details — and not to disclose it to third parties without written consent. This obligation survives the completion of the project.',
+        text: 'Both parties agree to keep confidential any non-public business information disclosed during an engagement, including pricing, strategy, customer data, internal processes and technical details, and not to disclose it to third parties without written consent. This obligation survives the completion of the project.',
       },
     ],
   },
@@ -224,7 +225,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'All content on this website — text, design, code, graphics, logos and images — is the property of ' + SITE.name + ' and protected by applicable intellectual property law. You may not copy, reproduce, republish or redistribute any part of it without written permission.',
+        text: 'All content on this website (text, design, code, graphics, logos and images) is the property of ' + SITE.name + ' and protected by applicable intellectual property law. You may not copy, reproduce, republish or redistribute any part of it without written permission.',
       },
       {
         type: 'ul',
@@ -273,7 +274,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: `For any questions regarding these Terms & Conditions, contact us at <a href="mailto:${SITE.email}" style="color:var(--color-primary)">${SITE.email}</a> or ${SITE.phone}. Our address is ${SITE.address.locality}, ${SITE.address.region} ${SITE.address.postalCode}, ${SITE.address.country}.`,
+        text: `For any questions regarding these Terms & Conditions, contact us at <a href="mailto:${SITE.email}" style="color:var(--color-primary)">${SITE.email}</a> or ${SITE.phone}. Our address is ${SITE.address.street}, ${SITE.address.locality}, ${SITE.address.region} ${SITE.address.postalCode}, ${SITE.address.country}.`,
       },
     ],
   },
@@ -285,7 +286,7 @@ export default function TermsPage() {
       <Seo
         path="/terms-and-conditions"
         title={`Terms & Conditions | ${SITE.name}`}
-        description={`Terms and conditions for engaging ${SITE.name} — scope, payment terms, timelines, intellectual property and ownership, revisions, cancellation and liability.`}
+        description={`Terms and conditions for engaging ${SITE.name}: scope, payment terms, timelines, intellectual property and ownership, revisions, cancellation and liability.`}
         keywords={['terms and conditions', 'service terms', 'manhar creatives terms', 'website terms of use india']}
         schema={[
           orgSchema(),
@@ -309,7 +310,7 @@ export default function TermsPage() {
         eyebrow="LEGAL"
         title="Terms &"
         titleAccent="Conditions"
-        subtitle="How we work together — scope, payments, timelines, ownership and what each side is responsible for. Clear terms prevent difficult conversations later."
+        subtitle="How we work together: scope, payments, timelines, ownership and what each side is responsible for. Clear terms prevent difficult conversations later."
         background="/images/backgrounds/legal-terms-bg.webp"
         updated={UPDATED}
         sections={SECTIONS}

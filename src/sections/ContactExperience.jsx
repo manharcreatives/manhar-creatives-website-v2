@@ -450,7 +450,7 @@ function CountryCodeSelect({ value, onChange, error }) {
 
 const INITIAL_FORM = {
   name: '', company: '', email: '', phone: '', address: '',
-  type: '', otherType: '', message: '', contactMethod: 'Email',
+  type: '', otherType: '', message: '', website: '',
 };
 
 /* ─── Validators ──────────────────────────────────────────
@@ -476,7 +476,7 @@ const VALIDATORS = {
   },
   email: (v) => {
     const t = v.trim();
-    if (!t) return 'We need an email to reply to';
+    if (!t) return '';
     if (t.length > 254) return 'That email address is too long';
     if (!EMAIL_RE.test(t)) return 'That does not look like a valid email address';
     return '';
@@ -593,7 +593,7 @@ export default function ContactExperience() {
 
     const value = formData[field] ?? '';
     /* Optional fields stay silent when left empty. */
-    const optional = !['name', 'email', 'phone'].includes(field);
+    const optional = !['name', 'phone'].includes(field);
     if (optional && !String(value).trim()) return;
 
     const message = validator(value);
@@ -609,7 +609,7 @@ export default function ContactExperience() {
 
   function validateAll(data) {
     const errs = {};
-    ['name', 'email', 'phone'].forEach((f) => {
+    ['name', 'phone'].forEach((f) => {
       const m = VALIDATORS[f](data[f] ?? '');
       if (m) errs[f] = m;
     });
@@ -656,6 +656,20 @@ export default function ContactExperience() {
     e.preventDefault();
     if (status === 'submitting') return;
 
+    /* Honeypot: a field no real visitor sees or fills, positioned
+       off-screen and skipped by autofill/tab order. A bot filling
+       every input trips it. We fake a normal success rather than
+       telling it anything failed, so scripted spam doesn't learn
+       to route around this check. */
+    if (formData.website?.trim()) {
+      setStatus('submitting');
+      setTimeout(() => {
+        setStatus('success');
+        setStatusMessage('Enquiry received. We will be in touch within 24 hours.');
+      }, 600);
+      return;
+    }
+
     const errs = validateAll(formData);
     setErrors(errs);
     setTouched(Object.fromEntries(FIELD_ORDER.map((f) => [f, true])));
@@ -675,6 +689,7 @@ export default function ContactExperience() {
     const fullPhone = `${countryCode} ${formData.phone}`;
     const payload = { ...formData, phone: fullPhone };
     if (payload.type !== 'Other') delete payload.otherType;
+    delete payload.website;
 
     /* ── Primary destination: the enquiry sheet ── */
     try {
@@ -699,13 +714,13 @@ export default function ContactExperience() {
       setStatus('error');
       setStatusMessage(
         timedOut
-          ? 'That took longer than expected. Your connection may be slow — please try again.'
+          ? 'That took longer than expected. Your connection may be slow, please try again.'
           : 'We could not send that. Please try again, or reach us directly.'
       );
       formEvents.error(FORM_ID, timedOut ? 'timeout' : 'network');
       toast.error(
         timedOut ? 'Request timed out' : 'Could not send',
-        'Your details are still here — press Try again.'
+        'Your details are still here, press Try again.'
       );
       return;
     }
@@ -733,7 +748,6 @@ export default function ContactExperience() {
         location: formData.address || '',
         services: formData.type === 'Other' ? formData.otherType : formData.type,
         requirement: formData.message || '',
-        contact_method: formData.contactMethod,
       }]);
     } catch {
       /* Intentionally silent — see above. */
@@ -744,7 +758,6 @@ export default function ContactExperience() {
     setStatusMessage('Enquiry received. We will be in touch within 24 hours.');
     formEvents.submit(FORM_ID, {
       project_type: formData.type || 'unspecified',
-      contact_method: formData.contactMethod,
       has_message: Boolean(formData.message?.trim()),
     });
     toast.success('Enquiry received', 'We will get back to you within 24 hours.');
@@ -942,6 +955,26 @@ export default function ContactExperience() {
                       disabled={busy}
                       style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '26px' }}
                     >
+                      {/* Honeypot — invisible to a real visitor, irresistible
+                          to a scripted form-filler. Positioned off-screen
+                          rather than display:none, since some bots skip
+                          display:none fields specifically to evade this. */}
+                      <div
+                        aria-hidden="true"
+                        style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+                      >
+                        <label htmlFor="contact-website">Website</label>
+                        <input
+                          id="contact-website"
+                          name="website"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={formData.website}
+                          onChange={handleChange('website')}
+                        />
+                      </div>
+
                       <FormField
                         ref={registerField('name')}
                         id="contact-name"
@@ -988,7 +1021,6 @@ export default function ContactExperience() {
                         onClear={clearField('email')}
                         error={errors.email}
                         shaking={shakeField === 'email'}
-                        required
                         maxLength={254}
                         autoComplete="email"
                         autoCapitalize="off"
@@ -1014,7 +1046,7 @@ export default function ContactExperience() {
                               onBlur={handleBlur('phone')}
                               onClear={clearField('phone')}
                               error={errors.phone}
-                              hint={!errors.phone && !formData.phone ? 'Digits only — e.g. 97145 71522' : ''}
+                              hint={!errors.phone && !formData.phone ? 'Digits only, e.g. 97145 71522' : ''}
                               shaking={shakeField === 'phone'}
                               required
                               maxLength={20}
@@ -1094,31 +1126,6 @@ export default function ContactExperience() {
                           </motion.div>
                         )}
                       </AnimatePresence>
-
-                      <div style={{ marginTop: '10px' }}>
-                        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-                          <legend style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '12px', fontFamily: 'var(--font-mono)', padding: 0 }}>
-                            PREFERRED CONTACT METHOD
-                          </legend>
-                          <div style={{ display: 'flex', gap: '12px' }}>
-                            {['Email', 'Phone'].map((method) => {
-                              const active = formData.contactMethod === method;
-                              return (
-                                <motion.button
-                                  key={method}
-                                  type="button"
-                                  aria-pressed={active}
-                                  whileTap={{ scale: 0.96 }}
-                                  onClick={() => setFormData((prev) => ({ ...prev, contactMethod: method }))}
-                                  style={chipStyle(active)}
-                                >
-                                  {method}
-                                </motion.button>
-                              );
-                            })}
-                          </div>
-                        </fieldset>
-                      </div>
 
                       <div style={{ marginTop: '10px' }}>
                         <FormField

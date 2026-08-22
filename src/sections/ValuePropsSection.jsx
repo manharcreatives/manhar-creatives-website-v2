@@ -5,37 +5,37 @@ const VALUE_PROPS = [
   {
     number: '01',
     title: 'Strategic Approach',
-    description: 'Every project starts from a blank canvas, built around your business, goals and requirements. Never a repurposed website, never a template in new colours — what you get is built for you, and only you.',
+    description: 'Every project starts from a blank canvas, built around your business, goals and requirements. Never a repurposed website, never a template in new colours: what you get is built for you, and only you.',
     image: '/images/cards/value-strategic.webp',
   },
   {
     number: '02',
     title: 'Professional Execution',
-    description: "Execution stays precise and professional, but it feels personal — like working with your own team. We don't stop at the brief; once we understand your business, we bring you strategic ideas that help it grow further.",
+    description: "Execution stays precise and professional, but it feels personal, like working with your own team. We don't stop at the brief; once we understand your business, we bring you strategic ideas that help it grow further.",
     image: '/images/cards/value-execution.webp',
   },
   {
     number: '03',
     title: "Client Satisfaction First",
-    description: "Within the agreed scope, we work until you're genuinely happy with the outcome — not just signed off. Most clients love the very first draft, because it's designed only for them, never adapted from someone else's work.",
+    description: "Within the agreed scope, we work until you're genuinely happy with the outcome, not just signed off. Most clients love the very first draft, because it's designed only for them, never adapted from someone else's work.",
     image: '/images/cards/value-business.webp',
   },
   {
     number: '04',
     title: 'Structured Workflow',
-    description: 'A clear process and timelines you can rely on. If we commit to a delivery date, that date holds — structure here is not just a promise, it is how every project actually runs.',
+    description: 'A clear process and timelines you can rely on. If we commit to a delivery date, that date holds. Structure here is not just a promise, it is how every project actually runs.',
     image: '/images/cards/value-workflow.webp',
   },
   {
     number: '05',
     title: 'Growth-Focused Thinking',
-    description: "We don't build for the sake of finishing a task. Every decision, from structure to design, is made while thinking about what actually grows your business — not just what fills the brief.",
+    description: "We don't build for the sake of finishing a task. Every decision, from structure to design, is made while thinking about what actually grows your business, not just what fills the brief.",
     image: '/images/cards/value-growth.webp',
   },
   {
     number: '06',
     title: 'Reliable Collaboration',
-    description: 'Projects matter, but the relationship matters just as much. We invest in genuine collaboration and long-term trust — once a business partners with us, they rarely feel the need to look anywhere else.',
+    description: 'Projects matter, but the relationship matters just as much. We invest in genuine collaboration and long-term trust. Once a business partners with us, they rarely feel the need to look anywhere else.',
     image: '/images/cards/value-collaboration.webp',
   },
 ];
@@ -80,7 +80,7 @@ export default function ValuePropsSection() {
             marginTop: '24px',
             marginBottom: '48px',
           }}>
-            We combine structured execution, original design thinking, and business-focused strategy to deliver solutions built only for you — never templated, never copied.
+            We combine structured execution, original design thinking, and business-focused strategy to deliver solutions built only for you: never templated, never copied.
           </p>
         </FadeIn>
 
@@ -102,7 +102,7 @@ export default function ValuePropsSection() {
                 {/* Image — 150px height */}
                 <img className="value-prop-image"
                   src={prop.image}
-                  alt={`${prop.title} — ${prop.description.slice(0, 60)}`}
+                  alt={`${prop.title}: ${prop.description.slice(0, 60)}`}
                   loading="lazy"
                   style={{
                     width: '100%',

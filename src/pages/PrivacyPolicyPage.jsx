@@ -10,7 +10,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: `${SITE.name} ("we", "us", "our") operates the website <strong>${SITE.domain}</strong> and provides digital solutions and branding services including website development, custom software development, brand identity design, social media design, print branding and digital presence setup.`,
+        text: `${SITE.name} ("we", "us", "our") operates the website <strong>${SITE.domain}</strong> and provides digital solutions and branding services including website development, custom software development, brand identity design, social media design, print & offline branding and digital presence & growth.`,
       },
       {
         type: 'p',
@@ -30,7 +30,7 @@ const SECTIONS = [
         type: 'table',
         head: ['Category', 'What it includes', 'How it is collected'],
         rows: [
-          ['Contact details', 'Name, email address, phone number, business name', 'Submitted by you through our contact form, WhatsApp, email or phone'],
+          ['Contact details', 'Name and phone number, and optionally your email address and business name', 'Submitted by you through our contact form, WhatsApp, email or phone'],
           ['Project information', 'Service required, budget indication, project description, requirements', 'Submitted by you through the contact form or during discussions'],
           ['Chat messages', 'Messages you send to the website chat assistant', 'Entered by you into the on-site chat widget'],
           ['Usage data', 'Pages viewed, time on page, referring source, approximate location, device and browser type', 'Collected automatically via analytics'],
@@ -55,12 +55,12 @@ const SECTIONS = [
       {
         type: 'ul',
         items: [
-          '<strong>To respond to your enquiry</strong> — contacting you by email, phone or WhatsApp about the project you asked about',
-          '<strong>To prepare proposals and quotations</strong> — scoping work accurately based on the requirements you share',
-          '<strong>To deliver our services</strong> — building, designing and supporting the work you engage us for',
-          '<strong>To communicate during a project</strong> — sharing updates, drafts, approvals and delivery information',
-          '<strong>To improve our website</strong> — understanding which pages are useful and where visitors encounter difficulty',
-          '<strong>To meet legal and accounting obligations</strong> — issuing invoices and maintaining records required under Indian law',
+          '<strong>To respond to your enquiry</strong>: contacting you by email, phone or WhatsApp about the project you asked about',
+          '<strong>To prepare proposals and quotations</strong>: scoping work accurately based on the requirements you share',
+          '<strong>To deliver our services</strong>: building, designing and supporting the work you engage us for',
+          '<strong>To communicate during a project</strong>: sharing updates, drafts, approvals and delivery information',
+          '<strong>To improve our website</strong>: understanding which pages are useful and where visitors encounter difficulty',
+          '<strong>To meet legal and accounting obligations</strong>: issuing invoices and maintaining records required under Indian law',
         ],
       },
       {
@@ -104,8 +104,8 @@ const SECTIONS = [
       {
         type: 'ul',
         items: [
-          '<strong>Essential cookies</strong> — required for the website to function correctly. These cannot be disabled without breaking the site.',
-          '<strong>Analytics cookies</strong> — set by Google Analytics to understand how visitors use the site in aggregate. These do not identify you personally.',
+          '<strong>Essential cookies</strong>: required for the website to function correctly. These cannot be disabled without breaking the site.',
+          '<strong>Analytics cookies</strong>: set by Google Analytics to understand how visitors use the site in aggregate. These do not identify you personally.',
         ],
       },
       {
@@ -166,11 +166,11 @@ const SECTIONS = [
       {
         type: 'ul',
         items: [
-          '<strong>Access</strong> — request a copy of the personal information we hold about you',
-          '<strong>Correction</strong> — ask us to correct information that is inaccurate or incomplete',
-          '<strong>Deletion</strong> — request that we delete your information, subject to legal retention requirements',
-          '<strong>Withdraw consent</strong> — ask us to stop contacting you at any time',
-          '<strong>Object</strong> — object to particular uses of your information',
+          '<strong>Access</strong>: request a copy of the personal information we hold about you',
+          '<strong>Correction</strong>: ask us to correct information that is inaccurate or incomplete',
+          '<strong>Deletion</strong>: request that we delete your information, subject to legal retention requirements',
+          '<strong>Withdraw consent</strong>: ask us to stop contacting you at any time',
+          '<strong>Object</strong>: object to particular uses of your information',
         ],
       },
       {
@@ -184,7 +184,7 @@ const SECTIONS = [
     blocks: [
       {
         type: 'p',
-        text: 'Business information you share with us during a project — pricing, customer data, internal processes, unreleased plans, source materials — is treated as confidential and is not shared with any third party.',
+        text: 'Business information you share with us during a project (pricing, customer data, internal processes, unreleased plans, source materials) is treated as confidential and is not shared with any third party.',
       },
       {
         type: 'p',
@@ -240,7 +240,7 @@ export default function PrivacyPolicyPage() {
       <Seo
         path="/privacy-policy"
         title={`Privacy Policy | ${SITE.name}`}
-        description={`How ${SITE.name} collects, uses, stores and protects your information — what we collect, which third-party services we use, how long we keep data, and your rights.`}
+        description={`How ${SITE.name} collects, uses, stores and protects your information: what we collect, which third-party services we use, how long we keep data, and your rights.`}
         keywords={['privacy policy', 'data protection', 'manhar creatives privacy', 'website privacy policy india']}
         background="/images/backgrounds/legal-privacy-bg.webp"
         schema={[
@@ -265,7 +265,7 @@ export default function PrivacyPolicyPage() {
         eyebrow="LEGAL"
         title="Privacy"
         titleAccent="Policy"
-        subtitle="What we collect, why we collect it, who we share it with, and the control you have over it — written to be read, not skimmed."
+        subtitle="What we collect, why we collect it, who we share it with, and the control you have over it: written to be read, not skimmed."
         background="/images/backgrounds/legal-privacy-bg.webp"
         updated={UPDATED}
         sections={SECTIONS}

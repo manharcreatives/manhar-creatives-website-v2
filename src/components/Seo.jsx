@@ -55,7 +55,7 @@ export default function Seo({
 }) {
   useEffect(() => {
     const url = `${SITE.url}${path === '/' ? '/' : path}`;
-    const fullTitle = title || `${SITE.name} — Digital Solutions & Branding`;
+    const fullTitle = title || `${SITE.name}: Digital Solutions & Branding`;
     const desc = description || SITE.description;
     const img = `${SITE.url}${image || SITE.ogImage}`;
 
@@ -234,7 +234,7 @@ export const localBusinessSchema = (city) => ({
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': `${SITE.url}/${city.slug}#localbusiness`,
-  name: `${SITE.name} — ${city.name}`,
+  name: `${SITE.name}, ${city.name}`,
   description: `Website development, custom software, branding and digital presence services in ${city.name}, ${city.region}.`,
   url: `${SITE.url}/${city.slug}`,
   telephone: SITE.phoneRaw,

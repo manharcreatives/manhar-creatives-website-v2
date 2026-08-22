@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Seo, { orgSchema, breadcrumbSchema, faqSchema } from '../components/Seo';
 import {
@@ -37,7 +37,7 @@ const PRINCIPLES = [
   {
     image: '/images/about/principle-04.webp',
     title: 'Scope before start',
-    desc: 'A written scope and a fixed price before work begins. Anything new is a change request with its own quote — never a silent delay or a surprise invoice at the end.',
+    desc: 'A written scope and a fixed price before work begins. Anything new is a change request with its own quote, never a silent delay or a surprise invoice at the end.',
   },
   {
     image: '/images/about/principle-05.webp',
@@ -60,9 +60,10 @@ const PRINCIPLES = [
 const PRINCIPLE_SPANS = [5, 4, 3, 3, 4, 5];
 
 const STORY = [
-  `We started in ${SITE.address.locality} — a town in North Gujarat full of businesses that have been doing excellent work for decades. Manufacturers with real capability. Traders with deep relationships. Clinics people genuinely trust. Almost none of it visible to anyone who did not already know about it.`,
+  `We started in ${SITE.address.locality}, a town in North Gujarat full of businesses that have been doing excellent work for decades. Manufacturers with real capability. Traders with deep relationships. Clinics people genuinely trust. Almost none of it visible to anyone who did not already know about it.`,
+  `The name is not invented. Manhar Creatives carries the name of a shop our founder's parent has run in ${SITE.address.locality} for twenty-five years, earned one customer at a time. We kept it on purpose, so a new client starts by trusting us the way this town already trusts that shop.`,
   'Meanwhile, newer and often weaker competitors were winning enquiries simply because they showed up first on a phone screen. The gap was never quality. It was presentation, structure and visibility.',
-  'That is the gap we exist to close. Not by making things look nicer — though they do — but by building the underlying systems that turn an established offline reputation into something a stranger can find, verify and act on.',
+  'That is the gap we exist to close. Not by making things look nicer (though they do) but by building the underlying systems that turn an established offline reputation into something a stranger can find, verify and act on.',
   'Since then the work has expanded well beyond websites. Businesses that solved visibility came back with a different problem: their operations were running on spreadsheets, WhatsApp threads and manual re-entry. So we started building the software to fix that too.',
 ];
 
@@ -342,6 +343,163 @@ function StorySpread({ eyebrow, title, paragraphs }) {
   );
 }
 
+/* ─── Mission & Vision: split panel ───────────────────────
+   Every other section on this page argues a point with copy and
+   evidence. This one is a diptych, not an argument — two beliefs
+   stated plainly, full-bleed, on their own imagery, with nothing
+   between the words and the photograph. No card, no border, no
+   glass: the same restraint the Philosophy section gives its
+   tagline, applied to a two-up layout instead of a single line.
+
+   Mission sits grounded on the left; Vision leans forward on the
+   right. The parallax underlines that on its own — the two layers
+   drift in opposite directions off one scroll progress, which
+   nothing else on this page does — and the seam between them
+   draws itself in once, the same accent-rail device the case rows
+   and capability ledger use per-cell, here spent once at section
+   scale instead of many times at card scale. */
+const MISSION_TEXT = 'We exist to close the gap between how good a business actually is and how good it looks online. Every website, brand system and piece of software we build is judged on one thing: whether it gets you found, trusted and contacted.';
+const VISION_TEXT = 'A market where the business doing the best work also looks like it, whether that is a manufacturer on an industrial estate or a clinic on a side street. We design, we build, you grow, until that is simply how business works here.';
+
+function MissionVisionSplit() {
+  const ref = useRef(null);
+  const reduced = prefersReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  /* Grounded vs. forward-moving: the two backgrounds drift off the
+     same scroll progress in opposite directions. Collapsed to a
+     flat range for reduced motion rather than skipped outright, so
+     the hook count staying identical every render is a side
+     benefit, not the reason — the real reason is a visitor who
+     asked for less motion still gets the full image, just still. */
+  const yMission = useTransform(scrollYProgress, [0, 1], reduced ? ['0%', '0%'] : ['-7%', '7%']);
+  const yVision = useTransform(scrollYProgress, [0, 1], reduced ? ['0%', '0%'] : ['7%', '-7%']);
+
+  return (
+    <section ref={ref} style={{ position: 'relative', background: 'var(--bg)' }}>
+      <style>{`
+        .mc-mv__panels { position: relative; display: flex; align-items: stretch; }
+        .mc-mv__panel {
+          position: relative; flex: 1 1 50%; overflow: hidden;
+          min-height: clamp(480px, 44vw, 620px);
+          display: flex;
+        }
+        .mc-mv__layer {
+          position: absolute; inset: -8%; width: 116%; height: 116%;
+          background-size: cover; background-position: center;
+        }
+        .mc-mv__content {
+          position: relative; z-index: 2;
+          display: flex; flex-direction: column; justify-content: center;
+          width: 100%; padding: clamp(40px, 5vw, 72px) clamp(28px, 4vw, 64px);
+        }
+        .mc-mv__panel--mission .mc-mv__content { align-items: flex-start; text-align: left; }
+        .mc-mv__panel--vision  .mc-mv__content { align-items: flex-end;   text-align: right; }
+        .mc-mv__statement {
+          max-width: 460px;
+          font-size: clamp(1.375rem, 2.4vw, 2rem);
+          line-height: 1.55; letter-spacing: -0.01em;
+          color: rgba(255,255,255,0.94);
+          margin-top: 18px;
+        }
+        .mc-mv__label {
+          font-family: var(--font-mono);
+          font-size: clamp(1.375rem, 3vw, 2.125rem);
+          font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+          color: var(--color-primary);
+          text-shadow: 0 0 30px rgba(34,197,94,0.4);
+        }
+        .mc-mv__scrim--mission {
+          background: linear-gradient(to right, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.55) 45%, transparent 88%);
+        }
+        .mc-mv__scrim--vision {
+          background: linear-gradient(to left, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.55) 45%, transparent 88%);
+        }
+        .mc-mv__seam-mobile { display: none; }
+
+        @media (max-width: 900px) {
+          .mc-mv__panels { flex-direction: column; }
+          .mc-mv__panel { min-height: clamp(360px, 82vw, 440px); }
+          .mc-mv__panel--mission .mc-mv__content,
+          .mc-mv__panel--vision  .mc-mv__content { align-items: flex-start; text-align: left; }
+          .mc-mv__scrim--mission {
+            background: linear-gradient(to bottom, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.55) 45%, transparent 88%);
+          }
+          .mc-mv__scrim--vision {
+            background: linear-gradient(to top, rgba(11,15,14,0.92) 0%, rgba(11,15,14,0.55) 45%, transparent 88%);
+          }
+          .mc-mv__seam-desktop { display: none; }
+          .mc-mv__seam-mobile { display: block; position: relative; height: 2px; width: 100%; }
+        }
+      `}</style>
+
+      <div className="container" style={{ position: 'relative', zIndex: 2, paddingTop: 'var(--space-4xl)' }}>
+        <SectionHeading
+          eyebrow="MISSION & VISION"
+          title="Why we do this,"
+          accent="and where it is going"
+          subtitle="Not a plaque on the wall. This is the standard every project actually gets measured against."
+          center
+        />
+      </div>
+
+      <div className="mc-mv__panels">
+        <div className="mc-mv__panel mc-mv__panel--mission">
+          <motion.div aria-hidden="true" className="mc-mv__layer" style={{ backgroundImage: 'url(/images/backgrounds/mission-bg.webp)', y: yMission }} />
+          <span aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'rgba(11,15,14,0.3)' }} />
+          <span aria-hidden="true" className="mc-mv__scrim--mission" style={{ position: 'absolute', inset: 0, zIndex: 1 }} />
+          <div className="mc-mv__content">
+            <span className="mc-mv__label">Mission</span>
+            <p className="mc-mv__statement">{MISSION_TEXT}</p>
+          </div>
+        </div>
+
+        <ViewAnimator
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: false, margin: '-10%' }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="mc-mv__seam-desktop"
+          aria-hidden="true"
+          style={{
+            position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px',
+            transform: 'translateX(-50%)', transformOrigin: '50% 0%', zIndex: 3,
+            background: 'linear-gradient(180deg, #16A34A, #22C55E 45%, #4ADE80)',
+            boxShadow: '0 0 14px rgba(34,197,94,0.55)',
+          }}
+        />
+        <ViewAnimator
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false, margin: '-10%' }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="mc-mv__seam-mobile"
+          aria-hidden="true"
+          style={{
+            transformOrigin: '0% 50%',
+            background: 'linear-gradient(90deg, #16A34A, #22C55E 45%, #4ADE80)',
+            boxShadow: '0 0 14px rgba(34,197,94,0.55)',
+          }}
+        />
+
+        <div className="mc-mv__panel mc-mv__panel--vision">
+          <motion.div aria-hidden="true" className="mc-mv__layer" style={{ backgroundImage: 'url(/images/backgrounds/vision-bg.webp)', y: yVision }} />
+          <span aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'rgba(11,15,14,0.3)' }} />
+          <span aria-hidden="true" className="mc-mv__scrim--vision" style={{ position: 'absolute', inset: 0, zIndex: 1 }} />
+          <div className="mc-mv__content">
+            <span className="mc-mv__label">Vision</span>
+            <p className="mc-mv__statement">{VISION_TEXT}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const ABOUT_FAQS = [
   {
     q: 'Where is Manhar Creatives based?',
@@ -370,8 +528,8 @@ export default function AboutPage() {
     <>
       <Seo
         path="/about"
-        title={`About Us — Digital Solutions & Branding Company in Gujarat | ${SITE.name}`}
-        description={`${SITE.name} is a digital solutions and branding company based in ${SITE.address.locality}, ${SITE.address.region}. We build websites, custom software, brand systems and digital presence for businesses that want to grow — with fixed scope, full ownership and honest advice.`}
+        title={`About Us: Digital Solutions & Branding Company in Gujarat | ${SITE.name}`}
+        description={`${SITE.name} is a digital solutions and branding company based in ${SITE.address.locality}, ${SITE.address.region}. We build websites, custom software, brand systems and digital presence for businesses that want to grow, with fixed scope, full ownership and honest advice.`}
         keywords={[
           'about manhar creatives',
           'digital agency gujarat',
@@ -436,6 +594,9 @@ export default function AboutPage() {
         />
       </PageSection>
 
+      {/* ── Mission & Vision ── */}
+      <MissionVisionSplit />
+
       {/* ── Philosophy ── */}
       <PageSection tint background="/images/backgrounds/benefits-bg.webp" bgOpacity={0.07}>
         <div style={{ textAlign: 'center', maxWidth: '760px', margin: '0 auto 52px' }}>
@@ -449,8 +610,8 @@ export default function AboutPage() {
           </p>
           <h2
             style={{
-              fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-              fontWeight: 600, lineHeight: 1.12, letterSpacing: '-0.03em', color: '#fff',
+              fontFamily: 'var(--font-display)', fontSize: 'clamp(2.75rem, 8vw, 6rem)',
+              fontWeight: 600, lineHeight: 1.08, letterSpacing: '-0.03em', color: '#fff',
             }}
           >
             We Design, We Build,{' '}
@@ -460,6 +621,7 @@ export default function AboutPage() {
                 background: 'linear-gradient(135deg, #22C55E, #4ADE80)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                 display: 'inline-block', paddingRight: '10px',
+                textShadow: '0 0 40px rgba(34,197,94,0.35)',
               }}
             >
               You Grow
@@ -493,7 +655,7 @@ export default function AboutPage() {
         <SplitPoints
           heading="What we actually do"
           body="Six services, each addressing a specific business constraint. Most clients start with one and expand as the return becomes visible."
-          points={SERVICES.map((s) => `${s.title} — ${s.tagline}`)}
+          points={SERVICES.map((s) => `${s.title}: ${s.tagline}`)}
         />
         <div style={{ marginTop: '34px' }}>
           <Link to="/services" className="btn btn-outline">Explore all services →</Link>
@@ -506,7 +668,7 @@ export default function AboutPage() {
           eyebrow="WHERE WE WORK"
           title="Rooted locally,"
           accent="working nationally"
-          subtitle={`Based in ${SITE.address.locality}, delivering across Gujarat and India. Locally based means face-to-face meetings when they help — and everything else handled over calls, WhatsApp and shared documents.`}
+          subtitle={`Based in ${SITE.address.locality}, delivering across Gujarat and India. Locally based means face-to-face meetings when they help, and everything else handled over calls, WhatsApp and shared documents.`}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
           {Object.values(CITIES).map((c, i) => (
@@ -547,7 +709,7 @@ export default function AboutPage() {
       {/* ── FAQ ── */}
       <PageSection tint>
         <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-          <FaqList faqs={ABOUT_FAQS} title="About us — common questions" />
+          <FaqList faqs={ABOUT_FAQS} title="About us: common questions" />
         </div>
       </PageSection>
 

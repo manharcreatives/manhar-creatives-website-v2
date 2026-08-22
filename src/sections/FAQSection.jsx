@@ -158,7 +158,7 @@ export default function FAQSection() {
                 <div style={{ position: 'relative', paddingBottom: '200%', overflow: 'hidden', borderRadius: '4px' }}>
                   <img
                     src="/images/backgrounds/faq-bg.webp"
-                    alt="Abstract architectural pattern — representing structured business solutions by Manhar Creatives"
+                    alt="Abstract architectural pattern representing structured business solutions by Manhar Creatives"
                     loading="lazy" decoding="async"
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.1)' }}
                   />

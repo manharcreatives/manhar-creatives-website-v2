@@ -163,7 +163,7 @@ export default function HeroExperience() {
             textShadow: '0 2px 30px rgba(0,0,0,0.9)',
           }}
         >
-          From websites to custom software built around how your business actually runs — we create digital systems that earn trust, get you found, and help you grow with confidence.
+          From websites to custom software built around how your business actually runs, we create digital systems that earn trust, get you found, and help you grow with confidence.
         </motion.p>
 
         <motion.div

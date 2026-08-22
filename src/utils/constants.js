@@ -34,7 +34,7 @@ export const PROCESS_STEPS = [
     step: '02',
     title: 'Research',
     description: 'We evaluate your market, competitors, and positioning to identify opportunities and make informed strategic decisions.',
-    detail: 'We study how competitors present themselves, what customers search for, and where the gaps are. Decisions from this stage shape structure, messaging and priority — not aesthetics.',
+    detail: 'We study how competitors present themselves, what customers search for, and where the gaps are. Decisions from this stage shape structure, messaging and priority, not aesthetics.',
     outputs: ['Competitor review', 'Keyword & search research', 'Positioning direction', 'Opportunity notes'],
   },
   {
@@ -55,14 +55,14 @@ export const PROCESS_STEPS = [
     step: '05',
     title: 'Review & Refinement',
     description: 'Every element is reviewed, tested, and refined to ensure quality, accuracy, and a seamless user experience.',
-    detail: 'Structured review rounds across devices and browsers. We test real conditions — mid-range phones, slower connections — not just the ideal case.',
+    detail: 'Structured review rounds across devices and browsers. We test real conditions (mid-range phones, slower connections), not just the ideal case.',
     outputs: ['Cross-device testing', 'Revision rounds', 'Performance audit', 'Content proofing'],
   },
   {
     step: '06',
     title: 'Delivery & Support',
     description: 'Once approved, the project is delivered with the necessary guidance, support, and documentation for a smooth transition.',
-    detail: 'Launch, handover and training. You receive the assets, the access, and a walkthrough — plus support after go-live so early questions do not become problems.',
+    detail: 'Launch, handover and training. You receive the assets, the access, and a walkthrough, plus support after go-live so early questions do not become problems.',
     outputs: ['Full handover', 'Access & ownership', 'Training walkthrough', 'Post-launch support'],
   },
 ];
@@ -72,7 +72,7 @@ export const PROJECTS = [
   {
     title: 'InfoTech Placement',
     category: 'PLACEMENT WEBSITE',
-    description: 'A career consulting & job placement website for InfoTech Placement LLC — structured resume marketing, LinkedIn branding, interview prep, and a written interview guarantee across the US, Canada, UK, and New Zealand.',
+    description: 'A career consulting & job placement website for InfoTech Placement LLC, featuring structured resume marketing, LinkedIn branding, interview prep, and a written interview guarantee across the US, Canada, UK, and New Zealand.',
     image: '/images/projects/infotech-placement.webp',
     video: 'https://res.cloudinary.com/mchtr6ii/video/upload/q_auto:eco/v1785423391/infotech_2nd_video_ejryeb_dn3w7r.mp4',
     url: 'https://www.infotechplacement.com/',
@@ -85,7 +85,7 @@ export const PROJECTS = [
   {
     title: 'Averexa Placement',
     category: 'PLACEMENT WEBSITE',
-    description: 'A placement consultancy website helping ambitious professionals land full-time roles in the US and Canada — guaranteed interviews, expert preparation, and a dedicated recruiter at every step.',
+    description: 'A placement consultancy website helping ambitious professionals land full-time roles in the US and Canada, with guaranteed interviews, expert preparation, and a dedicated recruiter at every step.',
     image: '/images/projects/averexa-placement.webp',
     video: 'https://res.cloudinary.com/yig3etij/video/upload/v1783422001/dq66me_uy7e0k.mp4',
     url: 'https://www.averexaplacement.com/',
@@ -122,7 +122,7 @@ export const PROJECTS = [
   {
     title: 'Restaurant QR Menu System',
     category: 'DIGITAL MENU SYSTEM',
-    description: 'A fast, branded digital menu built for weak connections and real kitchen conditions — instant price updates, one-tap availability toggles, and a review capture flow.',
+    description: 'A fast, branded digital menu built for weak connections and real kitchen conditions, with instant price updates, one-tap availability toggles, and a review capture flow.',
     image: '/images/projects/qr-menu.webp',
     tags: ['Digital Menu', 'Hospitality', 'Web App'],
     year: '2024',
@@ -144,11 +144,11 @@ export const FAQS = [
   },
   {
     q: 'Do you build custom software and CRM systems?',
-    a: 'Yes. We build custom CRM systems, admin dashboards, internal tools, business automation and API integrations designed around your existing workflow — so your team stops working around software limitations. You own the source code and the data outright, with no per-user licence cost.',
+    a: 'Yes. We build custom CRM systems, admin dashboards, internal tools, business automation and API integrations designed around your existing workflow, so your team stops working around software limitations. You own the source code and the data outright, with no per-user licence cost.',
   },
   {
     q: 'Do you also handle SEO, Meta Ads or AI automation?',
-    a: 'On request, once scoped to your specific need. These involve ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve — they sit alongside our six core services rather than being one of them.',
+    a: 'On request, once scoped to your specific need. These involve ongoing monthly work rather than a one-time build, so we discuss and price them separately after understanding what you are trying to achieve; they sit alongside our six core services rather than being one of them.',
   },
   {
     q: 'How does your project process work?',

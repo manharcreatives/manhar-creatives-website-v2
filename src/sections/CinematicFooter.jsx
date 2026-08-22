@@ -315,7 +315,7 @@ export default function CinematicFooter() {
             margin: '0 auto 40px',
             lineHeight: 1.7,
           }}>
-            You do not need to know which one you need. Tell us what the business is struggling with and we will tell you what actually fixes it — including when that is less than you expected.
+            You do not need to know which one you need. Tell us what the business is struggling with and we will tell you what actually fixes it, including when that is less than you expected.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <MagneticBtn href="/contact" internal onClick={() => trackCta('Book a Discovery Call', 'footer', '/contact')}>
@@ -350,12 +350,12 @@ export default function CinematicFooter() {
           <ViewAnimator initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.6 }}>
             <img
               src="/images/logos/footer-logo.webp"
-              alt="Manhar Creatives — Website Development, Branding & Digital Solutions in Ahmedabad, Mehsana, Visnagar, Gujarat"
+              alt="Manhar Creatives: Website Development, Branding & Digital Solutions in Ahmedabad, Mehsana, Visnagar, Gujarat"
               loading="lazy" decoding="async"
               style={{ height: 48, width: 'auto', marginBottom: '20px' }}
             />
             <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.48)', lineHeight: 1.8, maxWidth: '300px', marginBottom: '28px' }}>
-              A digital solutions and branding partner — websites, custom software and brand systems built to help businesses grow with credibility and confidence.
+              A digital solutions and branding partner: websites, custom software and brand systems built to help businesses grow with credibility and confidence.
             </p>
             {/* Contact details are copyable as well as clickable.
                 On a desktop `mailto:` opens a mail client many
@@ -498,7 +498,7 @@ export default function CinematicFooter() {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.48)', fontFamily: 'var(--font-mono)' }}>
-              © {year} {SITE.name} — All rights reserved.
+              © {year} {SITE.name}. All rights reserved.
             </span>
             <span aria-hidden="true" style={{ color: 'rgba(255,255,255,0.12)' }}>|</span>
             <nav style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }} aria-label="Legal">

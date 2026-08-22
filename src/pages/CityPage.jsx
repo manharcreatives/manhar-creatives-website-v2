@@ -18,15 +18,15 @@ const cityFaqs = (city) => [
   },
   {
     q: `How much does a website cost for a business in ${city.name}?`,
-    a: 'Cost depends on scope — number of unique page templates, custom functionality, content requirements and integrations. A professional multi-page business website typically falls between ₹25,000 and ₹80,000, with premium custom builds above that. We scope first and quote a fixed price before starting.',
+    a: 'Cost depends on scope: number of unique page templates, custom functionality, content requirements and integrations. A professional multi-page business website typically falls between ₹25,000 and ₹80,000, with premium custom builds above that. We scope first and quote a fixed price before starting.',
   },
   {
     q: `Can you help my ${city.name} business rank on Google?`,
-    a: `We build the technical and structural foundation that ranking depends on — fast loading, semantic structure, schema markup, clean URLs, mobile usability — and set up your Google Business Profile properly for local map visibility. Rankings also depend on content and consistency over time, which we can support on an ongoing basis.`,
+    a: `We build the technical and structural foundation that ranking depends on (fast loading, semantic structure, schema markup, clean URLs, mobile usability) and set up your Google Business Profile properly for local map visibility. Rankings also depend on content and consistency over time, which we can support on an ongoing basis.`,
   },
   {
     q: `Do you work with small businesses in ${city.name}?`,
-    a: 'Yes. Most of our clients are small and mid-sized businesses — manufacturers, traders, clinics, retailers, educational institutions and service companies. We scope projects so you can start with the highest-impact piece rather than paying for everything at once.',
+    a: 'Yes. Most of our clients are small and mid-sized businesses: manufacturers, traders, clinics, retailers, educational institutions and service companies. We scope projects so you can start with the highest-impact piece rather than paying for everything at once.',
   },
   {
     q: `How do we start a project?`,
@@ -205,8 +205,8 @@ export default function CityPage({ citySlug }) {
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '48px' }}>
           {[
-            { t: 'Locally based', d: `We are in ${SITE.address.locality}, ${SITE.address.region} — not an offshore team you never speak to. In-person meetings when they help, everything else over calls and WhatsApp.` },
-            { t: 'Fixed scope, fixed price', d: 'A written scope and a fixed quote before work starts. Anything outside it is quoted separately and needs your approval — no surprise invoices.' },
+            { t: 'Locally based', d: `We are in ${SITE.address.locality}, ${SITE.address.region}, not an offshore team you never speak to. In-person meetings when they help, everything else over calls and WhatsApp.` },
+            { t: 'Fixed scope, fixed price', d: 'A written scope and a fixed quote before work starts. Anything outside it is quoted separately and needs your approval: no surprise invoices.' },
             { t: 'You own everything', d: 'Source code, domain, hosting account and data are registered in your name and handed over in full. No lock-in, ever.' },
             { t: 'Built to be found', d: 'Performance, semantic structure, schema markup and Google Business Profile setup are part of the build, not an upsell afterwards.' },
             { t: 'Straight answers', d: 'We will tell you when you need less than you asked for, and when an off-the-shelf tool serves you better than a custom build.' },
@@ -302,14 +302,14 @@ export default function CityPage({ citySlug }) {
       {/* ── FAQ ── */}
       <PageSection tint>
         <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-          <FaqList faqs={faqs} title={`${city.name} — frequently asked questions`} />
+          <FaqList faqs={faqs} title={`${city.name}: frequently asked questions`} />
         </div>
       </PageSection>
 
       <CtaBand
         eyebrow={city.name}
         title={`Let’s grow your ${city.name} business.`}
-        text="Book a discovery call and we will map out what your business actually needs — starting with the piece that pays back fastest."
+        text="Book a discovery call and we will map out what your business actually needs, starting with the piece that pays back fastest."
         secondaryLabel="View All Services"
         secondaryHref="/services"
       />

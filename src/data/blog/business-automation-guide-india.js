@@ -3,7 +3,7 @@ export default {
   title: 'Business Automation for Growing Companies: What to Automate First (and What Never To)',
   h1: 'Business Automation: What to Automate First, and What You Should Never Automate',
   excerpt:
-    'Automation fails when businesses start with the wrong process. A practical framework for identifying which manual work is actually costing you money — and which should stay human.',
+    'Automation fails when businesses start with the wrong process. A practical framework for identifying which manual work is actually costing you money, and which should stay human.',
   metaTitle: 'Business Process Automation Guide for Indian Businesses (2026) | Manhar Creatives',
   metaDescription:
     'A practical guide to business automation: how to identify which processes to automate first, calculate the real cost of manual work, and avoid the automation projects that fail.',
@@ -14,7 +14,7 @@ export default {
   category: 'Custom Software',
   tags: ['Custom Software', 'Automation', 'Operations'],
   image: '/images/blog/business-automation-guide.webp',
-  imageAlt: 'Business process automation guide — Manhar Creatives',
+  imageAlt: 'Business process automation guide by Manhar Creatives',
   keywords: [
     'business process automation',
     'workflow automation software',
@@ -30,7 +30,7 @@ export default {
   faqs: [
     {
       q: 'What business processes should be automated first?',
-      a: 'Start with tasks that are high frequency, rule-based and currently done manually — data entry between systems, invoice generation, follow-up reminders, report compilation and status notifications. These deliver the fastest return with the lowest risk.',
+      a: 'Start with tasks that are high frequency, rule-based and currently done manually: data entry between systems, invoice generation, follow-up reminders, report compilation and status notifications. These deliver the fastest return with the lowest risk.',
     },
     {
       q: 'How do I calculate the ROI of automation?',
@@ -38,12 +38,12 @@ export default {
     },
     {
       q: 'What should never be automated?',
-      a: 'Anything requiring judgement, negotiation, empathy or relationship building — complaint resolution, pricing exceptions, hiring decisions and key client communication. Automating these damages trust faster than it saves time.',
+      a: 'Anything requiring judgement, negotiation, empathy or relationship building: complaint resolution, pricing exceptions, hiring decisions and key client communication. Automating these damages trust faster than it saves time.',
     },
   ],
   content: [
     { type: 'p', text: 'Every growing business reaches a point where the team is busy but output has stopped scaling. More people are hired, and somehow the same things still fall through. The usual diagnosis is that the team needs to work harder. The usual reality is that an increasing share of everyone’s day is spent on work that produces nothing.' },
-    { type: 'p', text: 'Automation is how that capacity is recovered. But automation projects fail regularly, and they fail for predictable reasons — almost always because the wrong process was chosen first.' },
+    { type: 'p', text: 'Automation is how that capacity is recovered. But automation projects fail regularly, and they fail for predictable reasons, almost always because the wrong process was chosen first.' },
 
     { type: 'h2', text: 'Find the invisible cost first' },
     { type: 'p', text: 'Before automating anything, measure what manual work is actually costing. The calculation is simple and usually uncomfortable.' },
@@ -58,7 +58,7 @@ export default {
       items: [
         '20 minutes × 6 days = 2 hours per week',
         '2 hours × 52 = <strong>104 hours per year</strong>',
-        'At ₹300 per hour fully loaded = <strong>₹31,200 per year</strong> — for one task, one person',
+        'At ₹300 per hour fully loaded = <strong>₹31,200 per year</strong>, for one task, one person',
       ],
     },
     { type: 'p', text: 'Now list every such task across your business. Most companies discover between ₹2,00,000 and ₹8,00,000 a year in manual work they were not accounting for, because it was distributed across many people in small daily increments.' },
@@ -69,11 +69,11 @@ export default {
       type: 'table',
       head: ['', 'Rule-based', 'Requires judgement'],
       rows: [
-        ['High frequency', 'Automate first — highest return', 'Support with software, keep the human'],
+        ['High frequency', 'Automate first: highest return', 'Support with software, keep the human'],
         ['Low frequency', 'Automate later, or leave it', 'Do not automate'],
       ],
     },
-    { type: 'p', text: 'The top-left quadrant is where automation pays. Everything else is where automation projects go to die — usually because someone tried to automate a decision rather than a task.' },
+    { type: 'p', text: 'The top-left quadrant is where automation pays. Everything else is where automation projects go to die, usually because someone tried to automate a decision rather than a task.' },
 
     { type: 'h2', text: 'What to automate first' },
 
@@ -81,7 +81,7 @@ export default {
     { type: 'p', text: 'If a person copies information from one place to another, that is the highest-value automation available and usually the easiest. WhatsApp enquiry to CRM. Website form to spreadsheet. Order to invoice. Invoice to accounting software. Each of these is mechanical, frequent, and error-prone when done by hand.' },
 
     { type: 'h3', text: '2. Follow-up reminders' },
-    { type: 'p', text: 'Most lost sales are not lost to competitors — they are lost to silence. Automated follow-up scheduling ensures no enquiry sits untouched for a week because the person handling it was busy. The system reminds; the human still does the actual following up.' },
+    { type: 'p', text: 'Most lost sales are not lost to competitors; they are lost to silence. Automated follow-up scheduling ensures no enquiry sits untouched for a week because the person handling it was busy. The system reminds; the human still does the actual following up.' },
 
     { type: 'h3', text: '3. Document generation' },
     { type: 'p', text: 'Quotations, invoices, delivery challans, work orders and receipts follow fixed templates with variable data. Generating them from stored data eliminates both the time and the transcription errors that cause payment disputes later.' },
@@ -137,7 +137,7 @@ export default {
         ['Connecting two systems that both have APIs', 'Integration tool, or a small custom script'],
         ['Process unique to your business', 'Custom software'],
         ['Multiple connected workflows and one database', 'Custom system'],
-        ['You are unsure what you need', 'Off-the-shelf first — it will reveal the real requirements'],
+        ['You are unsure what you need', 'Off-the-shelf first: it will reveal the real requirements'],
       ],
     },
     { type: 'p', text: 'A staged approach works well in practice: use ready-made tools to automate the obvious things immediately, then build custom software for the two or three workflows that are genuinely specific to how you operate.' },
@@ -146,10 +146,10 @@ export default {
     {
       type: 'ol',
       items: [
-        '<strong>Week 1</strong> — Ask every team member to log the repetitive tasks they perform and roughly how long each takes.',
-        '<strong>Week 2</strong> — Run the cost formula on each. Rank by annual cost. Score each on the four-quadrant test.',
-        '<strong>Week 3</strong> — Take the single highest-cost, most rule-based task and document its real workflow, including exceptions.',
-        '<strong>Week 4</strong> — Automate that one task, whether with an existing tool or a small custom build. Measure the hours recovered.',
+        '<strong>Week 1:</strong> Ask every team member to log the repetitive tasks they perform and roughly how long each takes.',
+        '<strong>Week 2:</strong> Run the cost formula on each. Rank by annual cost. Score each on the four-quadrant test.',
+        '<strong>Week 3:</strong> Take the single highest-cost, most rule-based task and document its real workflow, including exceptions.',
+        '<strong>Week 4:</strong> Automate that one task, whether with an existing tool or a small custom build. Measure the hours recovered.',
       ],
     },
     { type: 'p', text: 'One completed automation with a measured result builds far more internal support than a comprehensive plan that never ships. Prove it once, then expand.' },

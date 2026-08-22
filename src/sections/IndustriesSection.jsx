@@ -82,7 +82,7 @@ const INDUSTRIES_DATA = [
     icon: '▣',
     name: 'Manufacturing & Industrial',
     challenge: 'Presenting technical capability and production capacity in a way procurement teams can evaluate without a phone call, while internal coordination still runs on spreadsheets and WhatsApp.',
-    solution: 'Capability-led websites built for technical buyers, paired with internal systems — inventory, production tracking, order status — that replace manual coordination.',
+    solution: 'Capability-led websites built for technical buyers, paired with internal systems (inventory, production tracking, order status) that replace manual coordination.',
     deliverables: ['Capability & process pages', 'Enquiry-to-quote funnel', 'Internal inventory / CRM system', 'Certifications & compliance display'],
     services: [
       { label: 'Website Development', href: '/services/website-development' },
@@ -418,7 +418,7 @@ export default function IndustriesSection() {
             lineHeight: 1.7,
           }}>
             Different industries operate differently. Our solutions are adapted to specific business models, customer expectations, and operational requirements.
-            {usePinned && <span style={{ display: 'block', marginTop: '10px', fontSize: '0.8125rem', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-mono)', letterSpacing: '0.04em' }}>Keep scrolling — eight industries, one continuous track.</span>}
+            {usePinned && <span style={{ display: 'block', marginTop: '10px', fontSize: '0.8125rem', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-mono)', letterSpacing: '0.04em' }}>Keep scrolling: eight industries, one continuous track.</span>}
           </p>
         </FadeIn>
       </div>

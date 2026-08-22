@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ViewAnimator } from '../utils/useInViewLenis';
 import { staggerDelay } from '../utils/motion';
 import { Eyebrow } from './PageKit';
+import { trackVideoPlay } from '../utils/analytics';
 
 /* ═══════════════════════════════════════════════════════════
    WORK KIT
@@ -21,6 +22,8 @@ const EASE = [0.16, 1, 0.3, 1];
 
 export function CaseRow({ project, index }) {
   const [h, setH] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
   const reverse = index % 2 === 1;
   const live = Boolean(project.url);
 
@@ -36,17 +39,65 @@ export function CaseRow({ project, index }) {
         transition: 'border-color 0.4s ease, box-shadow 0.5s var(--ease-out-expo)',
       }}
     >
-      <img
-        src={project.image}
-        alt={`${project.title} — ${project.category.toLowerCase()}`}
-        loading="lazy"
-        decoding="async"
-        style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-          transform: h ? 'scale(1.05)' : 'scale(1)',
-          transition: 'transform 0.9s var(--ease-out-expo)',
-        }}
-      />
+      {project.video && !videoFailed ? (
+        <>
+          {/* The poster is painted as a real background layer rather
+              than relying on the <video poster> attribute alone —
+              Safari drops the poster the instant metadata arrives,
+              leaving a black rectangle until the first frame decodes.
+              This one stays until the video is playable. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              backgroundImage: `url(${project.image})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              opacity: videoReady ? 0 : 1,
+              transition: 'opacity 0.8s var(--ease-out-expo)',
+            }}
+          />
+          {!videoReady && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute', inset: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                pointerEvents: 'none', zIndex: 1,
+              }}
+            >
+              <span className="mc-spinner" style={{ opacity: 0.55 }} />
+            </div>
+          )}
+          <motion.video
+            autoPlay loop muted playsInline preload="metadata" poster={project.image}
+            aria-label={`${project.title}, ${project.category.toLowerCase()}`}
+            tabIndex={-1}
+            onCanPlay={() => setVideoReady(true)}
+            onPlaying={() => trackVideoPlay(project.title, 'projects_page')}
+            onError={() => setVideoFailed(true)}
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+              opacity: videoReady ? 1 : 0,
+              transform: h ? 'scale(1.05)' : 'scale(1)',
+              transition: 'opacity 0.8s var(--ease-out-expo), transform 0.9s var(--ease-out-expo)',
+            }}
+          >
+            <source src={project.video} type="video/mp4" />
+          </motion.video>
+        </>
+      ) : (
+        <img
+          src={project.image}
+          alt={`${project.title}, ${project.category.toLowerCase()}`}
+          loading="lazy"
+          decoding="async"
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            transform: h ? 'scale(1.05)' : 'scale(1)',
+            transition: 'transform 0.9s var(--ease-out-expo)',
+          }}
+        />
+      )}
       <span
         aria-hidden="true"
         style={{

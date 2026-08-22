@@ -57,7 +57,7 @@ export default function StoryTransition() {
           opacity: 0.95
         }}
       >
-        <img src="/images/story/floating-top.webp"           alt="Manhar Creatives workspace — branding and web design studio serving Ahmedabad, Mehsana and Visnagar, Gujarat"
+        <img src="/images/story/floating-top.webp"           alt="Manhar Creatives workspace: branding and web design studio serving Ahmedabad, Mehsana and Visnagar, Gujarat"
              loading="lazy" decoding="async"
              style={{ width: '300px', height: '400px', objectFit: 'cover', mixBlendMode: 'screen' }} />
       </motion.div>
@@ -70,7 +70,7 @@ export default function StoryTransition() {
           opacity: 0.9
         }}
       >
-        <img src="/images/story/floating-bottom.webp" alt="Design desk at Manhar Creatives — digital solutions for businesses across Gujarat"
+        <img src="/images/story/floating-bottom.webp" alt="Design desk at Manhar Creatives: digital solutions for businesses across Gujarat"
              loading="lazy" decoding="async"
              style={{ width: '400px', height: '250px', objectFit: 'cover', mixBlendMode: 'screen' }} />
       </motion.div>
@@ -128,7 +128,7 @@ export default function StoryTransition() {
               fontWeight: 400,
               textShadow: '0 2px 16px rgba(0,0,0,0.7)',
             }}>
-              Manhar Creatives is a digital solutions and branding partner — building websites, custom software and brand systems that help businesses grow with strength, professionalism, and purpose.
+              Manhar Creatives is a digital solutions and branding partner, building websites, custom software and brand systems that help businesses grow with strength, professionalism, and purpose.
             </p>
             <p style={{
               fontSize: 'clamp(1.0625rem, 1.8vw, 1.25rem)',

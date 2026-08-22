@@ -68,7 +68,7 @@ const blogSchema = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   '@id': `${SITE.url}/blog#blog`,
-  name: `${SITE.name} — Insights & Resources`,
+  name: `${SITE.name}: Insights & Resources`,
   description:
     'Practical guides on website development, custom software, CRM systems, branding, local SEO and business growth for Indian businesses.',
   url: `${SITE.url}/blog`,
@@ -148,8 +148,8 @@ export default function BlogIndexPage() {
     <>
       <Seo
         path="/blog"
-        title="Blog — Website, Software & Branding Guides | Manhar Creatives"
-        description="Detailed guides on website cost, custom CRM, Google Business Profile, branding and site speed — written for business owners rather than developers."
+        title="Blog: Website, Software & Branding Guides | Manhar Creatives"
+        description="Detailed guides on website cost, custom CRM, Google Business Profile, branding and site speed, written for business owners rather than developers."
         keywords={[
           'website development blog india',
           'custom software insights',
@@ -175,7 +175,7 @@ export default function BlogIndexPage() {
         eyebrow="INSIGHTS & RESOURCES"
         title="Guides worth"
         titleAccent="actually reading."
-        subtitle="Detailed, honest writing on websites, custom software, branding and getting found online — including the numbers, trade-offs and uncomfortable answers most agencies leave out."
+        subtitle="Detailed, honest writing on websites, custom software, branding and getting found online: including the numbers, trade-offs and uncomfortable answers most agencies leave out."
         background="/images/pages/blog-hero.webp"
         bgOpacity={0.55}
         imageSide="right"
@@ -215,7 +215,7 @@ export default function BlogIndexPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={onSearchKeyDown}
-                placeholder="Search articles — cost, CRM, SEO, branding…"
+                placeholder="Search articles: cost, CRM, SEO, branding…"
                 autoComplete="off"
                 aria-describedby="blog-search-status"
                 style={{
@@ -377,7 +377,7 @@ export default function BlogIndexPage() {
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9688rem', lineHeight: 1.75, maxWidth: '460px', margin: '0 auto 26px' }}>
                 {searching
-                  ? 'Try a broader term — “cost”, “CRM”, “SEO” or “branding” — or browse everything we have written.'
+                  ? 'Try a broader term, such as “cost”, “CRM”, “SEO” or “branding”, or browse everything we have written.'
                   : 'We are still writing for this category. In the meantime, the other guides cover most of the same ground.'}
               </p>
 
@@ -420,7 +420,7 @@ export default function BlogIndexPage() {
                 { label: 'Branding & Identity', href: '/services/branding-identity' },
                 { label: 'Social Media Design', href: '/services/social-media-design' },
                 { label: 'Print & Offline Branding', href: '/services/print-branding' },
-                { label: 'Digital Presence Setup', href: '/services/digital-presence' },
+                { label: 'Digital Presence & Growth', href: '/services/digital-presence' },
                 { label: 'Ahmedabad', href: '/ahmedabad' },
                 { label: 'Mehsana', href: '/mehsana' },
                 { label: 'Visnagar', href: '/visnagar' },
